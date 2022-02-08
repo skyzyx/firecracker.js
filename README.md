@@ -44,22 +44,64 @@ If you're looking for something _tiny_, which handles the DOM and event fundamen
 
 ## DOMBuilder
 
-A simple example.
+The HTML to generate.
+
+```html
+<div id="test" class="sample">
+    <p>This is a <a href="">sample of the code</a> that you may like.</p>
+    <p>And another <a href="#"><strong>complex-ish</strong></a> one.</p>
+    <ul class="sample">
+        <li><a href="http://google.com">One</a></li>
+        <li><em>Two</em></li>
+        <li><strong>Three</strong></li>
+    </ul>
+</div>
+```
+
+This is an example of how to generate it using DOMBuilder. We’ll alias `DOMBuilder` to the `_` variable to make invocation shorter, and also note that the `._()` method is for adding child nodes. (It’s a lot of underscores, I know, but it makes typing a lot faster.) You can blend HTML as well.
 
 ```javascript
 const _ = DOMBuilder;
-const $$ = DOMQuery;
+const $ = DOMQuery;
 
-$$('body').append(
-  _('p').h('what?')._([
-    _.t(' '),
-    _('i').h('italic'),
-    _.h(' <span>and</span> '),
-    _('b').h('bold')
+// Do the generation and write to the live DOM
+$('body').append(
+  _('div#test.sample')._([
+    _('p').h('This is a <a href="">sample of the code</a> that you may like.'),
+    _('p').h('And another <a href="#"><strong>complex-ish</strong></a> one.'),
+    _('ul.sample')._([
+      _('li')._(_('a[href=http://google.com]').h('One')),
+      _('li')._(_('em').h('Two')),
+      _('li')._(_('strong').h('Three'))
+    ])
   ])
 );
+```
 
-//=> <p>what? <i>italic</i> <span>and</span> <b>bold</b></p>
+You can also do repetitive things more programmatically.
+
+```javascript
+const _ = DOMBuilder;
+const $ = DOMQuery;
+
+// Generate an HTML list from some data
+const data = ['One', 'Two', 'Three', 'Four', 'Five'];
+
+$('body').append(
+  _('ul')._(
+    data.map(value => _('li').h(value))
+  )
+);
+```
+
+```html
+<ul>
+  <li>One</li>
+  <li>Two</li>
+  <li>Three</li>
+  <li>Four</li>
+  <li>Five</li>
+</ul>
 ```
 
 ## DOMQuery
@@ -68,13 +110,14 @@ A contrived example.
 
 ```javascript
 const _ = DOMBuilder;
-const $$ = DOMQuery;
+const $ = DOMQuery;
 
-$$('nav')[0]
+$('nav')[0]
   .descendants('a[href="#"]')[0]
   .ancestor('nav')
   .children('div')[0]
   .siblings()[0]
   .prev()
-  .next();
+  .next()
+  .get();
 ```
