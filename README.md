@@ -59,7 +59,7 @@ $$('body').append(
   ])
 );
 
-#=> <p>what? <i>italic</i> <span>and</span> <b>bold</b></p>
+//=> <p>what? <i>italic</i> <span>and</span> <b>bold</b></p>
 ```
 
 ## DOMQuery
