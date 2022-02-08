@@ -17,7 +17,7 @@
     "lint": "eslint --fix src/*.js",
     "dev:parcel": "rm -f dist/* && parcel build --no-cache --log-level=verbose src/index.js",
     "prod:parcel": "rm -f dist/* && parcel build --no-cache --log-level=verbose src/index.js",
-    "tests": "jest"
+    "tests": "jest && touch ./docs/.nojekyll"
   },
   "author": "Ryan Parman",
   "license": "ISC",
