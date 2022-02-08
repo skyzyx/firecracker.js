@@ -1,10 +1,17 @@
 {
   "root": true,
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:jest/all"
+  ],
+  "plugins": [
+    "jest"
+  ],
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "jest/globals": true
   },
   "parserOptions": {
     "ecmaVersion": 2018,
@@ -361,7 +368,8 @@
     "array-element-newline": [
       "error",
       {
-        "multiline": true
+        "multiline": true,
+        "minItems": 4
       }
     ],
     "arrow-parens": [
@@ -682,6 +690,11 @@
     "yield-star-spacing": [
       "error",
       "before"
-    ]
+    ],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   }
 }

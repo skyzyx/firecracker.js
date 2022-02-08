@@ -1,6 +1,6 @@
 /**
  * Selecting/Traversal: $()
- *     .append(_).prepend(_)
+ *     .append(_)
  *     .wrap(_)
  */
 class DOMQueryNode {
@@ -174,7 +174,7 @@ class DOMQueryNode {
   }
 }
 
-export default DOMQuery = function(selector, elem) { // eslint-disable-line no-undef
+module.exports = DOMQuery = function(selector, elem) { // eslint-disable-line no-undef
   const collection = [];
 
   elem = elem || document;

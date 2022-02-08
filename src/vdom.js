@@ -11,7 +11,7 @@
 const X = function(elem, attr) {
   const self = this,
     RE_ID_OR_CLASS = /[\.#]/u, // eslint-disable-line no-useless-escape
-    RE_CSS_ATTRS = /\[([^\]]*)\]/gu,
+    RE_CSS_ATTRS = /\[([^\]]+)\]/gu,
     ARR_NEXT = 1;
 
   let key, k, match;
@@ -199,7 +199,7 @@ const X = function(elem, attr) {
 };
 
 // Pre-instantiate the class on each call so that you never need to use `new`.
-export default DOMBuilder = (elem, attr) => new X(elem, attr); // eslint-disable-line no-undef
+module.exports = DOMBuilder = (elem, attr) => new X(elem, attr); // eslint-disable-line no-undef
 
 DOMBuilder.DOM = (...nodes) => { // eslint-disable-line no-undef
   // Create a document fragment. Grab and loop through the in-memory DOM nodes, and _move_ them to the
