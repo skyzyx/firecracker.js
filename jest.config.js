@@ -2,7 +2,7 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   collectCoverage: true,
-  coverageDirectory: './coverage/',
+  coverageDirectory: './docs/',
   coverageProvider: 'babel',
   coverageReporters: ['lcov', ['text', {skipFull: true}]],
   errorOnDeprecated: true,
