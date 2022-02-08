@@ -16,7 +16,7 @@ If you're looking for something _tiny_, which handles the DOM and event fundamen
 
 * If it’s broadly supported in modern browsers, leverage the built-in functionality. Avoid polyfills.
 
-* Keep the final bundle as small as possible when minified and compressed.
+* Keep the final bundle as small as possible when minified and compressed. Aiming to keep the [Brotli](https://www.google.com/search?q=gzip+vs+brotli)-compressed version under 2 kb.
 
 * No external dependencies. The fact that [left-pad](https://www.davidhaney.io/npm-left-pad-have-we-forgotten-how-to-program/) was ever a problem shows just how much of a dumpster-fire the npm ecosystem is. I'm choosing to not be part of the problem.
 
