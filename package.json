@@ -1,0 +1,38 @@
+{
+  "name": "firecracker.js",
+  "version": "1.0.0",
+  "description": "A small Virtual DOM & event library which packs a big punch.",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "engines": {
+    "node": ">= 14"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "targets": {
+    "default": {
+      "distDir": "./dist",
+      "includeNodeModules": true
+    }
+  },
+  "scripts": {
+    "build": "NODE_ENV=production npm-run-all prod:parcel",
+    "lint": "eslint --fix src/*.js",
+    "dev:parcel": "rm -f dist/* && parcel build --no-cache --log-level=verbose src/index.js",
+    "prod:parcel": "rm -f dist/* && parcel build --no-cache --log-level=verbose src/index.js"
+  },
+  "author": "Ryan Parman",
+  "license": "ISC",
+  "devDependencies": {
+    "@hyqo/parcel-reporter-asset-map": "^1.0.2",
+    "@parcel/compressor-brotli": "^2.2.1",
+    "@parcel/optimizer-esbuild": "^2.2.1",
+    "@parcel/resolver-glob": "^2.2.1",
+    "eslint": "^8.8.0",
+    "jest": "^27.4.7",
+    "npm-run-all": "^4.1.5",
+    "parcel": "^2.2.1",
+    "parcel-reporter-clean-dist": "^1.0.4",
+    "parcel-resolver-ignore": "^2.0.0"
+  }
+}

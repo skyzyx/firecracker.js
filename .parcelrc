@@ -1,0 +1,42 @@
+{
+  "extends": "@parcel/config-default",
+  "bundler": "@parcel/bundler-default",
+  "transformers": {
+    "*.js": [
+      "@parcel/transformer-js"
+    ],
+    "*": [
+      "@parcel/transformer-raw"
+    ]
+  },
+  "namers": [
+    "...",
+    "@parcel/namer-default"
+  ],
+  "optimizers": {
+    "*.js": [
+      "@parcel/optimizer-esbuild"
+    ]
+  },
+  "packagers": {
+    "*.js": "@parcel/packager-js",
+    "*": "@parcel/packager-raw"
+  },
+  "resolvers": [
+    "...",
+    "parcel-resolver-ignore",
+    "@parcel/resolver-glob"
+  ],
+  "compressors": {
+    "*.{js,html,css}": [
+      "...",
+      "@parcel/compressor-brotli"
+    ]
+  },
+  "reporters": [
+    "...",
+    "@parcel/reporter-cli",
+    "parcel-reporter-clean-dist",
+    "@hyqo/parcel-reporter-asset-map"
+  ]
+}
