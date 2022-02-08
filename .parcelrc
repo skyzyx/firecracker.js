@@ -30,6 +30,7 @@
   "compressors": {
     "*.{js,html,css}": [
       "...",
+      "@parcel/compressor-gzip",
       "@parcel/compressor-brotli"
     ]
   },
