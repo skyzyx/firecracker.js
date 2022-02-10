@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A small Virtual DOM & event library which packs a big punch.",
   "browserslist": "> 0.5%, last 2 versions, not dead",
+  "main": "dist/firecracker.js",
   "engines": {
     "node": ">= 14"
   },
