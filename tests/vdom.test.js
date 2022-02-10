@@ -189,7 +189,54 @@ describe('child nodes', () => {
     expect(actual.dom()).toStrictEqual(expected);
   });
 
-  it('creates a new element with a set of children using innerHTML', () => {
+  it('reads the value as a string of HTML text', () => {
+    expect.hasAssertions();
+
+    const actual = _('p').h('what?').toString(),
+      expected = '<p>what?</p>';
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('reads the value of a text node', () => {
+    expect.hasAssertions();
+
+    const actual = _('p').h('what?').t(),
+      expected = 'what?';
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('reads the value of a an overwritten text node', () => {
+    expect.hasAssertions();
+
+    const actual = _('p').h('what?').h('no, no that', true).t(),
+      expected = 'no, no that';
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('reads the value of a an appended text node', () => {
+    expect.hasAssertions();
+
+    const actual = _('p').h('what?').h(' no, no that').t(),
+      expected = 'what? no, no that';
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('ignores undefined children', () => {
+    expect.hasAssertions();
+
+    const actual = _('p')._([
+      undefined,
+    ]),
+      expected = document.createElement('p');
+
+    expect(actual.dom()).toStrictEqual(expected);
+  });
+
+  it('creates a new element with a set of children using innerHTML #1', () => {
     expect.hasAssertions();
 
     const
@@ -197,6 +244,47 @@ describe('child nodes', () => {
         `Hello, my name is <span itemprop="name">John Doe</span>.
         I am a <span itemprop="jobTitle">graduate research assistant</span> at the
         <span itemprop="affiliation">University of Dreams</span>.`.replaceAll(/\s+/gu, ' '),
+      ),
+      expected = (() => {
+        const section = document.createElement('section'),
+          span1 = document.createElement('span'),
+          span2 = document.createElement('span'),
+          span3 = document.createElement('span');
+
+        section.setAttribute('itemscope', '');
+        section.setAttribute('itemtype', 'http://schema.org/Person');
+
+        span1.setAttribute('itemprop', 'name');
+        span2.setAttribute('itemprop', 'jobTitle');
+        span3.setAttribute('itemprop', 'affiliation');
+
+        section.appendChild(document.createTextNode('Hello, my name is '));
+        span1.appendChild(document.createTextNode('John Doe'));
+        section.appendChild(span1);
+        section.appendChild(document.createTextNode('. I am a '));
+        span2.appendChild(document.createTextNode('graduate research assistant'));
+        section.appendChild(span2);
+        section.appendChild(document.createTextNode(' at the '));
+        span3.appendChild(document.createTextNode('University of Dreams'));
+        section.appendChild(span3);
+        section.appendChild(document.createTextNode('.'));
+
+        return section;
+      })();
+
+    expect(actual.dom()).toStrictEqual(expected);
+  });
+
+  it('creates a new element with a set of children using innerHTML #2', () => {
+    expect.hasAssertions();
+
+    const
+      actual = _('section[itemscope=][itemtype=http://schema.org/Person]')._(
+        _.h(
+          `Hello, my name is <span itemprop="name">John Doe</span>.
+          I am a <span itemprop="jobTitle">graduate research assistant</span> at the
+          <span itemprop="affiliation">University of Dreams</span>.`.replaceAll(/\s+/gu, ' '),
+        )
       ),
       expected = (() => {
         const section = document.createElement('section'),
@@ -266,6 +354,24 @@ describe('child nodes', () => {
         section.appendChild(document.createTextNode('.'));
 
         return section;
+      })();
+
+    expect(actual.dom()).toStrictEqual(expected);
+  });
+
+  it('creates a new element with a single child modeled with DOMBuilder', () => {
+    expect.hasAssertions();
+
+    const
+      actual = _('p')._(_('strong').t('this is bold')),
+      expected = (() => {
+        const p = document.createElement('p'),
+          strong = document.createElement('strong');
+
+        strong.appendChild(document.createTextNode('this is bold'));
+        p.appendChild(strong);
+
+        return p;
       })();
 
     expect(actual.dom()).toStrictEqual(expected);

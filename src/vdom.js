@@ -133,11 +133,6 @@ const X = function(elem, attr) {
 
   // Set the HTML
   self.h = (str, replace) => {
-    // No parameters? Read the value instead. Alias for .__h().
-    if (arguments.length === 0) {
-      return self.__h();
-    }
-
     // Determine the default value for `replace`.
     replace = replace || false;
 
@@ -154,18 +149,14 @@ const X = function(elem, attr) {
   // Set the text
   self.t = (str) => {
     // No parameters? Read the value instead. Alias for __t().
-    if (arguments.length === 0) {
+    if (typeof str === 'undefined') {
       return self.__t();
     }
 
     // Set the value
-    if (self.e.textContent) {
-      self.e.textContent = str;
-    } else {
-      const text = document.createTextNode(str);
+    const text = document.createTextNode(str);
 
-      self.e.appendChild(text);
-    }
+    self.e.appendChild(text);
 
     return self;
   };
@@ -174,7 +165,7 @@ const X = function(elem, attr) {
   self.dom = () => self.e;
 
   // Get as HTML
-  self.__h = () => {
+  self.toString = () => {
     const t = document.createElement('div');
 
     t.appendChild(self.e);
@@ -188,11 +179,7 @@ const X = function(elem, attr) {
 
     t.appendChild(self.e);
 
-    if (t.innerText) {
-      return t.innerText;
-    }
-
-    return t.textContent;
+    return t.textContent || t.innerText;
   };
 
   return self;
