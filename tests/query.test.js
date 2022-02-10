@@ -50,7 +50,27 @@ describe('dom query', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects descendants', () => {
+  it('selects children (selector)', () => {
+    expect.hasAssertions();
+
+    const
+      actual = $('nav')[0].children('#mobile-menu').length,
+      expected = 1;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects children (no selector)', () => {
+    expect.hasAssertions();
+
+    const
+      actual = $('nav')[0].children().length,
+      expected = 2;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects descendants (selector)', () => {
     expect.hasAssertions();
 
     const
@@ -60,7 +80,17 @@ describe('dom query', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects descendants, then direct parents', () => {
+  it('selects descendants (no selector)', () => {
+    expect.hasAssertions();
+
+    const
+      actual = $('nav')[0].descendants().length,
+      expected = 2;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects descendants (selector), then direct parents', () => {
     expect.hasAssertions();
 
     const
@@ -74,7 +104,41 @@ describe('dom query', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects siblings', () => {
+  it('returns null when direct parents do not exist', () => {
+    expect.hasAssertions();
+
+    const
+      actual = (() => {
+        const body = document.createElement('body'),
+          div = document.createElement('div');
+
+          body.appendChild(div);
+
+        return $('div', body)[0].parent().parent();
+      })(),
+      expected = null;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('returns no results for siblings when a parent does not exist', () => {
+    expect.hasAssertions();
+
+    const
+      actual = (() => {
+        const body = document.createElement('body'),
+          div = document.createElement('div');
+
+          body.appendChild(div);
+
+        return $('div', body)[0].parent().siblings();
+      })(),
+      expected = [];
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects siblings (no selector)', () => {
     expect.hasAssertions();
 
     const
@@ -85,13 +149,46 @@ describe('dom query', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects next sibling', () => {
+  it('selects siblings (selector)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $('div.ml-10.flex.items-baseline.space-x-4 a[href="#"]'),
+      actual = start[0].siblings('.two').length,
+      expected = 1;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects next sibling (no selector)', () => {
     expect.hasAssertions();
 
     const
       start = $('div.ml-10.flex.items-baseline.space-x-4 a[href="#"]'),
       actual = start[0].next(),
       expected = start[1];
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects next sibling (selector) exists', () => {
+    expect.hasAssertions();
+
+    const
+      start = $('div.ml-10.flex.items-baseline.space-x-4 a[href="#"]'),
+      actual = start[0].next('.three'),
+      expected = start[2];
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects next sibling (selector) not exists', () => {
+    expect.hasAssertions();
+
+    const
+      start = $('div.ml-10.flex.items-baseline.space-x-4 a[href="#"]'),
+      actual = start[0].next('.one'),
+      expected = null;
 
     expect(actual).toStrictEqual(expected);
   });
@@ -118,13 +215,35 @@ describe('dom query', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects previous sibling', () => {
+  it('selects previous sibling (no selector)', () => {
     expect.hasAssertions();
 
     const
       start = $('div.ml-10.flex.items-baseline.space-x-4 a[href="#"]'),
       actual = start[4].prev(),
       expected = start[3];
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects previous sibling (selector) exists', () => {
+    expect.hasAssertions();
+
+    const
+      start = $('div.ml-10.flex.items-baseline.space-x-4 a[href="#"]'),
+      actual = start[4].prev('.three'),
+      expected = start[2];
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects previous sibling (selector) not exists', () => {
+    expect.hasAssertions();
+
+    const
+      start = $('div.ml-10.flex.items-baseline.space-x-4 a[href="#"]'),
+      actual = start[4].prev('.five'),
+      expected = null;
 
     expect(actual).toStrictEqual(expected);
   });
@@ -151,7 +270,7 @@ describe('dom query', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects descendants, then ancestors', () => {
+  it('selects descendants, then ancestors (selector)', () => {
     expect.hasAssertions();
 
     const
@@ -159,6 +278,21 @@ describe('dom query', () => {
       actual = start[0].
         descendants('svg').
         filter(e => e.ancestor('button').
+          get().
+          tagName.toLowerCase() === 'button').length,
+      expected = 4;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects descendants, then ancestors (no selector)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $('nav'),
+      actual = start[0].
+        descendants('svg').
+        filter(e => e.ancestor().
           get().
           tagName.toLowerCase() === 'button').length,
       expected = 4;
