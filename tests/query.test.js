@@ -4,12 +4,14 @@
 
 const fs = require('fs'),
   html = fs.readFileSync(`${ __dirname }/index.html`).toString(),
+  DOMBuilder = require('../src/vdom.js'),
   DOMQuery = require('../src/query.js'),
+  _ = DOMBuilder,
   $ = DOMQuery;
 
 document.body.innerHTML = html;
 
-describe('dom query', () => {
+describe('direct query', () => {
   it('selects elements #1', () => {
     expect.hasAssertions();
 
@@ -40,6 +42,17 @@ describe('dom query', () => {
     expect(actual).toStrictEqual(expected);
   });
 
+  it('selects elements where DOM element is given', () => {
+    expect.hasAssertions();
+
+    const
+      body = document.createElement('body'),
+      actual = $(body).get(),
+      expected = body;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
   it('selects multiple elements', () => {
     expect.hasAssertions();
 
@@ -49,7 +62,9 @@ describe('dom query', () => {
 
     expect(actual).toStrictEqual(expected);
   });
+});
 
+describe('children and descendants', () => {
   it('selects children (selector)', () => {
     expect.hasAssertions();
 
@@ -103,7 +118,9 @@ describe('dom query', () => {
 
     expect(actual).toStrictEqual(expected);
   });
+});
 
+describe('parents and ancestors', () => {
   it('returns null when direct parents do not exist', () => {
     expect.hasAssertions();
 
@@ -121,6 +138,38 @@ describe('dom query', () => {
     expect(actual).toStrictEqual(expected);
   });
 
+  it('selects descendants, then ancestors (selector)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $('nav'),
+      actual = start[0].
+        descendants('svg').
+        filter(e => e.ancestor('button').
+          get().
+          tagName.toLowerCase() === 'button').length,
+      expected = 4;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects descendants, then ancestors (no selector)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $('nav'),
+      actual = start[0].
+        descendants('svg').
+        filter(e => e.ancestor().
+          get().
+          tagName.toLowerCase() === 'button').length,
+      expected = 4;
+
+    expect(actual).toStrictEqual(expected);
+  });
+});
+
+describe('siblings', () => {
   it('returns no results for siblings when a parent does not exist', () => {
     expect.hasAssertions();
 
@@ -269,41 +318,151 @@ describe('dom query', () => {
 
     expect(actual).toStrictEqual(expected);
   });
+});
 
-  it('selects descendants, then ancestors (selector)', () => {
+describe('append and prepend', () => {
+  it('selects an element, then appends DOM nodes as children to the end (DOM Element)', () => {
     expect.hasAssertions();
 
     const
-      start = $('nav'),
-      actual = start[0].
-        descendants('svg').
-        filter(e => e.ancestor('button').
-          get().
-          tagName.toLowerCase() === 'button').length,
-      expected = 4;
+      start = $(document.createElement('body')),
+      p = document.createElement('p'),
+      div = document.createElement('div'),
+      actual = ((start, p, div) => {
+        start.append(p);
+        start.append(div);
+
+        return start.children()[1].get();
+      })(start, p, div),
+      expected = div;
 
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects descendants, then ancestors (no selector)', () => {
+  it('selects an element, then appends DOM nodes as children to the end (DOMBuilder)', () => {
     expect.hasAssertions();
 
     const
-      start = $('nav'),
-      actual = start[0].
-        descendants('svg').
-        filter(e => e.ancestor().
-          get().
-          tagName.toLowerCase() === 'button').length,
-      expected = 4;
+      start = $(document.createElement('body')),
+      p = _('p'),
+      div = _('div'),
+      actual = ((start, p, div) => {
+        start.append(p);
+        start.append(div);
+
+        return start.children()[1].get();
+      })(start, p, div),
+      expected = div.dom();
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then prepends DOM nodes as children at the beginning (DOM Element)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      p = document.createElement('p'),
+      div = document.createElement('div'),
+      actual = ((start, p, div) => {
+        start.prepend(p);
+        start.prepend(div);
+
+        return start.children()[0].get();
+      })(start, p, div),
+      expected = div;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then prepends DOM nodes as children at the beginning (DOMBuilder)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      p = _('p'),
+      div = _('div'),
+      actual = ((start, p, div) => {
+        start.prepend(p);
+        start.prepend(div);
+
+        return start.children()[0].get();
+      })(start, p, div),
+      expected = div.dom();
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then inserts adjacent DOM nodes before (DOM Element)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      p = document.createElement('p'),
+      div = document.createElement('div'),
+      actual = ((start, p, div) => {
+        start.prepend(p).before(div)
+
+        return start.children()[0].get();
+      })(start, p, div),
+      expected = div;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then inserts adjacent DOM nodes before (DOMBuilder)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      p = _('p'),
+      div = _('div'),
+      actual = ((start, p, div) => {
+        start.prepend(p).before(div)
+
+        return start.children()[0].get();
+      })(start, p, div),
+      expected = div.dom();
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then inserts adjacent DOM nodes after (DOM Element)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      p = document.createElement('p'),
+      div = document.createElement('div'),
+      actual = ((start, p, div) => {
+        start.prepend(p).after(div)
+
+        return start.children()[1].get();
+      })(start, p, div),
+      expected = div;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then inserts adjacent DOM nodes after (DOMBuilder)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      p = _('p'),
+      div = _('div'),
+      actual = ((start, p, div) => {
+        start.prepend(p).after(div)
+
+        return start.children()[1].get();
+      })(start, p, div),
+      expected = div.dom();
 
     expect(actual).toStrictEqual(expected);
   });
 });
 
 describe('not yet implemented', () => {
-  it.todo('selects an element, then appends DOM nodes to the end');
-  it.todo('selects an element, then appends DOM nodes to position index');
   it.todo('selects an element, then wraps with another node');
-  it.todo('selects an element, then wraps with another node, and re-injects in-place');
+  it.todo('selects an element, then clones it');
 });

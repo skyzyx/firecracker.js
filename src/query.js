@@ -172,9 +172,83 @@ class DOMQueryNode {
 
     return null;
   }
+
+  /**
+   * Prepends the provided element to the selected node, then returns a pointer
+   * to the prepended node in the DOM.
+   *
+   * @param {Element} element (Required) The DOM element to prepend.
+   * @returns DOMQueryNode
+   */
+  prepend(element) {
+    if (typeof element.dom !== 'undefined') {
+      this.node.insertAdjacentElement('afterbegin', element.dom());
+    } else {
+      this.node.insertAdjacentElement('afterbegin', element);
+    }
+
+    return new DOMQueryNode(this.node.childNodes[0]);
+  }
+
+  /**
+   * Appends the provided element to the selected node, then returns a pointer
+   * to the appended node in the DOM.
+   *
+   * @param {Element} element (Required) The DOM element to append.
+   * @returns DOMQueryNode
+   */
+  append(element) {
+    if (typeof element.dom !== 'undefined') {
+      this.node.insertAdjacentElement('beforeend', element.dom());
+    } else {
+      this.node.insertAdjacentElement('beforeend', element);
+    }
+
+    return new DOMQueryNode(
+      this.node.childNodes[this.node.childNodes.length - 1],
+    );
+  }
+
+  /**
+   * Inserts the provided element before the selected node, then returns a
+   * pointer to the added node in the DOM.
+   *
+   * @param {Element} element (Required) The DOM element to insert before.
+   * @returns DOMQueryNode
+   */
+  before(element) {
+    if (typeof element.dom !== 'undefined') {
+      this.node.before(element.dom());
+    } else {
+      this.node.before(element);
+    }
+
+    return this.prev();
+  }
+
+  /**
+   * Inserts the provided element after the selected node, then returns a
+   * pointer to the added node in the DOM.
+   *
+   * @param {Element} element (Required) The DOM element to insert after.
+   * @returns DOMQueryNode
+   */
+  after(element) {
+    if (typeof element.dom !== 'undefined') {
+      this.node.after(element.dom());
+    } else {
+      this.node.after(element);
+    }
+
+    return this.next();
+  }
 }
 
 module.exports = DOMQuery = function(selector, elem) { // eslint-disable-line no-undef
+  if (selector instanceof Element) {
+    return new DOMQueryNode(selector);
+  }
+
   const collection = [];
 
   elem = elem || document;
