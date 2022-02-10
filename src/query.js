@@ -1,8 +1,3 @@
-/**
- * Selecting/Traversal: $()
- *     .append(_)
- *     .wrap(_)
- */
 class DOMQueryNode {
   /**
    * DOMQueryNode wraps DOM Element objects with enhanced functionality.
@@ -241,6 +236,26 @@ class DOMQueryNode {
     }
 
     return this.next();
+  }
+
+  /**
+   * A wrapper for addEventListener with `once: false`.
+   *
+   * @param {string} type A valid event type, like `click`. See
+   *     <https://developer.mozilla.org/en-US/docs/Web/Events> or more information.
+   * @param {string|function|DOMListen} fn A callback function to execute, or a string
+   *     containing the name of the function.
+   * @returns EventPointer
+   */
+  on(type, fn) {
+    const node = this.node;
+    node.addEventListener(type, fn, {once: false});
+
+    return {
+      remove: function() {
+        node.removeEventListener(type, fn, {once: false});
+      },
+    };
   }
 }
 

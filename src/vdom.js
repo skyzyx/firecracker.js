@@ -1,13 +1,3 @@
-/**
- * Const _ = DOMBuilder;
- *
- * _('p#id.class').h('what?')._([
- *   _.t(' '),
- *   _('i').h('italic'),
- *   _.h(' <span>and</span> '),
- *   _('b').h('bold')
- * ]);
- */
 const X = function(elem, attr) {
   const self = this,
     RE_ID_OR_CLASS = /[\.#]/u, // eslint-disable-line no-useless-escape
