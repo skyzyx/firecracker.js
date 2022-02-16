@@ -11,7 +11,7 @@
  *
  * @returns {function}
  */
-module.exports = DOMListen = (selector, fn) => function handler(event) {
+const DOMListen = (selector, fn) => function handler(event) {
   const matchingEl = matches(event.target, selector, this); // eslint-disable-line no-invalid-this
 
   if (matchingEl !== null) {
@@ -19,7 +19,7 @@ module.exports = DOMListen = (selector, fn) => function handler(event) {
   }
 };
 
-// Module.exports = DOMListen;
+module.exports = DOMListen;
 
 /**
  * @name matches

@@ -1,3 +1,3 @@
-var s=(n,r)=>()=>(r||n((r={exports:{}}).exports,r),r.exports);var t=s((d,e)=>{e.exports=DOMListen=(n,r)=>function(i){const l=u(i.target,n,this);l!==null&&r.call(l,i)};const u=(n,r,c)=>n===c?null:n.matches(r)?n:n.parentNode?u(n.parentNode,r,c):null});export default t();
+var s=(n,c)=>()=>(c||n((c={exports:{}}).exports,c),c.exports);var u=s(($,l)=>{const t=(n,c)=>function(d){const e=i(d.target,n,this);e!==null&&c.call(e,d)};l.exports=t;const i=(n,c,r)=>n===r?null:n.matches(c)?n:n.parentNode?i(n.parentNode,c,r):null});export default u();
 
 //# sourceMappingURL=events.js.map
