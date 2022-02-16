@@ -57,9 +57,9 @@ readme:
 	@ echo " "
 	@ echo "=====> Updating the README..."
 	cat README.md.tmpl \
-	| awk -v raw="$$(stat -c %s dist/firecracker.js)" '{ gsub(/@@RAW@@/, raw); print }' \
-	| awk -v gzip="$$(stat -c %s dist/firecracker.js.gz)" '{ gsub(/@@GZIP@@/, gzip); print }' \
-	| awk -v brotli="$$(stat -c %s dist/firecracker.js.br)" '{ gsub(/@@BROTLI@@/, brotli); print }' \
+	| awk -v raw="$(shell stat -c %s dist/firecracker.js)" '{ gsub(/@@RAW@@/, raw); print }' \
+	| awk -v gzip="$(shell stat -c %s dist/firecracker.js.gz)" '{ gsub(/@@GZIP@@/, gzip); print }' \
+	| awk -v brotli="$(shell stat -c %s dist/firecracker.js.br)" '{ gsub(/@@BROTLI@@/, brotli); print }' \
 	> README.md
 
 .PHONY: docs
