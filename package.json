@@ -26,24 +26,20 @@
   "license": "MIT",
   "devDependencies": {
     "@hyqo/parcel-reporter-asset-map": "^1.0.2",
-    "@parcel/compressor-brotli": "^2.3.1",
-    "@parcel/compressor-gzip": "^2.3.1",
-    "@parcel/optimizer-esbuild": "^2.3.1",
-    "@parcel/resolver-glob": "^2.3.1",
+    "@parcel/compressor-brotli": "^2.3.2",
+    "@parcel/compressor-gzip": "^2.3.2",
+    "@parcel/optimizer-esbuild": "^2.3.2",
+    "@parcel/resolver-glob": "^2.3.2",
     "eslint": "^8.9.0",
     "eslint-plugin-jest": "^26.1.1",
     "graceful-fs": "^4.2.9",
     "jest": "^27.5.1",
-    "lru-cache": "^7.3.1",
     "markdownlint-cli": "^0.31.1",
     "npm-run-all": "^4.1.5",
-    "parcel": "^2.3.1",
+    "parcel": "^2.3.2",
     "parcel-reporter-clean-dist": "^1.0.4",
     "parcel-resolver-ignore": "^2.0.0",
     "rimraf": "^3.0.2",
     "sinon": "^13.0.1"
-  },
-  "dependencies": {
-    "@swc/helpers": "^0.3.3"
   }
 }
