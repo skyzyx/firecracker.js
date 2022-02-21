@@ -1,6 +1,6 @@
-class DOMQueryNode {
+class DQueryNode {
   /**
-   * DOMQueryNode wraps DOM Element objects with enhanced functionality.
+   * DQueryNode wraps DOM Element objects with enhanced functionality.
    *
    * @param {Element} node A DOM Element object, which represents an HTML tag.
    */
@@ -22,7 +22,7 @@ class DOMQueryNode {
    * given, returns parent.
    *
    * @param {string} selector (Optional) CSS selector to match, if any.
-   * @returns DOMQueryNode
+   * @returns DQueryNode
    */
   ancestor(selector) {
     selector = selector || '';
@@ -31,20 +31,20 @@ class DOMQueryNode {
       return this.parent();
     }
 
-    return new DOMQueryNode(this.node.closest(selector));
+    return new DQueryNode(this.node.closest(selector));
   }
 
   /**
    * Gets the immediate parent element.
    *
-   * @returns DOMQueryNode
+   * @returns DQueryNode
    */
   parent() {
     if (!this.node.parentNode) {
       return null;
     }
 
-    return new DOMQueryNode(this.node.parentNode);
+    return new DQueryNode(this.node.parentNode);
   }
 
   /**
@@ -52,7 +52,7 @@ class DOMQueryNode {
    * returns children.
    *
    * @param {string} selector (Optional) CSS selector to match, if any.
-   * @returns DOMQuery
+   * @returns DQuery
    */
   descendants(selector) {
     selector = selector || '';
@@ -61,14 +61,14 @@ class DOMQueryNode {
       return this.children();
     }
 
-    return new DOMQuery(selector, this.node); // eslint-disable-line no-undef
+    return new DQuery(selector, this.node); // eslint-disable-line no-undef
   }
 
   /**
    * Gets all immediate children which match a selector.
    *
    * @param {string} selector (Optional) CSS selector to match, if any.
-   * @returns []DOMQueryNode
+   * @returns []DQueryNode
    */
   children(selector) {
     selector = selector || '';
@@ -76,14 +76,14 @@ class DOMQueryNode {
     return Array.from(this.node.childNodes).
       filter(e => e.nodeType === Node.ELEMENT_NODE).
       filter(e => (selector !== '' && e.matches(selector)) || (selector === '')).
-      map(e => new DOMQueryNode(e));
+      map(e => new DQueryNode(e));
   }
 
   /**
    * Gets all sibling elements of the immediate parent which match a selector.
    *
    * @param {string} selector (Optional) CSS selector to match, if any.
-   * @returns []DOMQueryNode
+   * @returns []DQueryNode
    */
   siblings(selector) {
     selector = selector || '';
@@ -104,7 +104,7 @@ class DOMQueryNode {
             || (selector === '')
           )
         ) {
-          siblings.push(new DOMQueryNode(sibling));
+          siblings.push(new DQueryNode(sibling));
         }
       }
 
@@ -118,7 +118,7 @@ class DOMQueryNode {
    * Gets the immediately-next sibling which matches a selector.
    *
    * @param {string} selector (Optional) CSS selector to match, if any.
-   * @returns DOMQueryNode
+   * @returns DQueryNode
    */
   next(selector) {
     selector = selector || '';
@@ -132,7 +132,7 @@ class DOMQueryNode {
           || (selector === '')
         )
       ) {
-        return new DOMQueryNode(next);
+        return new DQueryNode(next);
       }
 
       next = next.nextSibling;
@@ -145,7 +145,7 @@ class DOMQueryNode {
    * Gets the immediately-previous sibling which matches a selector.
    *
    * @param {string} selector (Optional) CSS selector to match, if any.
-   * @returns DOMQueryNode
+   * @returns DQueryNode
    */
   prev(selector) {
     selector = selector || '';
@@ -159,7 +159,7 @@ class DOMQueryNode {
           || (selector === '')
         )
       ) {
-        return new DOMQueryNode(prev);
+        return new DQueryNode(prev);
       }
 
       prev = prev.previousSibling;
@@ -173,7 +173,7 @@ class DOMQueryNode {
    * to the prepended node in the DOM.
    *
    * @param {Element} element (Required) The DOM element to prepend.
-   * @returns DOMQueryNode
+   * @returns DQueryNode
    */
   prepend(element) {
     if (typeof element.dom !== 'undefined') {
@@ -182,7 +182,7 @@ class DOMQueryNode {
       this.node.insertAdjacentElement('afterbegin', element);
     }
 
-    return new DOMQueryNode(this.node.childNodes[0]);
+    return new DQueryNode(this.node.childNodes[0]);
   }
 
   /**
@@ -190,7 +190,7 @@ class DOMQueryNode {
    * to the appended node in the DOM.
    *
    * @param {Element} element (Required) The DOM element to append.
-   * @returns DOMQueryNode
+   * @returns DQueryNode
    */
   append(element) {
     if (typeof element.dom !== 'undefined') {
@@ -199,7 +199,7 @@ class DOMQueryNode {
       this.node.insertAdjacentElement('beforeend', element);
     }
 
-    return new DOMQueryNode(
+    return new DQueryNode(
       this.node.childNodes[this.node.childNodes.length - 1],
     );
   }
@@ -209,7 +209,7 @@ class DOMQueryNode {
    * pointer to the added node in the DOM.
    *
    * @param {Element} element (Required) The DOM element to insert before.
-   * @returns DOMQueryNode
+   * @returns DQueryNode
    */
   before(element) {
     if (typeof element.dom !== 'undefined') {
@@ -226,7 +226,7 @@ class DOMQueryNode {
    * pointer to the added node in the DOM.
    *
    * @param {Element} element (Required) The DOM element to insert after.
-   * @returns DOMQueryNode
+   * @returns DQueryNode
    */
   after(element) {
     if (typeof element.dom !== 'undefined') {
@@ -243,7 +243,7 @@ class DOMQueryNode {
    *
    * @param {string} type A valid event type, like `click`. See
    *     <https://developer.mozilla.org/en-US/docs/Web/Events> or more information.
-   * @param {string|function|DOMListen} fn A callback function to execute, or a string
+   * @param {string|function|Delegate} fn A callback function to execute, or a string
    *     containing the name of the function.
    * @returns EventPointer
    */
@@ -260,9 +260,9 @@ class DOMQueryNode {
   }
 }
 
-module.exports = DOMQuery = function(selector, elem) { // eslint-disable-line no-undef
+module.exports = DQuery = function(selector, elem) { // eslint-disable-line no-undef
   if (selector instanceof Element) {
-    return new DOMQueryNode(selector);
+    return new DQueryNode(selector);
   }
 
   const collection = [];
@@ -270,7 +270,7 @@ module.exports = DOMQuery = function(selector, elem) { // eslint-disable-line no
   elem = elem || document;
   if (elem === document) {
     document.querySelectorAll(selector).forEach((ee) => {
-      collection.push(new DOMQueryNode(ee));
+      collection.push(new DQueryNode(ee));
     });
 
     return collection;
@@ -284,7 +284,7 @@ module.exports = DOMQuery = function(selector, elem) { // eslint-disable-line no
 
   elem.forEach((e) => {
     e.querySelectorAll(selector).forEach((ee) => {
-      collection.push(new DOMQueryNode(ee));
+      collection.push(new DQueryNode(ee));
     });
   });
 

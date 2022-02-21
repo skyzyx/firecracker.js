@@ -2,13 +2,11 @@
  * @jest-environment jsdom
  */
 
-const DOMBuilder = require('../src/vdom.js'),
-  DOMListen = require('../src/events.js'),
-  DOMQuery = require('../src/query.js'),
-  listen = DOMListen,
+const Delegate = require('../src/delegate.js'),
+  DQuery = require('../src/dquery.js'),
+  listen = Delegate,
   sinon = require('sinon'),
-  _ = DOMBuilder,
-  $ = DOMQuery;
+  $ = DQuery;
 
 document.body.innerHTML = `
   <div id='box'>
@@ -33,50 +31,52 @@ document.body.innerHTML = `
 describe('events and delegation', () => {
   const sandbox = sinon.createSandbox();
 
-  afterEach(function () {
+  afterEach(() => { // eslint-disable-line jest/no-hooks
     sandbox.restore();
   });
 
   it('sets events using a delegated listener, then removes them', () => {
     expect.hasAssertions();
 
-    const spy = sinon.spy();
-    const evt = $(document.body).on('click', listen('.entry-link', spy));
+    const spy = sinon.spy(),
+      evt = $(document.body).on('click', listen('.entry-link', spy));
 
     $('#ref-link', document.body)[0].get().click();
-    expect(spy.notCalled).toStrictEqual(true);
+    expect(spy.notCalled).toBe(true);
 
     $('#btn', document.body)[0].get().click();
-    expect(spy.notCalled).toStrictEqual(true);
+    expect(spy.notCalled).toBe(true);
 
     const matchingLink = $('#link-2', document.body)[0].get();
+
     matchingLink.click();
 
-    expect(spy.calledOnce).toStrictEqual(true);
-    expect(spy.calledOn(matchingLink)).toStrictEqual(true);
-    expect(spy.getCall(0).args[0] instanceof Event).toStrictEqual(true);
+    expect(spy.calledOnce).toBe(true);
+    expect(spy.calledOn(matchingLink)).toBe(true);
+    expect(spy.getCall(0).args[0] instanceof Event).toBe(true);
 
     evt.remove();
     matchingLink.click();
-    expect(spy.calledOnce).toStrictEqual(true);
+    expect(spy.calledOnce).toBe(true);
   });
 
   it('fails to set events using an invalid delegated listener', () => {
     expect.hasAssertions();
 
-    const spy = sinon.spy();
-    const evt = $(document.body).on('click', listen('.applesauce', spy));
+    const spy = sinon.spy(),
+      evt = $(document.body).on('click', listen('.applesauce', spy));
 
     $('#ref-link', document.body)[0].get().click();
-    expect(spy.notCalled).toStrictEqual(true);
+    expect(spy.notCalled).toBe(true);
 
     $('#btn', document.body)[0].get().click();
-    expect(spy.notCalled).toStrictEqual(true);
+    expect(spy.notCalled).toBe(true);
 
     const matchingLink = $('#link-2', document.body)[0].get();
+
     matchingLink.click();
 
-    expect(spy.notCalled).toStrictEqual(true);
+    expect(spy.notCalled).toBe(true);
     evt.remove();
   });
 });

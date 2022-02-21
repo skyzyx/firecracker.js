@@ -22,13 +22,13 @@ If you're looking for something _tiny_, which handles the DOM and event fundamen
 
 ### What firecracker.js has
 
-* **Firecracker DOMBuilder** is a Virtual DOM construction implementation which dramatically improves on the core DOM primitives. Less syntax and more chaining makes it much easier to dynamically construct Virtual DOM in JavaScript before attaching it to the page.
+* **Firecracker VDOM** is a Virtual DOM construction implementation which dramatically improves on the core DOM primitives. Less syntax and more chaining makes it much easier to dynamically construct Virtual DOM in JavaScript before attaching it to the page.
 
-* **Firecracker DOMQuery** contains DOM traversal helpers (e.g., the “good parts” of jQuery), and implement them using DOM levels 3 and 4 so that they are fast, small, and target modern browsers. Provides a lightweight wrapper around DOM objects, while still exposing access to the underlying `Element` and `NodeList` data types.
+* **Firecracker DQuery** contains DOM traversal helpers (e.g., the “good parts” of jQuery), and implement them using DOM levels 3 and 4 so that they are fast, small, and target modern browsers. Provides a lightweight wrapper around DOM objects, while still exposing access to the underlying `Element` and `NodeList` data types.
 
 * **Firecracker Events** is an implementation of the _event delegation_ pattern, using core DOM events and built for modern browsers.
 
-* **Firecracker Templates** is a lightweight implementation of React/Vue.js-style _components_ built atop the core DOMBuilder, DOMQuery, and Event primitives.
+* **Firecracker Templates** is a lightweight implementation of React/Vue.js-style _components_ built atop the core VDOM, DQuery, and Event primitives.
 
 ### What firecracker.js doesn’t have
 
@@ -42,7 +42,7 @@ If you're looking for something _tiny_, which handles the DOM and event fundamen
 
 ## Examples
 
-### DOMBuilder
+### VDOM
 
 The HTML to generate.
 
@@ -58,11 +58,11 @@ The HTML to generate.
 </div>
 ```
 
-This is an example of how to generate it using DOMBuilder. We’ll alias `DOMBuilder` to the `_` variable to make invocation shorter, and also note that the `._()` method is for adding child nodes. (It’s a lot of underscores, I know, but it makes typing a lot faster.) You can blend HTML as well.
+This is an example of how to generate it using VDOM. We’ll alias `VDOM` to the `_` variable to make invocation shorter, and also note that the `._()` method is for adding child nodes. (It’s a lot of underscores, I know, but it makes typing a lot faster.) You can blend HTML as well.
 
 ```javascript
-const _ = DOMBuilder;
-const $ = DOMQuery;
+const _ = VDOM;
+const $ = DQuery;
 
 // Do the generation and write to the live DOM
 $('body').append(
@@ -81,8 +81,8 @@ $('body').append(
 You can also do repetitive things more programmatically.
 
 ```javascript
-const _ = DOMBuilder;
-const $ = DOMQuery;
+const _ = VDOM;
+const $ = DQuery;
 
 // Generate an HTML list from some data
 const data = ['One', 'Two', 'Three', 'Four', 'Five'];
@@ -104,13 +104,13 @@ $('body').append(
 </ul>
 ```
 
-### DOMQuery
+### DQuery
 
 A contrived example.
 
 ```javascript
-const _ = DOMBuilder;
-const $ = DOMQuery;
+const _ = VDOM;
+const $ = DQuery;
 
 $('nav')[0]
   .descendants('a[href="#"]')[0]
@@ -126,10 +126,10 @@ $('nav')[0]
 
 | File                | Description           | Size in bytes |
 |---------------------|-----------------------|---------------|
-| `firecracker.js`    | Stripped and minified | 4496       |
-| `firecracker.js.gz` | gzip-compressed       | 1713      |
-| `firecracker.js.br` | brotli-compressed     | 1508    |
+| `firecracker.js`    | Stripped and minified | 4496          |
+| `firecracker.js.gz` | gzip-compressed       | 1713          |
+| `firecracker.js.br` | brotli-compressed     | 1508          |
 
 ## Inspiration
 
-DOMBuilder inspired [DOMBrew](https://github.com/glebm/DOMBrew/), which then inspired improvements to DOMBuilder.
+VDOM inspired [DOMBrew](https://github.com/glebm/DOMBrew/), which then inspired improvements to VDOM.

@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-const DOMBuilder = require('../src/vdom.js');
-const _ = DOMBuilder;
+const VDOM = require('../src/vdom.js');
+const _ = VDOM;
 
 describe('core dom', () => {
   it('creates a new element', () => {
@@ -192,7 +192,8 @@ describe('child nodes', () => {
   it('reads the value as a string of HTML text', () => {
     expect.hasAssertions();
 
-    const actual = _('p').h('what?').toString(),
+    const actual = _('p').h('what?').
+        toString(),
       expected = '<p>what?</p>';
 
     expect(actual).toStrictEqual(expected);
@@ -201,7 +202,8 @@ describe('child nodes', () => {
   it('reads the value of a text node', () => {
     expect.hasAssertions();
 
-    const actual = _('p').h('what?').t(),
+    const actual = _('p').h('what?').
+        t(),
       expected = 'what?';
 
     expect(actual).toStrictEqual(expected);
@@ -210,7 +212,9 @@ describe('child nodes', () => {
   it('reads the value of a an overwritten text node', () => {
     expect.hasAssertions();
 
-    const actual = _('p').h('what?').h('no, no that', true).t(),
+    const actual = _('p').h('what?').
+        h('no, no that', true).
+        t(),
       expected = 'no, no that';
 
     expect(actual).toStrictEqual(expected);
@@ -219,7 +223,9 @@ describe('child nodes', () => {
   it('reads the value of a an appended text node', () => {
     expect.hasAssertions();
 
-    const actual = _('p').h('what?').h(' no, no that').t(),
+    const actual = _('p').h('what?').
+        h(' no, no that').
+        t(),
       expected = 'what? no, no that';
 
     expect(actual).toStrictEqual(expected);
@@ -228,9 +234,7 @@ describe('child nodes', () => {
   it('ignores undefined children', () => {
     expect.hasAssertions();
 
-    const actual = _('p')._([
-      undefined,
-    ]),
+    const actual = _('p')._([undefined]),
       expected = document.createElement('p');
 
     expect(actual.dom()).toStrictEqual(expected);
@@ -284,7 +288,7 @@ describe('child nodes', () => {
           `Hello, my name is <span itemprop="name">John Doe</span>.
           I am a <span itemprop="jobTitle">graduate research assistant</span> at the
           <span itemprop="affiliation">University of Dreams</span>.`.replaceAll(/\s+/gu, ' '),
-        )
+        ),
       ),
       expected = (() => {
         const section = document.createElement('section'),
@@ -316,7 +320,7 @@ describe('child nodes', () => {
     expect(actual.dom()).toStrictEqual(expected);
   });
 
-  it('creates a new element with a set of children modeled with DOMBuilder', () => {
+  it('creates a new element with a set of children modeled with VDOM', () => {
     expect.hasAssertions();
 
     const
@@ -359,7 +363,7 @@ describe('child nodes', () => {
     expect(actual.dom()).toStrictEqual(expected);
   });
 
-  it('creates a new element with a single child modeled with DOMBuilder', () => {
+  it('creates a new element with a single child modeled with VDOM', () => {
     expect.hasAssertions();
 
     const

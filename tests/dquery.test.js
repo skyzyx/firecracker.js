@@ -4,10 +4,10 @@
 
 const fs = require('fs'),
   html = fs.readFileSync(`${ __dirname }/index.html`).toString(),
-  DOMBuilder = require('../src/vdom.js'),
-  DOMQuery = require('../src/query.js'),
-  _ = DOMBuilder,
-  $ = DOMQuery;
+  VDOM = require('../src/vdom.js'),
+  DQuery = require('../src/dquery.js'),
+  _ = VDOM,
+  $ = DQuery;
 
 document.body.innerHTML = html;
 
@@ -129,7 +129,7 @@ describe('parents and ancestors', () => {
         const body = document.createElement('body'),
           div = document.createElement('div');
 
-          body.appendChild(div);
+        body.appendChild(div);
 
         return $('div', body)[0].parent().parent();
       })(),
@@ -178,7 +178,7 @@ describe('siblings', () => {
         const body = document.createElement('body'),
           div = document.createElement('div');
 
-          body.appendChild(div);
+        body.appendChild(div);
 
         return $('div', body)[0].parent().siblings();
       })(),
@@ -339,7 +339,7 @@ describe('append and prepend', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects an element, then appends DOM nodes as children to the end (DOMBuilder)', () => {
+  it('selects an element, then appends DOM nodes as children to the end (VDOM)', () => {
     expect.hasAssertions();
 
     const
@@ -375,7 +375,7 @@ describe('append and prepend', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects an element, then prepends DOM nodes as children at the beginning (DOMBuilder)', () => {
+  it('selects an element, then prepends DOM nodes as children at the beginning (VDOM)', () => {
     expect.hasAssertions();
 
     const
@@ -401,7 +401,7 @@ describe('append and prepend', () => {
       p = document.createElement('p'),
       div = document.createElement('div'),
       actual = ((start, p, div) => {
-        start.prepend(p).before(div)
+        start.prepend(p).before(div);
 
         return start.children()[0].get();
       })(start, p, div),
@@ -410,7 +410,7 @@ describe('append and prepend', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects an element, then inserts adjacent DOM nodes before (DOMBuilder)', () => {
+  it('selects an element, then inserts adjacent DOM nodes before (VDOM)', () => {
     expect.hasAssertions();
 
     const
@@ -418,7 +418,7 @@ describe('append and prepend', () => {
       p = _('p'),
       div = _('div'),
       actual = ((start, p, div) => {
-        start.prepend(p).before(div)
+        start.prepend(p).before(div);
 
         return start.children()[0].get();
       })(start, p, div),
@@ -435,7 +435,7 @@ describe('append and prepend', () => {
       p = document.createElement('p'),
       div = document.createElement('div'),
       actual = ((start, p, div) => {
-        start.prepend(p).after(div)
+        start.prepend(p).after(div);
 
         return start.children()[1].get();
       })(start, p, div),
@@ -444,7 +444,7 @@ describe('append and prepend', () => {
     expect(actual).toStrictEqual(expected);
   });
 
-  it('selects an element, then inserts adjacent DOM nodes after (DOMBuilder)', () => {
+  it('selects an element, then inserts adjacent DOM nodes after (VDOM)', () => {
     expect.hasAssertions();
 
     const
@@ -452,7 +452,7 @@ describe('append and prepend', () => {
       p = _('p'),
       div = _('div'),
       actual = ((start, p, div) => {
-        start.prepend(p).after(div)
+        start.prepend(p).after(div);
 
         return start.children()[1].get();
       })(start, p, div),

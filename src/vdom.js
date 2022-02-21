@@ -104,7 +104,7 @@ const X = function(elem, attr) {
       obj = [obj];
     }
 
-    /* Loop through the indexed array of children. If the node is a `DOMBuilder` object, convert it to
+    /* Loop through the indexed array of children. If the node is a `VDOM` object, convert it to
        DOM and append it. Otherwise, assume it's a real DOM node. */
     for (let i = 0, max = obj.length; i < max; i ++) {
       if (typeof obj[i] === 'undefined') {
@@ -176,9 +176,9 @@ const X = function(elem, attr) {
 };
 
 // Pre-instantiate the class on each call so that you never need to use `new`.
-module.exports = DOMBuilder = (elem, attr) => new X(elem, attr); // eslint-disable-line no-undef
+module.exports = VDOM = (elem, attr) => new X(elem, attr); // eslint-disable-line no-undef
 
-DOMBuilder.DOM = (...nodes) => { // eslint-disable-line no-undef
+VDOM.DOM = (...nodes) => { // eslint-disable-line no-undef
   // Create a document fragment. Grab and loop through the in-memory DOM nodes, and _move_ them to the
   const f = document.createDocumentFragment(),
     n = new X('div')._(nodes).
@@ -191,9 +191,9 @@ DOMBuilder.DOM = (...nodes) => { // eslint-disable-line no-undef
   return f;
 };
 
-DOMBuilder.t = str => document.createTextNode(str); // eslint-disable-line no-undef
+VDOM.t = str => document.createTextNode(str); // eslint-disable-line no-undef
 
-DOMBuilder.h = (str) => { // eslint-disable-line no-undef
+VDOM.h = (str) => { // eslint-disable-line no-undef
   const f = document.createDocumentFragment(),
     n = new X('div').h(str).
       dom().childNodes;

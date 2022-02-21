@@ -27,13 +27,6 @@
     "parcel-resolver-ignore",
     "@parcel/resolver-glob"
   ],
-  "compressors": {
-    "*.{js,html,css}": [
-      "...",
-      "@parcel/compressor-gzip",
-      "@parcel/compressor-brotli"
-    ]
-  },
   "reporters": [
     "...",
     "@parcel/reporter-cli",

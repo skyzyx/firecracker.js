@@ -1,9 +1,9 @@
-import DOMBuilder from './vdom'; // eslint-disable-line no-unused-vars
-import DOMListen from './events'; // eslint-disable-line no-unused-vars
-import DOMQuery from './query'; // eslint-disable-line no-unused-vars
+import DQuery from './dquery'; // eslint-disable-line no-unused-vars
+import Delegate from './delegate'; // eslint-disable-line no-unused-vars
+import VDOM from './vdom'; // eslint-disable-line no-unused-vars
 
 export {
-  DOMBuilder,
-  DOMListen,
-  DOMQuery,
+  DQuery,
+  Delegate,
+  VDOM,
 };

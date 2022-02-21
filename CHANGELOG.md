@@ -4,8 +4,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ## Unreleased
 
-* Initial implementation of DOMBuilder.
-* Initial implementation of DOMQuery.
-* Initial implementation of of DOMListen.
+* Initial implementation of VDOM.
+* Initial implementation of DQuery.
+* Initial implementation of of Delegate.
 * Implemented in modern ECMAScript.
 * 100% code coverage covering all of the standard and edge cases of the code.
