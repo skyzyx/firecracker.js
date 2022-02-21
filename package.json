@@ -1,6 +1,6 @@
 {
   "name": "firecracker.js",
-  "version": "1.0.0-rc4",
+  "version": "1.0.0-rc5",
   "description": "A small Virtual DOM & event library which packs a big punch.",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "engines": {
