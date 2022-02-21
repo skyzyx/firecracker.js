@@ -19,8 +19,8 @@
     "lint": "npm-run-all eslint markdownlint",
     "eslint": "eslint --fix src/*.js",
     "markdownlint": "markdownlint --fix '**/*.md' --ignore 'node_modules'",
-    "dev:parcel": "parcel build --no-cache --log-level=verbose src/firecracker.js src/delegate.js src/dquery.js src/vdom.js",
-    "prod:parcel": "parcel build --no-cache --log-level=verbose src/firecracker.js src/delegate.js src/dquery.js src/vdom.js",
+    "dev:parcel": "parcel build --no-cache --log-level=verbose src/index.js src/delegate.js src/dquery.js src/vdom.js",
+    "prod:parcel": "parcel build --no-cache --log-level=verbose src/index.js src/delegate.js src/dquery.js src/vdom.js",
     "tests": "jest && touch ./docs/.nojekyll && cp index.html.tmpl ./docs/index.html"
   },
   "author": "Ryan Parman",

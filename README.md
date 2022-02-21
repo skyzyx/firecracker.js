@@ -126,9 +126,9 @@ $('nav')[0]
 
 | File                | Description           | Size in bytes |
 |---------------------|-----------------------|---------------|
-| `firecracker.js`    | Stripped and minified | 4459       |
-| `firecracker.js.gz` | gzip-compressed       | 1705      |
-| `firecracker.js.br` | brotli-compressed     | 1517    |
+| `firecracker.js`    | Stripped and minified |        |
+| `firecracker.js.gz` | gzip-compressed       | 1652      |
+| `firecracker.js.br` | brotli-compressed     | 1466    |
 
 ## Inspiration
 
