@@ -260,7 +260,7 @@ class DQueryNode {
   }
 }
 
-module.exports = DQuery = function(selector, elem) { // eslint-disable-line no-undef
+const DQuery = function(selector, elem) { // eslint-disable-line no-undef
   if (selector instanceof Element) {
     return new DQueryNode(selector);
   }
@@ -290,3 +290,5 @@ module.exports = DQuery = function(selector, elem) { // eslint-disable-line no-u
 
   return collection;
 };
+
+module.exports = DQuery;
