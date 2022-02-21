@@ -16,8 +16,9 @@
   },
   "scripts": {
     "build": "NODE_ENV=production npm-run-all prod:parcel",
-    "lint": "eslint --fix src/*.js",
-    "markdownlint": "markdownlint-cli --fix '**/*.md' --ignore 'node_modules'",
+    "lint": "npm-run-all eslint markdownlint",
+    "eslint": "eslint --fix src/*.js",
+    "markdownlint": "markdownlint --fix '**/*.md' --ignore 'node_modules'",
     "dev:parcel": "rm -f dist/* && parcel build --no-cache --log-level=verbose src/firecracker.js src/events.js src/query.js src/vdom.js",
     "prod:parcel": "rm -f dist/* && parcel build --no-cache --log-level=verbose src/firecracker.js src/events.js src/query.js src/vdom.js",
     "tests": "jest && touch ./docs/.nojekyll && cp index.html.tmpl ./docs/index.html"

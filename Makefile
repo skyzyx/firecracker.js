@@ -105,13 +105,13 @@ test:
 tag:
 	@ if [ $$(git status -s -uall | wc -l) != 1 ]; then echo 'ERROR: Git workspace must be clean.'; exit 1; fi;
 
-	@echo "This release will be tagged as: $$(cat ./VERSION)"
+	@echo "This release will be tagged as: $(shell jq -r '.version' package.json)"
 	@echo "This version should match your release. If it doesn't, re-run 'make version'."
 	@echo "---------------------------------------------------------------------"
 	@read -p "Press any key to continue, or press Control+C to cancel. " x;
 
 	@echo " "
-	@chag update $$(cat ./VERSION)
+	@chag update $(shell jq -r '.version' package.json)
 	@echo " "
 
 	@echo "These are the contents of the CHANGELOG for this release. Are these correct?"
@@ -124,12 +124,12 @@ tag:
 	@echo " "
 
 	git add .
-	git commit -a -m "Preparing the $$(cat ./VERSION) release."
+	git commit -a -m "Preparing the $(shell jq -r '.version' package.json) release."
 	chag tag --sign
 
 .PHONY: version
 ## version: [release]* sets the version for the next release; pre-req for a release tag
 version:
-	@echo "Current version: $$(cat ./VERSION)"
-	@read -p "Enter new version number: " nv; \
-	printf "$$nv" > ./VERSION
+	@echo "Current version: $(shell jq -r '.version' package.json)"
+	@read -p "Enter new version number: " nv;
+	@ - npm version "$$nv";

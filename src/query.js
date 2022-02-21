@@ -249,6 +249,7 @@ class DOMQueryNode {
    */
   on(type, fn) {
     const node = this.node;
+
     node.addEventListener(type, fn, {once: false});
 
     return {
