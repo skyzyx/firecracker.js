@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>97/97</span>
+                <span class='fraction'>98/98</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>92/92</span>
+                <span class='fraction'>93/93</span>
             </div>
         
             
@@ -269,7 +269,9 @@
 <a name='L204'></a><a href='#L204'>204</a>
 <a name='L205'></a><a href='#L205'>205</a>
 <a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
@@ -475,185 +477,187 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const X = function(elem, attr) {
-  const self = this,
-    RE_ID_OR_CLASS = /[\.#]/u, // eslint-disable-line no-useless-escape
-    RE_CSS_ATTRS = /\[([^\]]+)\]/gu,
-    ARR_NEXT = 1;
+    const self = this,
+      RE_ID_OR_CLASS = /[\.#]/u, // eslint-disable-line no-useless-escape
+      RE_CSS_ATTRS = /\[([^\]]+)\]/gu,
+      ARR_NEXT = 1;
 &nbsp;
-  let key, k, match;
+    let key, k, match;
 &nbsp;
-  attr = attr || {};
+    attr = attr || {};
 &nbsp;
-  // Parse the CSS-style notation.
-  function notation() {
-    const att = {
-        class: [],
-        id: '',
-      },
-      kvPair = [];
+    // Parse the CSS-style notation.
+    function notation() {
+      const att = {
+          class: [],
+          id: '',
+        },
+        kvPair = [];
 &nbsp;
-    if (!RE_ID_OR_CLASS.test(elem) &amp;&amp; !RE_CSS_ATTRS.test(elem)) {
-      return {};
-    }
-&nbsp;
-    // Collect all of the `[k=v]` blocks.
-    while ((match = RE_CSS_ATTRS.exec(elem)) !== null) {
-      kvPair.push(match[1].split('='));
-    }
-&nbsp;
-    elem = elem.replace(RE_CSS_ATTRS, '');
-    const pieces = elem.split(RE_ID_OR_CLASS),
-      elemType = pieces.shift();
-&nbsp;
-    kvPair.forEach((val, idx, arr) =&gt; {
-      att[arr[idx][0]] = arr[idx][1];
-    });
-&nbsp;
-    // Support CSS/jQuery-style notation for generating elements with IDs and classnames.
-    let pos = elemType.length;
-    const classes = att['class'];
-&nbsp;
-    pieces.forEach((val, idx, arr) =&gt; {
-      if (elem[pos] === '#') {
-        att.id = val;
-      } else {
-        classes.push(val);
+      if (!RE_ID_OR_CLASS.test(elem) &amp;&amp; !RE_CSS_ATTRS.test(elem)) {
+        return {};
       }
 &nbsp;
-      pos += arr[idx].length + ARR_NEXT;
-    });
+      // Collect all of the `[k=v]` blocks.
+      while ((match = RE_CSS_ATTRS.exec(elem)) !== null) {
+        kvPair.push(match[1].split('='));
+      }
 &nbsp;
-    att['class'] = classes;
-    if (!att['class'].length) {
-      delete att['class'];
+      elem = elem.replace(RE_CSS_ATTRS, '');
+      const pieces = elem.split(RE_ID_OR_CLASS),
+        elemType = pieces.shift();
+&nbsp;
+      kvPair.forEach((val, idx, arr) =&gt; {
+        att[arr[idx][0]] = arr[idx][1];
+      });
+&nbsp;
+      // Support CSS/jQuery-style notation for generating elements with IDs and classnames.
+      let pos = elemType.length;
+      const classes = att['class'];
+&nbsp;
+      pieces.forEach((val, idx, arr) =&gt; {
+        if (elem[pos] === '#') {
+          att.id = val;
+        } else {
+          classes.push(val);
+        }
+&nbsp;
+        pos += arr[idx].length + ARR_NEXT;
+      });
+&nbsp;
+      att['class'] = classes;
+      if (!att['class'].length) {
+        delete att['class'];
+      }
+&nbsp;
+      if (att['id'] === '') {
+        delete att['id'];
+      }
+&nbsp;
+      return att;
     }
 &nbsp;
-    if (att['id'] === '') {
-      delete att['id'];
+    // Merge options into a conglomo-hash!
+    attr = Object.assign(attr, notation());
+&nbsp;
+    // Construct the element, loop through the list of attributes and add them to the node.
+    if (RE_ID_OR_CLASS.test(elem)) {
+      self.e = document.createElement(elem.split(RE_ID_OR_CLASS).shift());
+    } else {
+      self.e = document.createElement(elem);
     }
 &nbsp;
-    return att;
-  }
-&nbsp;
-  // Merge options into a conglomo-hash!
-  attr = Object.assign(attr, notation());
-&nbsp;
-  // Construct the element, loop through the list of attributes and add them to the node.
-  if (RE_ID_OR_CLASS.test(elem)) {
-    self.e = document.createElement(elem.split(RE_ID_OR_CLASS).shift());
-  } else {
-    self.e = document.createElement(elem);
-  }
-&nbsp;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (attr) {
-    for (key in attr) {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.prototype.hasOwnProperty.call(attr, key)) {
-        if (
-          typeof attr[key] === 'object'
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (attr) {
+      for (key in attr) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.prototype.hasOwnProperty.call(attr, key)) {
+          if (
+            typeof attr[key] === 'object'
           &amp;&amp; typeof attr[key].length === 'number'
           &amp;&amp; typeof attr[key].splice === 'function'
-        ) {
-          attr[key] = attr[key].join(' ');
-        }
+          ) {
+            attr[key] = attr[key].join(' ');
+          }
 &nbsp;
-        if (key.toString() === 'class') {
-          self.e.className = attr[key];
+          if (key.toString() === 'class') {
+            self.e.className = attr[key];
 &nbsp;
           // Support `data: {}` for data attributes
-        } else if (key.toString() === 'data') {
-          for (k in attr[key]) {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.prototype.hasOwnProperty.call(attr[key], k)) {
-              self.e.setAttribute(`data-${ k }`, attr[key][k]);
+          } else if (key.toString() === 'data') {
+            for (k in attr[key]) {
+              <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.prototype.hasOwnProperty.call(attr[key], k)) {
+                self.e.setAttribute(`data-${ k }`, attr[key][k]);
+              }
             }
+          } else {
+            self.e.setAttribute(key, attr[key]);
           }
-        } else {
-          self.e.setAttribute(key, attr[key]);
         }
       }
     }
-  }
 &nbsp;
-  // Handle child nodes.
-  self._ = (obj) =&gt; {
+    // Handle child nodes.
+    self._ = (obj) =&gt; {
     // If the object isn't an array, convert it to an array to maintain a single codepath below.
-    if (!Array.isArray(obj)) {
-      obj = [obj];
-    }
+      if (!Array.isArray(obj)) {
+        obj = [obj];
+      }
 &nbsp;
-    /* Loop through the indexed array of children. If the node is a `VDOM` object, convert it to
+      /* Loop through the indexed array of children. If the node is a `VDOM` object, convert it to
        DOM and append it. Otherwise, assume it's a real DOM node. */
-    for (let i = 0, max = obj.length; i &lt; max; i ++) {
-      if (typeof obj[i] === 'undefined') {
-        break;
+      for (let i = 0, max = obj.length; i &lt; max; i ++) {
+        if (typeof obj[i] === 'undefined') {
+          break;
+        }
+&nbsp;
+        if (typeof obj[i].dom !== 'undefined') {
+          self.e.appendChild(obj[i].dom());
+        } else {
+          self.e.appendChild(obj[i]);
+        }
       }
 &nbsp;
-      if (typeof obj[i].dom !== 'undefined') {
-        self.e.appendChild(obj[i].dom());
-      } else {
-        self.e.appendChild(obj[i]);
-      }
-    }
+      return self;
+    };
 &nbsp;
-    return self;
-  };
-&nbsp;
-  // Set the HTML
-  self.h = (str, replace) =&gt; {
+    // Set the HTML
+    self.h = (str, replace) =&gt; {
     // Determine the default value for `replace`.
-    replace = replace || false;
+      replace = replace || false;
 &nbsp;
-    // Set the value with innerHTML.
-    if (replace) {
-      self.e.innerHTML = str;
-    } else {
-      self.e.innerHTML += str;
-    }
+      // Set the value with innerHTML.
+      if (replace) {
+        self.e.innerHTML = str;
+      } else {
+        self.e.innerHTML += str;
+      }
 &nbsp;
-    return self;
-  };
+      return self;
+    };
 &nbsp;
-  // Set the text
-  self.t = (str) =&gt; {
+    // Set the text
+    self.t = (str) =&gt; {
     // No parameters? Read the value instead. Alias for __t().
-    if (typeof str === 'undefined') {
-      return self.__t();
-    }
+      if (typeof str === 'undefined') {
+        return self.__t();
+      }
 &nbsp;
-    // Set the value
-    const text = document.createTextNode(str);
+      // Set the value
+      const text = document.createTextNode(str);
 &nbsp;
-    self.e.appendChild(text);
+      self.e.appendChild(text);
+&nbsp;
+      return self;
+    };
+&nbsp;
+    // Get DOMElement
+    self.dom = () =&gt; self.e;
+&nbsp;
+    // Get as HTML
+    self.toString = () =&gt; {
+      const t = document.createElement('div');
+&nbsp;
+      t.appendChild(self.e);
+&nbsp;
+      return t.innerHTML;
+    };
+&nbsp;
+    // Get as text
+    self.__t = () =&gt; {
+      const t = document.createElement('div');
+&nbsp;
+      t.appendChild(self.e);
+&nbsp;
+      return t.textContent || <span class="branch-1 cbranch-no" title="branch not covered" >t.innerText;</span>
+    };
 &nbsp;
     return self;
-  };
+  },
 &nbsp;
-  // Get DOMElement
-  self.dom = () =&gt; self.e;
-&nbsp;
-  // Get as HTML
-  self.toString = () =&gt; {
-    const t = document.createElement('div');
-&nbsp;
-    t.appendChild(self.e);
-&nbsp;
-    return t.innerHTML;
-  };
-&nbsp;
-  // Get as text
-  self.__t = () =&gt; {
-    const t = document.createElement('div');
-&nbsp;
-    t.appendChild(self.e);
-&nbsp;
-    return t.textContent || <span class="branch-1 cbranch-no" title="branch not covered" >t.innerText;</span>
-  };
-&nbsp;
-  return self;
-};
-&nbsp;
-// Pre-instantiate the class on each call so that you never need to use `new`.
-module.exports = VDOM = (elem, attr) =&gt; new X(elem, attr); // eslint-disable-line no-undef
+  // Pre-instantiate the class on each call so that you never need to use `new`.
+  VDOM = (elem, attr) =&gt; new X(elem, attr); // eslint-disable-line no-undef
 &nbsp;
 VDOM.DOM = (...nodes) =&gt; { // eslint-disable-line no-undef
   // Create a document fragment. Grab and loop through the in-memory DOM nodes, and _move_ them to the
@@ -681,6 +685,8 @@ VDOM.h = (str) =&gt; { // eslint-disable-line no-undef
 &nbsp;
   return f;
 };
+&nbsp;
+module.exports = VDOM;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -688,7 +694,7 @@ VDOM.h = (str) =&gt; { // eslint-disable-line no-undef
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Feb 21 2022 15:53:12 GMT-0700 (Mountain Standard Time)
+                at Mon Feb 21 2022 16:01:41 GMT-0700 (Mountain Standard Time)
             </div>
         <script src="prettify.js"></script>
         <script>
