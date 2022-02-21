@@ -131,4 +131,4 @@ tag:
 ## version: [release]* sets the version for the next release; pre-req for a release tag
 version:
 	@echo "Current version: $(shell jq -r '.version' package.json)"
-	@read -p "Enter new version number: " nv && npm version "$$nv";
+	@read -p "Enter new version number: " nv && npm version --allow-same-version --no-commit-hooks --no-git-tag-version "$$nv";
