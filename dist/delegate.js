@@ -1,3 +1,3 @@
-var i=(n,f)=>()=>(f||n((f={exports:{}}).exports,f),f.exports);var u=i((s,c)=>{const t=(n,f)=>function(a){const l=e(a.target,n,this);l!==null&&f.call(l,a)};c.exports=t;const e=(n,f,r)=>n===r?null:n.matches(f)?n:n.parentNode?e(n.parentNode,f,r):null});export default u();
+var l=(e,r)=>()=>(r||e((r={exports:{}}).exports,r),r.exports);var $=l((p,f)=>{function c(e){Object.defineProperty(e,"__esModule",{value:!0,configurable:!0})}function o(e,r,n,t){Object.defineProperty(e,r,{get:n,set:t,enumerable:!0,configurable:!0})}c(f.exports);o(f.exports,"default",()=>i);const d=(e,r)=>function(t){const a=u(t.target,e,this);a!==null&&r.call(a,t)};var i=d;const u=(e,r,n)=>e===n?null:e.matches(r)?e:e.parentNode?u(e.parentNode,r,n):null});export default $();
 
 //# sourceMappingURL=delegate.js.map

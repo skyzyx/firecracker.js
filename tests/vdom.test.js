@@ -2,7 +2,9 @@
  * @jest-environment jsdom
  */
 
-const VDOM = require('../src/vdom.js');
+import {jest} from '@jest/globals'; // eslint-disable-line no-unused-vars
+import VDOM from '../src/vdom.js'; // eslint-disable-line sort-imports
+
 const _ = VDOM;
 
 describe('core dom', () => {
@@ -234,7 +236,7 @@ describe('child nodes', () => {
   it('ignores undefined children', () => {
     expect.hasAssertions();
 
-    const actual = _('p')._([undefined]),
+    const actual = _('p')._([undefined]), // eslint-disable-line no-undefined
       expected = document.createElement('p');
 
     expect(actual.dom()).toStrictEqual(expected);

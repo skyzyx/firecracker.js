@@ -2,10 +2,12 @@
  * @jest-environment jsdom
  */
 
+import {jest} from '@jest/globals'; // eslint-disable-line no-unused-vars
+import DQuery from '../src/dquery.js'; // eslint-disable-line sort-imports
+import VDOM from '../src/vdom.js'; // eslint-disable-line sort-imports
+
 const fs = require('fs'),
   html = fs.readFileSync(`${ __dirname }/index.html`).toString(),
-  VDOM = require('../src/vdom.js'),
-  DQuery = require('../src/dquery.js'),
   _ = VDOM,
   $ = DQuery;
 
@@ -328,7 +330,7 @@ describe('append and prepend', () => {
       start = $(document.createElement('body')),
       p = document.createElement('p'),
       div = document.createElement('div'),
-      actual = ((start, p, div) => {
+      actual = ((start, p, div) => { // eslint-disable-line no-shadow
         start.append(p);
         start.append(div);
 
@@ -346,7 +348,7 @@ describe('append and prepend', () => {
       start = $(document.createElement('body')),
       p = _('p'),
       div = _('div'),
-      actual = ((start, p, div) => {
+      actual = ((start, p, div) => { // eslint-disable-line no-shadow
         start.append(p);
         start.append(div);
 
@@ -364,7 +366,7 @@ describe('append and prepend', () => {
       start = $(document.createElement('body')),
       p = document.createElement('p'),
       div = document.createElement('div'),
-      actual = ((start, p, div) => {
+      actual = ((start, p, div) => { // eslint-disable-line no-shadow
         start.prepend(p);
         start.prepend(div);
 
@@ -382,7 +384,7 @@ describe('append and prepend', () => {
       start = $(document.createElement('body')),
       p = _('p'),
       div = _('div'),
-      actual = ((start, p, div) => {
+      actual = ((start, p, div) => { // eslint-disable-line no-shadow
         start.prepend(p);
         start.prepend(div);
 
@@ -400,7 +402,7 @@ describe('append and prepend', () => {
       start = $(document.createElement('body')),
       p = document.createElement('p'),
       div = document.createElement('div'),
-      actual = ((start, p, div) => {
+      actual = ((start, p, div) => { // eslint-disable-line no-shadow
         start.prepend(p).before(div);
 
         return start.children()[0].get();
@@ -417,7 +419,7 @@ describe('append and prepend', () => {
       start = $(document.createElement('body')),
       p = _('p'),
       div = _('div'),
-      actual = ((start, p, div) => {
+      actual = ((start, p, div) => { // eslint-disable-line no-shadow
         start.prepend(p).before(div);
 
         return start.children()[0].get();
@@ -434,7 +436,7 @@ describe('append and prepend', () => {
       start = $(document.createElement('body')),
       p = document.createElement('p'),
       div = document.createElement('div'),
-      actual = ((start, p, div) => {
+      actual = ((start, p, div) => { // eslint-disable-line no-shadow
         start.prepend(p).after(div);
 
         return start.children()[1].get();
@@ -451,7 +453,7 @@ describe('append and prepend', () => {
       start = $(document.createElement('body')),
       p = _('p'),
       div = _('div'),
-      actual = ((start, p, div) => {
+      actual = ((start, p, div) => { // eslint-disable-line no-shadow
         start.prepend(p).after(div);
 
         return start.children()[1].get();

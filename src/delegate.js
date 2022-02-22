@@ -19,7 +19,7 @@ const Delegate = (selector, fn) => function handler(event) {
   }
 };
 
-module.exports = Delegate;
+export default Delegate;
 
 /**
  * @name matches

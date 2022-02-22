@@ -291,4 +291,4 @@ const DQuery = function(selector, elem) { // eslint-disable-line no-undef
   return collection;
 };
 
-module.exports = DQuery;
+export default DQuery;

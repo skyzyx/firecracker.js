@@ -2,9 +2,11 @@
  * @jest-environment jsdom
  */
 
-const Delegate = require('../src/delegate.js'),
-  DQuery = require('../src/dquery.js'),
-  listen = Delegate,
+import {jest} from '@jest/globals'; // eslint-disable-line no-unused-vars
+import Delegate from '../src/delegate.js'; // eslint-disable-line sort-imports
+import DQuery from '../src/dquery.js'; // eslint-disable-line sort-imports
+
+const listen = Delegate,
   sinon = require('sinon'),
   $ = DQuery;
 

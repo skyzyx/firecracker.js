@@ -26,11 +26,13 @@
   "author": "Ryan Parman",
   "license": "MIT",
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
     "@hyqo/parcel-reporter-asset-map": "^1.0.2",
     "@parcel/compressor-brotli": "^2.3.2",
     "@parcel/compressor-gzip": "^2.3.2",
     "@parcel/optimizer-esbuild": "^2.3.2",
     "@parcel/resolver-glob": "^2.3.2",
+    "babel-jest": "^27.5.1",
     "eslint": "^8.9.0",
     "eslint-plugin-jest": "^26.1.1",
     "graceful-fs": "^4.2.9",

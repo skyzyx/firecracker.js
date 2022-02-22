@@ -205,4 +205,4 @@ VDOM.h = (str) => { // eslint-disable-line no-undef
   return f;
 };
 
-module.exports = VDOM;
+export default VDOM;
