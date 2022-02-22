@@ -260,7 +260,7 @@ class DQueryNode {
   }
 }
 
-const DQuery = function(selector, elem) { // eslint-disable-line no-undef
+function DQuery(selector, elem) { // eslint-disable-line no-undef
   if (selector instanceof Element) {
     return new DQueryNode(selector);
   }
@@ -289,6 +289,6 @@ const DQuery = function(selector, elem) { // eslint-disable-line no-undef
   });
 
   return collection;
-};
+}
 
 export default DQuery;
