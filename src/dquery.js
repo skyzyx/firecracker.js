@@ -239,6 +239,20 @@ class DQueryNode {
   }
 
   /**
+   * Toggles a classname on the element. Returns a boolean value, `true` or
+   * `false`, indicating whether or not `klass` is in the list of classnames
+   * after the call or not.
+   *
+   * @param {string} klass (Required) The classname to toggle on the element.
+   * @returns bool
+   */
+  toggle(klass) {
+    const node = this.node;
+
+    node.classList.toggle(klass);
+  }
+
+  /**
    * A wrapper for addEventListener with `once: false`.
    *
    * @param {string} type A valid event type, like `click`. See
