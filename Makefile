@@ -57,9 +57,9 @@ readme:
 	@ echo " "
 	@ echo "=====> Updating the README..."
 	cat README.md.tmpl \
-	| awk -v raw="$(shell stat -c %s dist/firecracker.js)" '{ gsub(/@@RAW@@/, raw); print }' \
-	| awk -v gzip="$(shell stat -c %s dist/firecracker.js.gz)" '{ gsub(/@@GZIP@@/, gzip); print }' \
-	| awk -v brotli="$(shell stat -c %s dist/firecracker.js.br)" '{ gsub(/@@BROTLI@@/, brotli); print }' \
+	| awk -v raw="$(shell stat -c %s dist/index.js)" '{ gsub(/@@RAW@@/, raw); print }' \
+	| awk -v gzip="$(shell stat -c %s dist/index.js.gz)" '{ gsub(/@@GZIP@@/, gzip); print }' \
+	| awk -v brotli="$(shell stat -c %s dist/index.js.br)" '{ gsub(/@@BROTLI@@/, brotli); print }' \
 	> README.md
 
 .PHONY: docs
@@ -131,4 +131,6 @@ tag:
 ## version: [release]* sets the version for the next release; pre-req for a release tag
 version:
 	@echo "Current version: $(shell jq -r '.version' package.json)"
-	@read -p "Enter new version number: " nv && npm version --allow-same-version --no-commit-hooks --no-git-tag-version "$$nv";
+	@read -p "Enter new version number: " nv && \
+		npm version --allow-same-version --no-commit-hooks --no-git-tag-version "$$nv" && \
+		sed -i -r "s/export const VERSION = '([^']+)'/export const VERSION = '$$nv'/" src/index.js;
