@@ -134,3 +134,8 @@ version:
 	@read -p "Enter new version number: " nv && \
 		npm version --allow-same-version --no-commit-hooks --no-git-tag-version "$$nv" && \
 		sed -i -r "s/export const VERSION = '([^']+)'/export const VERSION = '$$nv'/" src/index.js;
+
+.PHONY: publish
+## publish: [release]* publishes the package to npm
+publish:
+	npm publish --otp $(shell op item get g43gnmoyibgzdc334gbbzumhky --fields type=otp --format json | jq -Mr '.totp')
