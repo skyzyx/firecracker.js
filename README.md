@@ -139,10 +139,10 @@ $('nav')[0]
 
 | File                | Description           | Size in bytes |
 |---------------------|-----------------------|---------------|
-| `firecracker.js`    | Stripped and minified | 4631       |
-| `firecracker.js.gz` | gzip-compressed       | 1775      |
-| `firecracker.js.br` | brotli-compressed     | 1567    |
+| `firecracker.js`    | Stripped and minified | 4.52 kb       |
+| `firecracker.js.gz` | gzip-compressed       | 1.73 kb      |
+| `firecracker.js.br` | brotli-compressed     | 1.53 kb    |
 
 ## Inspiration
 
-VDOM inspired [DOMBrew](https://github.com/glebm/DOMBrew/), which then inspired improvements to VDOM.
+DOMBuilder (this project's predecessor) inspired [DOMBrew](https://github.com/glebm/DOMBrew/), which then inspired improvements to VDOM.

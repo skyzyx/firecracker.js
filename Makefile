@@ -57,9 +57,9 @@ readme:
 	@ echo " "
 	@ echo "=====> Updating the README..."
 	cat README.md.tmpl \
-	| awk -v raw="$(shell stat -c %s dist/index.js)" '{ gsub(/@@RAW@@/, raw); print }' \
-	| awk -v gzip="$(shell stat -c %s dist/index.js.gz)" '{ gsub(/@@GZIP@@/, gzip); print }' \
-	| awk -v brotli="$(shell stat -c %s dist/index.js.br)" '{ gsub(/@@BROTLI@@/, brotli); print }' \
+	| awk -v raw="$(shell echo "scale=2; $(shell stat -c %s dist/index.js)/1024" | bc) kb" '{ gsub(/@@RAW@@/, raw); print }' \
+	| awk -v gzip="$(shell echo "scale=2; $(shell stat -c %s dist/index.js.gz)/1024" | bc) kb" '{ gsub(/@@GZIP@@/, gzip); print }' \
+	| awk -v brotli="$(shell echo "scale=2; $(shell stat -c %s dist/index.js.br)/1024" | bc) kb" '{ gsub(/@@BROTLI@@/, brotli); print }' \
 	> README.md
 
 .PHONY: docs
