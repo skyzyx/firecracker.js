@@ -1,4 +1,4 @@
-# firecracker.js
+# 🧨 firecracker.js
 
 A small DOM manipulation and eventing library that packs a big punch!
 
@@ -7,6 +7,19 @@ A small DOM manipulation and eventing library that packs a big punch!
 * jQuery tries to do too much magic and its size suffers as a result.
 
 If you're looking for something _tiny_, which handles the DOM and event fundamentals, and keeps things “close to the metal”, `firecracker.js` may be the right tool for you.
+
+![GitHub package.json version](https://img.shields.io/github/package-json/v/skyzyx/firecracker.js?style=flat-square)
+![GitHub release (latest by SemVer)](https://img.shields.io/github/downloads/skyzyx/firecracker.js/1.0.0-rc12/total?sort=semver&style=flat-square)
+![GitHub top language](https://img.shields.io/github/languages/top/skyzyx/firecracker.js?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues-raw/skyzyx/firecracker.js?style=flat-square)
+![License](https://img.shields.io/github/license/skyzyx/firecracker.js?style=flat-square)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/firecracker.js?style=flat-square)
+![node-current](https://img.shields.io/node/v/firecracker.js?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/skyzyx/firecracker.js?style=flat-square)
+![GitHub contributors](https://img.shields.io/github/contributors/skyzyx/firecracker.js?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/skyzyx/firecracker.js?style=flat-square)
+![GitHub Release Date](https://img.shields.io/github/release-date/skyzyx/firecracker.js?style=flat-square)
+![GitHub package.json dynamic](https://img.shields.io/github/package-json/keywords/skyzyx/firecracker.js?style=flat-square)
 
 ## Features
 

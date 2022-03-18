@@ -75,7 +75,7 @@ class DQueryNode {
 
     return Array.from(this.node.childNodes).
       filter(e => e.nodeType === Node.ELEMENT_NODE).
-      filter(e => (selector !== '' && e.matches(selector)) || (selector === '')).
+      filter(e => (selector !== '' && e.matches(selector)) || selector === '').
       map(e => new DQueryNode(e));
   }
 
@@ -99,10 +99,7 @@ class DQueryNode {
       if (sibling !== this.node) {
         if (
           sibling.nodeType === Node.ELEMENT_NODE
-          && (
-            (selector !== '' && sibling.matches(selector))
-            || (selector === '')
-          )
+          && ((selector !== '' && sibling.matches(selector)) || selector === '')
         ) {
           siblings.push(new DQueryNode(sibling));
         }
@@ -125,13 +122,7 @@ class DQueryNode {
     let next = this.node.nextSibling;
 
     while (next) {
-      if (
-        next.nodeType === Node.ELEMENT_NODE
-        && (
-          (selector !== '' && next.matches(selector))
-          || (selector === '')
-        )
-      ) {
+      if (next.nodeType === Node.ELEMENT_NODE && ((selector !== '' && next.matches(selector)) || selector === '')) {
         return new DQueryNode(next);
       }
 
@@ -152,13 +143,7 @@ class DQueryNode {
     let prev = this.node.previousSibling;
 
     while (prev) {
-      if (
-        prev.nodeType === Node.ELEMENT_NODE
-        && (
-          (selector !== '' && prev.matches(selector))
-          || (selector === '')
-        )
-      ) {
+      if (prev.nodeType === Node.ELEMENT_NODE && ((selector !== '' && prev.matches(selector)) || selector === '')) {
         return new DQueryNode(prev);
       }
 
@@ -199,9 +184,7 @@ class DQueryNode {
       this.node.insertAdjacentElement('beforeend', element);
     }
 
-    return new DQueryNode(
-      this.node.childNodes[this.node.childNodes.length - 1],
-    );
+    return new DQueryNode(this.node.childNodes[this.node.childNodes.length - 1]);
   }
 
   /**
@@ -274,7 +257,8 @@ class DQueryNode {
   }
 }
 
-function DQuery(selector, elem) { // eslint-disable-line no-undef
+function DQuery(selector, elem) {
+  // eslint-disable-line no-undef
   if (selector instanceof Element) {
     return new DQueryNode(selector);
   }
