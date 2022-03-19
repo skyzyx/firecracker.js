@@ -222,6 +222,66 @@ class DQueryNode {
   }
 
   /**
+   * Returns the list of classnames currently applied to the element.
+   *
+   * @returns DOMTokenList
+   */
+  classes() {
+    const node = this.node;
+
+    return node.classList;
+  }
+
+  /**
+   * Determines whether or not the element has the specified classname applied.
+   *
+   * @param {string} klass (Required) The classname to check on the element.
+   * @returns bool
+   */
+  has(klass) {
+    const node = this.node;
+
+    return node.classList.contains(klass);
+  }
+
+  /**
+   * Adds the specified classname to the element.
+   *
+   * @param {string} klass (Required) The classname to add to the element.
+   * @returns bool
+   */
+  add(klass) {
+    const node = this.node;
+
+    return node.classList.add(klass);
+  }
+
+  /**
+   * Removes the specified classname to the element.
+   *
+   * @param {string} klass (Required) The classname to remove from the element.
+   * @returns bool
+   */
+  remove(klass) {
+    const node = this.node;
+
+    return node.classList.remove(klass);
+  }
+
+  /**
+   * Replaces the specified classname on the element with another classname.
+   *
+   * @param {string} klass1 (Required) The classname to remove from the element.
+   * @param {string} klass2 (Required) The classname to add to the element.
+   * @returns bool
+   */
+  replace(klass1, klass2) {
+    const node = this.node;
+
+    return node.classList.replace(klass1, klass2);
+  }
+
+  /**
    * Toggles a classname on the element. Returns a boolean value, `true` or
    * `false`, indicating whether or not `klass` is in the list of classnames
    * after the call or not.
@@ -232,7 +292,7 @@ class DQueryNode {
   toggle(klass) {
     const node = this.node;
 
-    node.classList.toggle(klass);
+    return node.classList.toggle(klass);
   }
 
   /**

@@ -464,6 +464,117 @@ describe('append and prepend', () => {
   });
 });
 
+describe('class management', () => {
+  it('selects an element, then tests that has() works', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.add('testing');
+
+        return start.get().classList.contains('testing');
+      })(start),
+      expected = start.has('testing');
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then adds a classname', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.add('testing');
+
+        return start.has('testing');
+      })(start),
+      expected = true;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then adds a classname, then removes a classname', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.add('testing');
+        start.remove('testing');
+
+        return start.has('testing');
+      })(start),
+      expected = false;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then adds a classname, then returns the list', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.add('testing');
+        start.add('testing2');
+
+        return Array.from(start.classes());
+      })(start),
+      expected = ['testing', 'testing2'];
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then adds a classname, then replaces that classname', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.add('testing');
+        start.replace('testing', 'testing2');
+
+        return start.has('testing2');
+      })(start),
+      expected = true;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then toggles a classname on', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.toggle('testing');
+
+        return start.has('testing');
+      })(start),
+      expected = true;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
+  it('selects an element, then toggles a classname on, then off', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.toggle('testing');
+        start.toggle('testing');
+
+        return start.has('testing');
+      })(start),
+      expected = false;
+
+    expect(actual).toStrictEqual(expected);
+  });
+});
+
 describe('not yet implemented', () => {
   it.todo('selects an element, then wraps with another node');
   it.todo('selects an element, then clones it');

@@ -8,4 +8,4 @@ export {
   VDOM,
 };
 
-export const VERSION = '1.0.0-rc13';
+export const VERSION = '1.0.0';
