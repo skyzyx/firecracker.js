@@ -43,7 +43,7 @@ If you're looking for something _tiny_, which handles the DOM and event fundamen
 
 * **Firecracker Events** is an implementation of the _event delegation_ pattern, using core DOM events and built for modern browsers.
 
-* **Firecracker Templates** is a lightweight implementation of React/Vue.js-style _components_ built atop the core VDOM, DQuery, and Event primitives.
+<!-- * **Firecracker Templates** is a lightweight implementation of React/Vue.js-style _components_ built atop the core VDOM, DQuery, and Event primitives. -->
 
 ### What firecracker.js doesn’t have
 
