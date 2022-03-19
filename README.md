@@ -1,4 +1,6 @@
-# 🧨 firecracker.js
+# firecracker.js
+
+![firecracker.js](firecracker@2x.png)
 
 A small DOM manipulation and eventing library that packs a big punch!
 
@@ -140,8 +142,8 @@ $('nav')[0]
 | File                | Description           | Size in bytes |
 |---------------------|-----------------------|---------------|
 | `firecracker.js`    | Stripped and minified | 4.74 kb       |
-| `firecracker.js.gz` | gzip-compressed       | 1.77 kb      |
-| `firecracker.js.br` | brotli-compressed     | 1.57 kb    |
+| `firecracker.js.gz` | gzip-compressed       | 1.76 kb      |
+| `firecracker.js.br` | brotli-compressed     | 1.56 kb    |
 
 ## Inspiration
 
