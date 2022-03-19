@@ -4,12 +4,39 @@ All notable changes to this project will be documented in this file. The format 
 
 ## 1.0.0 - 2022-03-18
 
-* **dquery** — Added support for `add(c)`, `classes()`, `has(c)`, `remove(c)`, `replace(c1, c2)`.
-
-## 1.0.0-rc13 - 2022-03-18
-
-* Initial implementation of VDOM.
-* Initial implementation of DQuery.
-* Initial implementation of of Delegate.
-* Implemented in modern ECMAScript.
-* 100% code coverage covering all of the standard and edge cases of the code.
+* **vdom** — Added _instance methods_:
+    * `_()` — For adding children.
+    * `dom()` — For getting the _real_ DOM element back.
+    * `h()` — For adding/reading HTML content.
+    * `t()` — For adding/reading text content.
+    * `toString()` — For getting the DOM as an HTML string.
+* **vdom** — Added _static methods_:
+    * `DOM()` — For appending DOM elements.
+    * `h()` — For adding HTML content.
+    * `t()` — For adding text content.
+* **dquery** — Added constructor `DQuery(selector, elem)`.
+* **dquery** — Added _instance methods_ for querying/traversing nodes:
+    * `ancestor(selector)`
+    * `children(selector)`
+    * `descendants(selector)`
+    * `get()`
+    * `next(selector)`
+    * `parent()`
+    * `prev(selector)`
+    * `siblings(selector)`
+* **dquery** — Added _instance methods_ for adding nodes:
+    * `after(element)`
+    * `append(element)`
+    * `before(element)`
+    * `prepend(element)`
+* **dquery** — Added _instance methods_ for manipulating classnames:
+    * `add(klass)`
+    * `classes()`
+    * `has(klass)`
+    * `remove(klass)`
+    * `replace(klass1, klass2)`
+    * `toggle(klass)`
+* **dquery** — Added _instance methods_ for triggering events:
+    * `on(type, fn)`
+* **delegate** — Initial implementation of of Delegate.
+    * Added constructor `Delegate(selector, fn)`.
