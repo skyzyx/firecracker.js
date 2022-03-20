@@ -114,7 +114,7 @@ $(document.body).append(`
 
 // Then query it for nodes
 $(document.body).descendants('ul.sample')[0].children().length === 3;
-#=> true
+//=> true
 ```
 
 You can also do repetitive things more programmatically.
