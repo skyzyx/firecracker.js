@@ -49,6 +49,16 @@ clean-dist:
 clean: clean-dist
 
 #-------------------------------------------------------------------------------
+# Build
+
+.PHONY: build
+## build: [build] Builds a compiled version of the source distribution.
+build:
+	@ echo " "
+	@ echo "=====> Updating the README..."
+	- npm run build
+
+#-------------------------------------------------------------------------------
 # Documentation
 
 .PHONY: readme
@@ -62,9 +72,16 @@ readme:
 	| awk -v brotli="$(shell echo "scale=2; $(shell stat -c %s dist/index.js.br)/1024" | bc) kb" '{ gsub(/@@BROTLI@@/, brotli); print }' \
 	> README.md
 
+.PHONY: docco
+## docco: [docs] Runs `docco` over the JavaScript code to generate documentation.
+docco:
+	@ echo " "
+	@ echo "=====> Updating the README..."
+	- npm run docs
+
 .PHONY: docs
 ## docs: [docs]* Runs ALL documentation tasks.
-docs: readme
+docs: readme docco
 
 #-------------------------------------------------------------------------------
 # Linting

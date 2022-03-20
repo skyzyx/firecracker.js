@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>delegate.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="delegate.html">
+                  src/delegate.js
+                </a>
+              
+                
+                <a class="source" href="dquery.html">
+                  src/dquery.js
+                </a>
+              
+                
+                <a class="source" href="index.html">
+                  src/index.js
+                </a>
+              
+                
+                <a class="source" href="templates.html">
+                  src/templates.js
+                </a>
+              
+                
+                <a class="source" href="vdom.html">
+                  src/vdom.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>delegate.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-1">&#x00a7;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 1;"><span class="line" id="L1"><span style="color: #C2C3C5">/* Taken from https://github.com/brunoscopelliti/delegate under the MIT license.</span></span>
+<span class="line" id="L2"><span style="color: #C2C3C5">   Reversed the (selector, fn) parameters. */</span></span>
+<span class="line empty-line" id="L3"></span>
+<span class="line" id="L4"><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L5"><span style="color: #C2C3C5"> * Assure that the provided function, `fn`, is executed only when its wrapping</span></span>
+<span class="line" id="L6"><span style="color: #C2C3C5"> * function is called on a target that matches the `selector`.</span></span>
+<span class="line" id="L7"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L8"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@name</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">delegate</span></span>
+<span class="line" id="L9"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector</span></span>
+<span class="line" id="L10"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{function}</span><span style="color: #C2C3C5"> fn</span></span>
+<span class="line" id="L11"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L12"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{function}</span></span>
+<span class="line" id="L13"><span style="color: #C2C3C5"> */</span></span>
+<span class="line" id="L14"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">Delegate</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">handler</span><span style="color: #24292EFF">(event) {</span></span>
+<span class="line" id="L15"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">matchingEl</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">event</span><span style="color: #24292EFF">.target</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">); </span><span style="color: #C2C3C5">// eslint-disable-line no-invalid-this</span></span>
+<span class="line empty-line" id="L16"></span>
+<span class="line" id="L17"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (matchingEl </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L18"><span style="color: #24292EFF">    </span><span style="color: #1976D2">fn</span><span style="color: #6F42C1">.call</span><span style="color: #24292EFF">(matchingEl</span><span style="color: #212121">,</span><span style="color: #24292EFF"> event);</span></span>
+<span class="line" id="L19"><span style="color: #24292EFF">  }</span></span>
+<span class="line" id="L20"><span style="color: #24292EFF">};</span></span>
+<span class="line empty-line" id="L21"></span>
+<span class="line" id="L22"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> Delegate;</span></span>
+<span class="line empty-line" id="L23"></span>
+<span class="line" id="L24"><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L25"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@name</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">matches</span></span>
+<span class="line" id="L26"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@private</span></span>
+<span class="line" id="L27"><span style="color: #C2C3C5"> */</span></span>
+<span class="line" id="L28"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (target</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> boundElement) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L29"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (target </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> boundElement) {</span></span>
+<span class="line" id="L30"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L31"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L32"></span>
+<span class="line" id="L33"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">target</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) {</span></span>
+<span class="line" id="L34"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> target;</span></span>
+<span class="line" id="L35"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L36"></span>
+<span class="line" id="L37"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode) {</span></span>
+<span class="line" id="L38"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> boundElement);</span></span>
+<span class="line" id="L39"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L40"></span>
+<span class="line" id="L41"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L42"><span style="color: #24292EFF">};</span></span>
+<span class="line empty-line" id="L43"></span>
+<span class="line empty-line" id="L44"></span></code></pre></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
