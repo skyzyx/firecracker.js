@@ -63,7 +63,7 @@ The HTML to generate.
 
 ```html
 <div id="test" class="sample">
-    <p>This is a <a href="">sample of the code</a> that you may like.</p>
+    <p>This is a <a href="#">sample of the code</a> that you may like.</p>
     <p>And another <a href="#"><strong>complex-ish</strong></a> one.</p>
     <ul class="sample">
         <li><a href="http://google.com">One</a></li>
@@ -80,9 +80,9 @@ const _ = VDOM;
 const $ = DQuery;
 
 // Do the generation and write to the live DOM
-$('body').append(
+$(document.body).append(
   _('div#test.sample')._([
-    _('p').h('This is a <a href="">sample of the code</a> that you may like.'),
+    _('p').h('This is a <a href="#">sample of the code</a> that you may like.'),
     _('p').h('And another <a href="#"><strong>complex-ish</strong></a> one.'),
     _('ul.sample')._([
       _('li')._(_('a[href=http://google.com]').h('One')),
@@ -91,6 +91,30 @@ $('body').append(
     ])
   ])
 );
+```
+
+Or, with less DOM and more HTML:
+
+```javascript
+const _ = VDOM;
+const $ = DQuery;
+
+// Leverage innerHTML, then write to the live DOM
+$(document.body).append(`
+    <div id="test" class="sample">
+        <p>This is a <a href="#">sample of the code</a> that you may like.</p>
+        <p>And another <a href="#"><strong>complex-ish</strong></a> one.</p>
+        <ul class="sample">
+            <li><a href="http://google.com">One</a></li>
+            <li><em>Two</em></li>
+            <li><strong>Three</strong></li>
+        </ul>
+    </div>
+`);
+
+// Then query it for nodes
+$(document.body).descendants('ul.sample')[0].children().length === 3;
+#=> true
 ```
 
 You can also do repetitive things more programmatically.
@@ -102,7 +126,7 @@ const $ = DQuery;
 // Generate an HTML list from some data
 const data = ['One', 'Two', 'Three', 'Four', 'Five'];
 
-$('body').append(
+$(document.body).append(
   _('ul')._(
     data.map(value => _('li').h(value))
   )
@@ -141,9 +165,9 @@ $('nav')[0]
 
 | File                | Description           | Size in bytes |
 |---------------------|-----------------------|---------------|
-| `firecracker.js`    | Stripped and minified | 4.74 kb       |
-| `firecracker.js.gz` | gzip-compressed       | 1.76 kb      |
-| `firecracker.js.br` | brotli-compressed     | 1.56 kb    |
+| `firecracker.js`    | Stripped and minified | 4.82 kb       |
+| `firecracker.js.gz` | gzip-compressed       | 1.79 kb      |
+| `firecracker.js.br` | brotli-compressed     | 1.58 kb    |
 
 ## Inspiration
 

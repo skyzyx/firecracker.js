@@ -178,7 +178,9 @@ class DQueryNode {
    * @returns DQueryNode
    */
   append(element) {
-    if (typeof element.dom !== 'undefined') {
+    if ((typeof element).toLowerCase() === 'string') {
+      this.node.insertAdjacentHTML('beforeend', element);
+    } else if (typeof element.dom !== 'undefined') {
       this.node.insertAdjacentElement('beforeend', element.dom());
     } else {
       this.node.insertAdjacentElement('beforeend', element);

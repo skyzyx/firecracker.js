@@ -3,9 +3,11 @@
  */
 
 import {jest} from '@jest/globals'; // eslint-disable-line no-unused-vars
+import DQuery from '../src/dquery.js'; // eslint-disable-line sort-imports
 import VDOM from '../src/vdom.js'; // eslint-disable-line sort-imports
 
-const _ = VDOM;
+const _ = VDOM,
+  $ = DQuery;
 
 describe('core dom', () => {
   it('creates a new element', () => {
@@ -320,6 +322,31 @@ describe('child nodes', () => {
       })();
 
     expect(actual.dom()).toStrictEqual(expected);
+  });
+
+  it('creates a new element with a set of children using innerHTML #3', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.append(`
+          <div id="test" class="sample">
+              <p>This is a <a href="#">sample of the code</a> that you may like.</p>
+              <p>And another <a href="#"><strong>complex-ish</strong></a> one.</p>
+              <ul class="sample">
+                  <li><a href="http://google.com">One</a></li>
+                  <li><em>Two</em></li>
+                  <li><strong>Three</strong></li>
+              </ul>
+          </div>
+        `);
+
+        return start.descendants('ul.sample')[0].children().length;
+      })(start),
+      expected = 3;
+
+    expect(actual).toStrictEqual(expected);
   });
 
   it('creates a new element with a set of children modeled with VDOM', () => {
