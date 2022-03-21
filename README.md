@@ -43,123 +43,80 @@ If you're looking for something _tiny_, which handles the DOM and event fundamen
 
 * **Firecracker Events** is an implementation of the _event delegation_ pattern, using core DOM events and built for modern browsers.
 
-<!-- * **Firecracker Templates** is a lightweight implementation of React/Vue.js-style _components_ built atop the core VDOM, DQuery, and Event primitives. -->
-
 ### What firecracker.js doesn’t have
 
 * No Ajax. Take a look at [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) instead.
 
-* No JSX, but JSX is essentially a thin wrapper around [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) anyway.
+* No JSX, but we feel like JSX requires extra steps that aren't strictly necessary if you’re not Facebook.
 
-* No utility functions. Take a look at [Underscore.js](https://underscorejs.org) or [Lodash](https://lodash.com) if that’s something you need.
+* No utility functions. Take a look at [You don't (may not) need Lodash/Underscore](https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore) if that’s something you need.
 
 * No support for [Internet Explorer](https://docs.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge) or [EdgeHTML](https://techcommunity.microsoft.com/t5/microsoft-365-blog/new-microsoft-edge-to-replace-microsoft-edge-legacy-with-april-s/ba-p/2114224) as both are end-of-life. If you need support for legacy browser engines, take a look at [Babel](https://babeljs.io).
 
 ## Examples
 
-### VDOM
+VDOM is an updated ES6+ version of a Virtual DOM implementation I built in 2008 before Virtual DOM even had a name yet.
 
-The HTML to generate.
+The term “Virtual DOM” refers to real DOM nodes that exist in memory, but are not attached to the _live_ tree. This means that they can be modified and manipulated in-memory without triggering repaints and reflows in the browser engine, making modifications dramatically faster.
 
-```html
-<div id="test" class="sample">
-    <p>This is a <a href="#">sample of the code</a> that you may like.</p>
-    <p>And another <a href="#"><strong>complex-ish</strong></a> one.</p>
-    <ul class="sample">
-        <li><a href="http://google.com">One</a></li>
-        <li><em>Two</em></li>
-        <li><strong>Three</strong></li>
-    </ul>
-</div>
-```
+By leveraging `DocumentFragment` objects under the hood, we can collect one or more sibling elements together which do not have a shared parent node until they are injected into the live DOM. This is fundamentally the same way that `React.createElement()` works, and the syntax is very similar.
 
-This is an example of how to generate it using VDOM. We’ll alias `VDOM` to the `_` variable to make invocation shorter, and also note that the `._()` method is for adding child nodes. (It’s a lot of underscores, I know, but it makes typing a lot faster.) You can blend HTML as well.
+**Examples:**
+
+From the <https://reactjs.org> homepage, this example generates a new DOM element (via a React component) and appends it to the live DOM.
 
 ```javascript
-const _ = VDOM;
-const $ = DQuery;
+class HelloMessage extends React.Component {
+  render() {
+    return (
+      <div>
+        Hello {this.props.name}
+      </div>
+    );
 
-// Do the generation and write to the live DOM
-$(document.body).append(
-  _('div#test.sample')._([
-    _('p').h('This is a <a href="#">sample of the code</a> that you may like.'),
-    _('p').h('And another <a href="#"><strong>complex-ish</strong></a> one.'),
-    _('ul.sample')._([
-      _('li')._(_('a[href=http://google.com]').h('One')),
-      _('li')._(_('em').h('Two')),
-      _('li')._(_('strong').h('Three'))
-    ])
-  ])
+    // or...
+    // return React.createElement(
+    //   "div",
+    //   null,
+    //   "Hello ",
+    //   this.props.name
+    // );
+  }
+}
+
+ReactDOM.render(
+  React.createElement(
+    HelloMessage, { name: "Taylor" }
+  ),
+  document.getElementById('hello-example')
 );
 ```
 
-Or, with less DOM and more HTML:
+Here's an equivalent example using VDOM and DQuery, except that there are no _magical_ `props` because there are no `components`. Just standard functions and variables.
 
 ```javascript
-const _ = VDOM;
-const $ = DQuery;
+const _ = VDOM,
+      $ = DQuery;
 
-// Leverage innerHTML, then write to the live DOM
-$(document.body).append(`
-    <div id="test" class="sample">
-        <p>This is a <a href="#">sample of the code</a> that you may like.</p>
-        <p>And another <a href="#"><strong>complex-ish</strong></a> one.</p>
-        <ul class="sample">
-            <li><a href="http://google.com">One</a></li>
-            <li><em>Two</em></li>
-            <li><strong>Three</strong></li>
-        </ul>
+function HelloMessage(props) {
+  return `
+    <div>
+      Hello ${props.name}
     </div>
-`);
+  `;
 
-// Then query it for nodes
-$(document.body).descendants('ul.sample')[0].children().length === 3;
-//=> true
-```
+  // or...
+  // return _('div').h(`Hello ${props.name}`);
+}
 
-You can also do repetitive things more programmatically.
-
-```javascript
-const _ = VDOM;
-const $ = DQuery;
-
-// Generate an HTML list from some data
-const data = ['One', 'Two', 'Three', 'Four', 'Five'];
-
-$(document.body).append(
-  _('ul')._(
-    data.map(value => _('li').h(value))
-  )
+$('#hello-example')[0].append(
+  HelloMessage({ name: "Taylor" })
 );
 ```
 
-```html
-<ul>
-  <li>One</li>
-  <li>Two</li>
-  <li>Three</li>
-  <li>Four</li>
-  <li>Five</li>
-</ul>
-```
+VDOM sits much “closer to the metal”, which makes it (a) faster, and (b) smaller. While it lacks some of the niceties like sanitizing user content to pass directly into JSX, you can still use `innerHTML` and `DOMString` objects which get you _most_ of the way there at very little cost.
 
-### DQuery
-
-A contrived example.
-
-```javascript
-const _ = VDOM;
-const $ = DQuery;
-
-$('nav')[0]
-  .descendants('a[href="#"]')[0]
-  .ancestor('nav')
-  .children('div')[0]
-  .siblings()[0]
-  .prev()
-  .next()
-  .get();
-```
+Stay tuned for **Firecracker Templates** which we’re hoping will empower things like two-way binding.
 
 ## Filesize
 
@@ -171,4 +128,8 @@ $('nav')[0]
 
 ## Inspiration
 
-DOMBuilder (this project's predecessor) inspired [DOMBrew](https://github.com/glebm/DOMBrew/), which then inspired improvements to VDOM.
+[DOMBuilder](https://github.com/skyzyx/dombuilder) (this project's predecessor) was originally inspired by (but shares zero code with) the [`Builder` code from Scriptaculous](https://github.com/madrobby/scriptaculous/blob/master/src/builder.js) which I discovered in 2005-ish, and implemented my own independent version in 2008.
+
+DOMBuilder inspired [DOMBrew](https://github.com/glebm/DOMBrew/), which then inspired improvements to VDOM.
+
+[React](https://reactjs.org), which became public in 2013 (5 years after DOMBuilder), has many similarities in the public API for rendering DOM elements (while handling **much** more complex use-cases than DOMBuilder at the cost of **much** larger file size). That said, I very much doubt React took any inspiration from DOMBuilder in any way, and the similarities are purely coincidental.
