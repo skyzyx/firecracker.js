@@ -109,7 +109,7 @@ function HelloMessage(props) {
   // return _('div').h(`Hello ${props.name}`);
 }
 
-$('#hello-example')[0].append(
+$('#hello-example')[0].render(
   HelloMessage({ name: "Taylor" })
 );
 ```
