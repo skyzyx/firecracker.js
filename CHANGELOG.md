@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ## Unreleased
 
+* **dquery** — Added the `render(element)` method which replaces the contents of the node with new contents.
 * **dquery** — Updated `prepend(element)` and `before(element)` to accept a string of HTML as input. Haven't been able to get the tests working for `after(element)` yet.
 
 ## 1.0.1 - 2022-03-20
