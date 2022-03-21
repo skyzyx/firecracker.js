@@ -340,6 +340,29 @@ class DQueryNode {
     return this.next();
   }
 
+  /**
+   * This is used for replacing the current content with new content, returning
+   * a new pointer to self.
+   *
+   * @param {string|Element} element (Required) The DOM element or HTML string
+   *     to replace the element's content with.
+   * @returns DQueryNode
+   */
+  render(element) {
+    if ((typeof element).toLowerCase() === 'string') {
+      this.node.innerHTML = element;
+    } else if (typeof element.dom !== 'undefined' && typeof element.toString !== 'undefined') {
+      this.node.innerHTML = element.toString();
+    } else {
+      const t = document.createElement('div');
+
+      t.appendChild(element);
+      this.node.innerHTML = t.innerHTML;
+    }
+
+    return new DQueryNode(this.node);
+  }
+
   // ----
   // ### Managing classnames
 
@@ -505,11 +528,11 @@ class DQueryNode {
   // **Example:**
   //
   // ```javascript
-  // const dlg = Delegate;
+  // const listen = Delegate;
   //
   // // Add event
   // const evt = $(document.body).on('click',
-  //   dlg('.example', evt => {
+  //   listen('.example', evt => {
   //     $(evt.target).toggle('enabled')
   //   })
   // );

@@ -4,12 +4,14 @@
 // **Example:**
 //
 // ```javascript
-// const dlg = Delegate;
+// const listen = Delegate;
 //
 // // Add event
-// const evt = $(document.body).on('click', dlg('#test', e => {
-//   e.classList.toggle('enabled');
-// }));
+// const evt = $(document.body).on('click',
+//   listen('.example', evt => {
+//     $(evt.target).toggle('enabled')
+//   })
+// );
 //
 // // Remove event
 // evt.remove();

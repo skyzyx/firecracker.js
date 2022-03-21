@@ -610,7 +610,30 @@ result of using <code>DQuery</code> to discover results.</p>
 <span class="line" id="L340"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.next</span><span style="color: #24292EFF">();</span></span>
 <span class="line" id="L341"><span style="color: #24292EFF">  }</span></span>
 <span class="line empty-line" id="L342"></span>
-<span class="line empty-line" id="L343"></span></code></pre></div>
+<span class="line" id="L343"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L344"><span style="color: #C2C3C5">   * This is used for replacing the current content with new content, returning</span></span>
+<span class="line" id="L345"><span style="color: #C2C3C5">   * a new pointer to self.</span></span>
+<span class="line" id="L346"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L347"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element or HTML string</span></span>
+<span class="line" id="L348"><span style="color: #C2C3C5">   *     to replace the element&#39;s content with.</span></span>
+<span class="line" id="L349"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L350"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L351"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">render</span><span style="color: #24292EFF">(element) {</span></span>
+<span class="line" id="L352"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> ((</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> element)</span><span style="color: #6F42C1">.toLowerCase</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;string&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L353"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.innerHTML </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> element;</span></span>
+<span class="line" id="L354"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.toString </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L355"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.innerHTML </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.toString</span><span style="color: #24292EFF">();</span></span>
+<span class="line" id="L356"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L357"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line empty-line" id="L358"></span>
+<span class="line" id="L359"><span style="color: #24292EFF">      </span><span style="color: #1976D2">t</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(element);</span></span>
+<span class="line" id="L360"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.innerHTML </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF">.innerHTML;</span></span>
+<span class="line" id="L361"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L362"></span>
+<span class="line" id="L363"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node);</span></span>
+<span class="line" id="L364"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L365"></span>
+<span class="line empty-line" id="L366"></span></code></pre></div>
             
         </li>
         
@@ -654,18 +677,18 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 352;"><span class="line" id="L352"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L353"><span style="color: #C2C3C5">   * Returns the list of classnames currently applied to the element.</span></span>
-<span class="line" id="L354"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L355"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DOMTokenList</span></span>
-<span class="line" id="L356"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L357"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">classes</span><span style="color: #24292EFF">() {</span></span>
-<span class="line" id="L358"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L359"></span>
-<span class="line" id="L360"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.classList;</span></span>
-<span class="line" id="L361"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L362"></span>
-<span class="line empty-line" id="L363"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 375;"><span class="line" id="L375"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L376"><span style="color: #C2C3C5">   * Returns the list of classnames currently applied to the element.</span></span>
+<span class="line" id="L377"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L378"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DOMTokenList</span></span>
+<span class="line" id="L379"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L380"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">classes</span><span style="color: #24292EFF">() {</span></span>
+<span class="line" id="L381"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L382"></span>
+<span class="line" id="L383"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.classList;</span></span>
+<span class="line" id="L384"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L385"></span>
+<span class="line empty-line" id="L386"></span></code></pre></div>
             
         </li>
         
@@ -691,19 +714,19 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 379;"><span class="line" id="L379"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L380"><span style="color: #C2C3C5">   * Determines whether or not the element has the specified classname applied.</span></span>
-<span class="line" id="L381"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L382"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to check on the element.</span></span>
-<span class="line" id="L383"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L384"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L385"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">has</span><span style="color: #24292EFF">(klass) {</span></span>
-<span class="line" id="L386"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L387"></span>
-<span class="line" id="L388"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.contains</span><span style="color: #24292EFF">(klass);</span></span>
-<span class="line" id="L389"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L390"></span>
-<span class="line empty-line" id="L391"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 402;"><span class="line" id="L402"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L403"><span style="color: #C2C3C5">   * Determines whether or not the element has the specified classname applied.</span></span>
+<span class="line" id="L404"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L405"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to check on the element.</span></span>
+<span class="line" id="L406"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L407"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L408"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">has</span><span style="color: #24292EFF">(klass) {</span></span>
+<span class="line" id="L409"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L410"></span>
+<span class="line" id="L411"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.contains</span><span style="color: #24292EFF">(klass);</span></span>
+<span class="line" id="L412"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L413"></span>
+<span class="line empty-line" id="L414"></span></code></pre></div>
             
         </li>
         
@@ -724,19 +747,19 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 404;"><span class="line" id="L404"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L405"><span style="color: #C2C3C5">   * Adds the specified classname to the element.</span></span>
-<span class="line" id="L406"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L407"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to add to the element.</span></span>
-<span class="line" id="L408"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L409"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L410"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">add</span><span style="color: #24292EFF">(klass) {</span></span>
-<span class="line" id="L411"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L412"></span>
-<span class="line" id="L413"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.add</span><span style="color: #24292EFF">(klass);</span></span>
-<span class="line" id="L414"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L415"></span>
-<span class="line empty-line" id="L416"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 427;"><span class="line" id="L427"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L428"><span style="color: #C2C3C5">   * Adds the specified classname to the element.</span></span>
+<span class="line" id="L429"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L430"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to add to the element.</span></span>
+<span class="line" id="L431"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L432"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L433"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">add</span><span style="color: #24292EFF">(klass) {</span></span>
+<span class="line" id="L434"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L435"></span>
+<span class="line" id="L436"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.add</span><span style="color: #24292EFF">(klass);</span></span>
+<span class="line" id="L437"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L438"></span>
+<span class="line empty-line" id="L439"></span></code></pre></div>
             
         </li>
         
@@ -757,19 +780,19 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 429;"><span class="line" id="L429"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L430"><span style="color: #C2C3C5">   * Removes the specified classname to the element.</span></span>
-<span class="line" id="L431"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L432"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to remove from the element.</span></span>
-<span class="line" id="L433"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L434"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L435"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">remove</span><span style="color: #24292EFF">(klass) {</span></span>
-<span class="line" id="L436"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L437"></span>
-<span class="line" id="L438"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.remove</span><span style="color: #24292EFF">(klass);</span></span>
-<span class="line" id="L439"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L440"></span>
-<span class="line empty-line" id="L441"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 452;"><span class="line" id="L452"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L453"><span style="color: #C2C3C5">   * Removes the specified classname to the element.</span></span>
+<span class="line" id="L454"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L455"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to remove from the element.</span></span>
+<span class="line" id="L456"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L457"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L458"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">remove</span><span style="color: #24292EFF">(klass) {</span></span>
+<span class="line" id="L459"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L460"></span>
+<span class="line" id="L461"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.remove</span><span style="color: #24292EFF">(klass);</span></span>
+<span class="line" id="L462"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L463"></span>
+<span class="line empty-line" id="L464"></span></code></pre></div>
             
         </li>
         
@@ -790,20 +813,20 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 454;"><span class="line" id="L454"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L455"><span style="color: #C2C3C5">   * Replaces the specified classname on the element with another classname.</span></span>
-<span class="line" id="L456"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L457"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass1 (Required) The classname to remove from the element.</span></span>
-<span class="line" id="L458"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass2 (Required) The classname to add to the element.</span></span>
-<span class="line" id="L459"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L460"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L461"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">replace</span><span style="color: #24292EFF">(klass1</span><span style="color: #212121">,</span><span style="color: #24292EFF"> klass2) {</span></span>
-<span class="line" id="L462"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L463"></span>
-<span class="line" id="L464"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.replace</span><span style="color: #24292EFF">(klass1</span><span style="color: #212121">,</span><span style="color: #24292EFF"> klass2);</span></span>
-<span class="line" id="L465"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L466"></span>
-<span class="line empty-line" id="L467"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 477;"><span class="line" id="L477"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L478"><span style="color: #C2C3C5">   * Replaces the specified classname on the element with another classname.</span></span>
+<span class="line" id="L479"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L480"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass1 (Required) The classname to remove from the element.</span></span>
+<span class="line" id="L481"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass2 (Required) The classname to add to the element.</span></span>
+<span class="line" id="L482"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L483"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L484"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">replace</span><span style="color: #24292EFF">(klass1</span><span style="color: #212121">,</span><span style="color: #24292EFF"> klass2) {</span></span>
+<span class="line" id="L485"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L486"></span>
+<span class="line" id="L487"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.replace</span><span style="color: #24292EFF">(klass1</span><span style="color: #212121">,</span><span style="color: #24292EFF"> klass2);</span></span>
+<span class="line" id="L488"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L489"></span>
+<span class="line empty-line" id="L490"></span></code></pre></div>
             
         </li>
         
@@ -828,21 +851,21 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 488;"><span class="line" id="L488"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L489"><span style="color: #C2C3C5">   * Toggles a classname on the element. Returns a boolean value, `true` or</span></span>
-<span class="line" id="L490"><span style="color: #C2C3C5">   * `false`, indicating whether or not `klass` is in the list of classnames</span></span>
-<span class="line" id="L491"><span style="color: #C2C3C5">   * after the call or not.</span></span>
-<span class="line" id="L492"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L493"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to toggle on the element.</span></span>
-<span class="line" id="L494"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L495"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L496"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">toggle</span><span style="color: #24292EFF">(klass) {</span></span>
-<span class="line" id="L497"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L498"></span>
-<span class="line" id="L499"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(klass);</span></span>
-<span class="line" id="L500"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L501"></span>
-<span class="line empty-line" id="L502"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 511;"><span class="line" id="L511"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L512"><span style="color: #C2C3C5">   * Toggles a classname on the element. Returns a boolean value, `true` or</span></span>
+<span class="line" id="L513"><span style="color: #C2C3C5">   * `false`, indicating whether or not `klass` is in the list of classnames</span></span>
+<span class="line" id="L514"><span style="color: #C2C3C5">   * after the call or not.</span></span>
+<span class="line" id="L515"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L516"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to toggle on the element.</span></span>
+<span class="line" id="L517"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L518"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L519"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">toggle</span><span style="color: #24292EFF">(klass) {</span></span>
+<span class="line" id="L520"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L521"></span>
+<span class="line" id="L522"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(klass);</span></span>
+<span class="line" id="L523"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L524"></span>
+<span class="line empty-line" id="L525"></span></code></pre></div>
             
         </li>
         
@@ -880,11 +903,11 @@ result of using <code>DQuery</code> to discover results.</p>
                 <a class="ss" href="#section-29">&#x00a7;</a>
               </div>
               <p><strong>Example:</strong></p>
-<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">dlg</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> Delegate;</span></span>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">listen</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> Delegate;</span></span>
 <span class="line empty-line"></span>
 <span class="line"><span style="color: #C2C3C5">// Add event</span></span>
 <span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">evt</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.on</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;click&#39;</span><span style="color: #212121">,</span></span>
-<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">dlg</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;.example&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> evt </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">listen</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;.example&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> evt </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
 <span class="line"><span style="color: #24292EFF">    </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">evt</span><span style="color: #24292EFF">.target)</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;enabled&#39;</span><span style="color: #24292EFF">)</span></span>
 <span class="line"><span style="color: #24292EFF">  })</span></span>
 <span class="line"><span style="color: #24292EFF">);</span></span>
@@ -895,30 +918,30 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 520;"><span class="line" id="L520"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L521"><span style="color: #C2C3C5">   * A wrapper for addEventListener with `once: false`.</span></span>
-<span class="line" id="L522"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L523"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> type A valid event type, like `click`. See</span></span>
-<span class="line" id="L524"><span style="color: #C2C3C5">   *     &lt;https://developer.mozilla.org/en-US/docs/Web/Events&gt; for more</span></span>
-<span class="line" id="L525"><span style="color: #C2C3C5">   *     information.</span></span>
-<span class="line" id="L526"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|function|Delegate}</span><span style="color: #C2C3C5"> fn A callback function to execute, or a</span></span>
-<span class="line" id="L527"><span style="color: #C2C3C5">   *     string containing the name of the function.</span></span>
-<span class="line" id="L528"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> EventPointer</span></span>
-<span class="line" id="L529"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L530"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">on</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn) {</span></span>
-<span class="line" id="L531"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L532"></span>
-<span class="line" id="L533"><span style="color: #24292EFF">    </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.addEventListener</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn</span><span style="color: #212121">,</span><span style="color: #24292EFF"> {once</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">});</span></span>
-<span class="line empty-line" id="L534"></span>
-<span class="line" id="L535"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L536"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">remove</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF">() {</span></span>
-<span class="line" id="L537"><span style="color: #24292EFF">        </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.removeEventListener</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn</span><span style="color: #212121">,</span><span style="color: #24292EFF"> {once</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">});</span></span>
-<span class="line" id="L538"><span style="color: #24292EFF">      }</span><span style="color: #212121">,</span></span>
-<span class="line" id="L539"><span style="color: #24292EFF">    };</span></span>
-<span class="line" id="L540"><span style="color: #24292EFF">  }</span></span>
-<span class="line" id="L541"><span style="color: #24292EFF">}</span></span>
-<span class="line empty-line" id="L542"></span>
-<span class="line empty-line" id="L543"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 543;"><span class="line" id="L543"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L544"><span style="color: #C2C3C5">   * A wrapper for addEventListener with `once: false`.</span></span>
+<span class="line" id="L545"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L546"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> type A valid event type, like `click`. See</span></span>
+<span class="line" id="L547"><span style="color: #C2C3C5">   *     &lt;https://developer.mozilla.org/en-US/docs/Web/Events&gt; for more</span></span>
+<span class="line" id="L548"><span style="color: #C2C3C5">   *     information.</span></span>
+<span class="line" id="L549"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|function|Delegate}</span><span style="color: #C2C3C5"> fn A callback function to execute, or a</span></span>
+<span class="line" id="L550"><span style="color: #C2C3C5">   *     string containing the name of the function.</span></span>
+<span class="line" id="L551"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> EventPointer</span></span>
+<span class="line" id="L552"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L553"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">on</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn) {</span></span>
+<span class="line" id="L554"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L555"></span>
+<span class="line" id="L556"><span style="color: #24292EFF">    </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.addEventListener</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn</span><span style="color: #212121">,</span><span style="color: #24292EFF"> {once</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">});</span></span>
+<span class="line empty-line" id="L557"></span>
+<span class="line" id="L558"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L559"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">remove</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF">() {</span></span>
+<span class="line" id="L560"><span style="color: #24292EFF">        </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.removeEventListener</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn</span><span style="color: #212121">,</span><span style="color: #24292EFF"> {once</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">});</span></span>
+<span class="line" id="L561"><span style="color: #24292EFF">      }</span><span style="color: #212121">,</span></span>
+<span class="line" id="L562"><span style="color: #24292EFF">    };</span></span>
+<span class="line" id="L563"><span style="color: #24292EFF">  }</span></span>
+<span class="line" id="L564"><span style="color: #24292EFF">}</span></span>
+<span class="line empty-line" id="L565"></span>
+<span class="line empty-line" id="L566"></span></code></pre></div>
             
         </li>
         
@@ -959,27 +982,27 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 547;"><span class="line" id="L547"><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L548"><span style="color: #C2C3C5"> * Main interface for DQuery.</span></span>
-<span class="line" id="L549"><span style="color: #C2C3C5"> *</span></span>
-<span class="line" id="L550"><span style="color: #C2C3C5"> * Fundamentally, `DQuery` is a wrapper around `querySelectorAll()`, except that</span></span>
-<span class="line" id="L551"><span style="color: #C2C3C5"> * the matches are also wrapped with `DQueryNode`. This allows us to extend the</span></span>
-<span class="line" id="L552"><span style="color: #C2C3C5"> * functionality.</span></span>
-<span class="line" id="L553"><span style="color: #C2C3C5"> *</span></span>
-<span class="line" id="L554"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|Element}</span><span style="color: #C2C3C5"> selector (Required) Either a (string) CSS selector</span></span>
-<span class="line" id="L555"><span style="color: #C2C3C5"> *     (which will always result in an array of `DQueryNode` objects), or a DOM</span></span>
-<span class="line" id="L556"><span style="color: #C2C3C5"> *     `Element` object (which will always result in a single `DQueryNode`</span></span>
-<span class="line" id="L557"><span style="color: #C2C3C5"> *     element). See &lt;https://developer.mozilla.org/en-US/docs/Web/API/Element&gt;</span></span>
-<span class="line" id="L558"><span style="color: #C2C3C5"> *     for more information.</span></span>
-<span class="line" id="L559"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> elem (Optional) a DOM `Element` object which should be used</span></span>
-<span class="line" id="L560"><span style="color: #C2C3C5"> *     as the parent-most element for the query. See</span></span>
-<span class="line" id="L561"><span style="color: #C2C3C5"> *     &lt;https://developer.mozilla.org/en-US/docs/Web/API/Element&gt; for more</span></span>
-<span class="line" id="L562"><span style="color: #C2C3C5"> *     information. The default value is `document`, which resolves to the</span></span>
-<span class="line" id="L563"><span style="color: #C2C3C5"> *     `&lt;html&gt;` element.</span></span>
-<span class="line" id="L564"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> []DQueryNode|DQueryNode</span></span>
-<span class="line" id="L565"><span style="color: #C2C3C5"> */</span></span>
-<span class="line" id="L566"><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQuery</span><span style="color: #24292EFF">(selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> elem) {</span></span>
-<span class="line empty-line" id="L567"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 570;"><span class="line" id="L570"><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L571"><span style="color: #C2C3C5"> * Main interface for DQuery.</span></span>
+<span class="line" id="L572"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L573"><span style="color: #C2C3C5"> * Fundamentally, `DQuery` is a wrapper around `querySelectorAll()`, except that</span></span>
+<span class="line" id="L574"><span style="color: #C2C3C5"> * the matches are also wrapped with `DQueryNode`. This allows us to extend the</span></span>
+<span class="line" id="L575"><span style="color: #C2C3C5"> * functionality.</span></span>
+<span class="line" id="L576"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L577"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|Element}</span><span style="color: #C2C3C5"> selector (Required) Either a (string) CSS selector</span></span>
+<span class="line" id="L578"><span style="color: #C2C3C5"> *     (which will always result in an array of `DQueryNode` objects), or a DOM</span></span>
+<span class="line" id="L579"><span style="color: #C2C3C5"> *     `Element` object (which will always result in a single `DQueryNode`</span></span>
+<span class="line" id="L580"><span style="color: #C2C3C5"> *     element). See &lt;https://developer.mozilla.org/en-US/docs/Web/API/Element&gt;</span></span>
+<span class="line" id="L581"><span style="color: #C2C3C5"> *     for more information.</span></span>
+<span class="line" id="L582"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> elem (Optional) a DOM `Element` object which should be used</span></span>
+<span class="line" id="L583"><span style="color: #C2C3C5"> *     as the parent-most element for the query. See</span></span>
+<span class="line" id="L584"><span style="color: #C2C3C5"> *     &lt;https://developer.mozilla.org/en-US/docs/Web/API/Element&gt; for more</span></span>
+<span class="line" id="L585"><span style="color: #C2C3C5"> *     information. The default value is `document`, which resolves to the</span></span>
+<span class="line" id="L586"><span style="color: #C2C3C5"> *     `&lt;html&gt;` element.</span></span>
+<span class="line" id="L587"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> []DQueryNode|DQueryNode</span></span>
+<span class="line" id="L588"><span style="color: #C2C3C5"> */</span></span>
+<span class="line" id="L589"><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQuery</span><span style="color: #24292EFF">(selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> elem) {</span></span>
+<span class="line empty-line" id="L590"></span></code></pre></div>
             
         </li>
         
@@ -994,11 +1017,11 @@ result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 568;"><span class="line" id="L568"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">instanceof</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">Element</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L569"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(selector);</span></span>
-<span class="line" id="L570"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L571"></span>
-<span class="line empty-line" id="L572"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 591;"><span class="line" id="L591"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">instanceof</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">Element</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L592"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(selector);</span></span>
+<span class="line" id="L593"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L594"></span>
+<span class="line empty-line" id="L595"></span></code></pre></div>
             
         </li>
         
@@ -1015,18 +1038,18 @@ default root element for the query. Take the results, wrap each one with
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 575;"><span class="line" id="L575"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">collection</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [];</span></span>
-<span class="line empty-line" id="L576"></span>
-<span class="line" id="L577"><span style="color: #24292EFF">  elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> elem </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> document;</span></span>
-<span class="line" id="L578"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (elem </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> document) {</span></span>
-<span class="line" id="L579"><span style="color: #24292EFF">    </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.querySelectorAll</span><span style="color: #24292EFF">(selector)</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((ee) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L580"><span style="color: #24292EFF">      </span><span style="color: #1976D2">collection</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(ee));</span></span>
-<span class="line" id="L581"><span style="color: #24292EFF">    });</span></span>
-<span class="line empty-line" id="L582"></span>
-<span class="line" id="L583"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> collection;</span></span>
-<span class="line" id="L584"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L585"></span>
-<span class="line empty-line" id="L586"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 598;"><span class="line" id="L598"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">collection</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [];</span></span>
+<span class="line empty-line" id="L599"></span>
+<span class="line" id="L600"><span style="color: #24292EFF">  elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> elem </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> document;</span></span>
+<span class="line" id="L601"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (elem </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> document) {</span></span>
+<span class="line" id="L602"><span style="color: #24292EFF">    </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.querySelectorAll</span><span style="color: #24292EFF">(selector)</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((ee) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L603"><span style="color: #24292EFF">      </span><span style="color: #1976D2">collection</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(ee));</span></span>
+<span class="line" id="L604"><span style="color: #24292EFF">    });</span></span>
+<span class="line empty-line" id="L605"></span>
+<span class="line" id="L606"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> collection;</span></span>
+<span class="line" id="L607"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L608"></span>
+<span class="line empty-line" id="L609"></span></code></pre></div>
             
         </li>
         
@@ -1044,22 +1067,22 @@ give us the results we expect instead of too many results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 590;"><span class="line" id="L590"><span style="color: #24292EFF">  selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [</span><span style="color: #22863A">&#39;:scope&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector]</span><span style="color: #6F42C1">.join</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39; &#39;</span><span style="color: #24292EFF">);</span></span>
-<span class="line empty-line" id="L591"></span>
-<span class="line" id="L592"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> elem[</span><span style="color: #1976D2">Symbol</span><span style="color: #24292EFF">.iterator] </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;function&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L593"><span style="color: #24292EFF">    elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [elem];</span></span>
-<span class="line" id="L594"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L595"></span>
-<span class="line" id="L596"><span style="color: #24292EFF">  </span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((e) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L597"><span style="color: #24292EFF">    </span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.querySelectorAll</span><span style="color: #24292EFF">(selector)</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((ee) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L598"><span style="color: #24292EFF">      </span><span style="color: #1976D2">collection</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(ee));</span></span>
-<span class="line" id="L599"><span style="color: #24292EFF">    });</span></span>
-<span class="line" id="L600"><span style="color: #24292EFF">  });</span></span>
-<span class="line empty-line" id="L601"></span>
-<span class="line" id="L602"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> collection;</span></span>
-<span class="line" id="L603"><span style="color: #24292EFF">}</span></span>
-<span class="line empty-line" id="L604"></span>
-<span class="line empty-line" id="L605"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 613;"><span class="line" id="L613"><span style="color: #24292EFF">  selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [</span><span style="color: #22863A">&#39;:scope&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector]</span><span style="color: #6F42C1">.join</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39; &#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line empty-line" id="L614"></span>
+<span class="line" id="L615"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> elem[</span><span style="color: #1976D2">Symbol</span><span style="color: #24292EFF">.iterator] </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;function&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L616"><span style="color: #24292EFF">    elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [elem];</span></span>
+<span class="line" id="L617"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L618"></span>
+<span class="line" id="L619"><span style="color: #24292EFF">  </span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((e) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L620"><span style="color: #24292EFF">    </span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.querySelectorAll</span><span style="color: #24292EFF">(selector)</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((ee) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L621"><span style="color: #24292EFF">      </span><span style="color: #1976D2">collection</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(ee));</span></span>
+<span class="line" id="L622"><span style="color: #24292EFF">    });</span></span>
+<span class="line" id="L623"><span style="color: #24292EFF">  });</span></span>
+<span class="line empty-line" id="L624"></span>
+<span class="line" id="L625"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> collection;</span></span>
+<span class="line" id="L626"><span style="color: #24292EFF">}</span></span>
+<span class="line empty-line" id="L627"></span>
+<span class="line empty-line" id="L628"></span></code></pre></div>
             
         </li>
         
@@ -1074,9 +1097,9 @@ give us the results we expect instead of too many results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 606;"><span class="line" id="L606"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> DQuery;</span></span>
-<span class="line empty-line" id="L607"></span>
-<span class="line empty-line" id="L608"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 629;"><span class="line" id="L629"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> DQuery;</span></span>
+<span class="line empty-line" id="L630"></span>
+<span class="line empty-line" id="L631"></span></code></pre></div>
             
         </li>
         

@@ -68,12 +68,14 @@
               <p>Taken from <a href="https://github.com/brunoscopelliti/delegate">https://github.com/brunoscopelliti/delegate</a> under the MIT license.
 Reversed the <code>(selector, fn)</code> parameters.</p>
 <p><strong>Example:</strong></p>
-<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">dlg</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> Delegate;</span></span>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">listen</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> Delegate;</span></span>
 <span class="line empty-line"></span>
 <span class="line"><span style="color: #C2C3C5">// Add event</span></span>
-<span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">evt</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.on</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;click&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">dlg</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;#test&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> e </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line"><span style="color: #24292EFF">  </span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;enabled&#39;</span><span style="color: #24292EFF">);</span></span>
-<span class="line"><span style="color: #24292EFF">}));</span></span>
+<span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">evt</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.on</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;click&#39;</span><span style="color: #212121">,</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">listen</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;.example&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> evt </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">evt</span><span style="color: #24292EFF">.target)</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;enabled&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line"><span style="color: #24292EFF">  })</span></span>
+<span class="line"><span style="color: #24292EFF">);</span></span>
 <span class="line empty-line"></span>
 <span class="line"><span style="color: #C2C3C5">// Remove event</span></span>
 <span class="line"><span style="color: #1976D2">evt</span><span style="color: #6F42C1">.remove</span><span style="color: #24292EFF">();</span></span></code></pre>
@@ -81,25 +83,25 @@ Reversed the <code>(selector, fn)</code> parameters.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 17;"><span class="line" id="L17"><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L18"><span style="color: #C2C3C5"> * Assure that the provided function, `fn`, is executed only when its wrapping</span></span>
-<span class="line" id="L19"><span style="color: #C2C3C5"> * function is called on a target that matches the `selector`.</span></span>
-<span class="line" id="L20"><span style="color: #C2C3C5"> *</span></span>
-<span class="line" id="L21"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@name</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">delegate</span></span>
-<span class="line" id="L22"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector</span></span>
-<span class="line" id="L23"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{function}</span><span style="color: #C2C3C5"> fn</span></span>
-<span class="line" id="L24"><span style="color: #C2C3C5"> *</span></span>
-<span class="line" id="L25"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{function}</span></span>
-<span class="line" id="L26"><span style="color: #C2C3C5"> */</span></span>
-<span class="line" id="L27"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">Delegate</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">handler</span><span style="color: #24292EFF">(event) {</span></span>
-<span class="line" id="L28"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">matchingEl</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">event</span><span style="color: #24292EFF">.target</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">); </span><span style="color: #C2C3C5">// eslint-disable-line no-invalid-this</span></span>
-<span class="line empty-line" id="L29"></span>
-<span class="line" id="L30"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (matchingEl </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L31"><span style="color: #24292EFF">    </span><span style="color: #1976D2">fn</span><span style="color: #6F42C1">.call</span><span style="color: #24292EFF">(matchingEl</span><span style="color: #212121">,</span><span style="color: #24292EFF"> event);</span></span>
-<span class="line" id="L32"><span style="color: #24292EFF">  }</span></span>
-<span class="line" id="L33"><span style="color: #24292EFF">};</span></span>
-<span class="line empty-line" id="L34"></span>
-<span class="line empty-line" id="L35"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 19;"><span class="line" id="L19"><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L20"><span style="color: #C2C3C5"> * Assure that the provided function, `fn`, is executed only when its wrapping</span></span>
+<span class="line" id="L21"><span style="color: #C2C3C5"> * function is called on a target that matches the `selector`.</span></span>
+<span class="line" id="L22"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L23"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@name</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">delegate</span></span>
+<span class="line" id="L24"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector</span></span>
+<span class="line" id="L25"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{function}</span><span style="color: #C2C3C5"> fn</span></span>
+<span class="line" id="L26"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L27"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{function}</span></span>
+<span class="line" id="L28"><span style="color: #C2C3C5"> */</span></span>
+<span class="line" id="L29"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">Delegate</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">handler</span><span style="color: #24292EFF">(event) {</span></span>
+<span class="line" id="L30"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">matchingEl</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">event</span><span style="color: #24292EFF">.target</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">); </span><span style="color: #C2C3C5">// eslint-disable-line no-invalid-this</span></span>
+<span class="line empty-line" id="L31"></span>
+<span class="line" id="L32"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (matchingEl </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L33"><span style="color: #24292EFF">    </span><span style="color: #1976D2">fn</span><span style="color: #6F42C1">.call</span><span style="color: #24292EFF">(matchingEl</span><span style="color: #212121">,</span><span style="color: #24292EFF"> event);</span></span>
+<span class="line" id="L34"><span style="color: #24292EFF">  }</span></span>
+<span class="line" id="L35"><span style="color: #24292EFF">};</span></span>
+<span class="line empty-line" id="L36"></span>
+<span class="line empty-line" id="L37"></span></code></pre></div>
             
         </li>
         
@@ -114,9 +116,9 @@ Reversed the <code>(selector, fn)</code> parameters.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 36;"><span class="line" id="L36"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> Delegate;</span></span>
-<span class="line empty-line" id="L37"></span>
-<span class="line empty-line" id="L38"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 38;"><span class="line" id="L38"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> Delegate;</span></span>
+<span class="line empty-line" id="L39"></span>
+<span class="line empty-line" id="L40"></span></code></pre></div>
             
         </li>
         
@@ -131,27 +133,27 @@ Reversed the <code>(selector, fn)</code> parameters.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 39;"><span class="line" id="L39"><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L40"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@name</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">matches</span></span>
-<span class="line" id="L41"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@private</span></span>
-<span class="line" id="L42"><span style="color: #C2C3C5"> */</span></span>
-<span class="line" id="L43"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (target</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> boundElement) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L44"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (target </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> boundElement) {</span></span>
-<span class="line" id="L45"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L46"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L47"></span>
-<span class="line" id="L48"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">target</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) {</span></span>
-<span class="line" id="L49"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> target;</span></span>
-<span class="line" id="L50"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L51"></span>
-<span class="line" id="L52"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode) {</span></span>
-<span class="line" id="L53"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> boundElement);</span></span>
-<span class="line" id="L54"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L55"></span>
-<span class="line" id="L56"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L57"><span style="color: #24292EFF">};</span></span>
-<span class="line empty-line" id="L58"></span>
-<span class="line empty-line" id="L59"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 41;"><span class="line" id="L41"><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L42"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@name</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">matches</span></span>
+<span class="line" id="L43"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@private</span></span>
+<span class="line" id="L44"><span style="color: #C2C3C5"> */</span></span>
+<span class="line" id="L45"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (target</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> boundElement) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L46"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (target </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> boundElement) {</span></span>
+<span class="line" id="L47"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L48"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L49"></span>
+<span class="line" id="L50"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">target</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) {</span></span>
+<span class="line" id="L51"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> target;</span></span>
+<span class="line" id="L52"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L53"></span>
+<span class="line" id="L54"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode) {</span></span>
+<span class="line" id="L55"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> boundElement);</span></span>
+<span class="line" id="L56"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L57"></span>
+<span class="line" id="L58"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L59"><span style="color: #24292EFF">};</span></span>
+<span class="line empty-line" id="L60"></span>
+<span class="line empty-line" id="L61"></span></code></pre></div>
             
         </li>
         

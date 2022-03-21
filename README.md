@@ -92,7 +92,7 @@ ReactDOM.render(
 );
 ```
 
-Here's an equivalent example using VDOM and DQuery, except that there are no _magical_ `props` because there are no `components`. Just standard functions and variables.
+Here's an equivalent example using Firecracker’s VDOM and DQuery. There are no _magical_ `props` because there are no `components`. Just standard functions and variables.
 
 ```javascript
 const _ = VDOM,
@@ -116,15 +116,15 @@ $('#hello-example')[0].append(
 
 VDOM sits much “closer to the metal”, which makes it (a) faster, and (b) smaller. While it lacks some of the niceties like sanitizing user content to pass directly into JSX, you can still use `innerHTML` and `DOMString` objects which get you _most_ of the way there at very little cost.
 
-Stay tuned for **Firecracker Templates** which we’re hoping will empower things like two-way binding.
+Stay tuned for **Firecracker Templates** which we’re hoping will empower things like two-way binding and some state management.
 
 ## Filesize
 
 | File                | Description           | Size in bytes |
 |---------------------|-----------------------|---------------|
-| `firecracker.js`    | Stripped and minified | 4.89 kb       |
-| `firecracker.js.gz` | gzip-compressed       | 1.80 kb      |
-| `firecracker.js.br` | brotli-compressed     | 1.59 kb    |
+| `firecracker.js`    | Stripped and minified | 5.17 kb       |
+| `firecracker.js.gz` | gzip-compressed       | 1.85 kb      |
+| `firecracker.js.br` | brotli-compressed     | 1.63 kb    |
 
 ## Inspiration
 
