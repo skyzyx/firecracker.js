@@ -429,6 +429,24 @@ describe('append and prepend', () => {
     expect(actual).toStrictEqual(expected);
   });
 
+  it('selects an element, then inserts adjacent DOM nodes before (DOMString)', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      p = _('p'),
+      actual = ((start, p) => { // eslint-disable-line no-shadow
+        start.prepend(p).before(`
+          <div>abc123</div>
+        `);
+
+        return typeof start.children()[0].get();
+      })(start, p),
+      expected = typeof document.createElement('div');
+
+    expect(actual).toStrictEqual(expected);
+  });
+
   it('selects an element, then inserts adjacent DOM nodes after (DOM Element)', () => {
     expect.hasAssertions();
 
@@ -462,6 +480,26 @@ describe('append and prepend', () => {
 
     expect(actual).toStrictEqual(expected);
   });
+
+  // It('selects an element, then inserts adjacent DOM nodes after (DOMString)', () => {
+  //   expect.hasAssertions();
+
+  //   const
+  //     start = $(document.createElement('body')),
+  //     p = _('p'),
+  //     actual = ((start, p) => { // eslint-disable-line no-shadow
+  //       start.append(p).after(`
+  //         <div>abc123</div>
+  //       `);
+
+  //       console.debug(start.children());
+
+  //       return typeof start.children()[1].get();
+  //     })(start, p),
+  //     expected = typeof document.createElement('div');
+
+  //   expect(actual).toStrictEqual(expected);
+  // });
 });
 
 describe('class management', () => {

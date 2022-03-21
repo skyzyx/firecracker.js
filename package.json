@@ -51,7 +51,7 @@
     "babel-jest": "^27.5.1",
     "docco-next": "^0.9.12",
     "eslint": "^8.11.0",
-    "eslint-plugin-jest": "^26.1.1",
+    "eslint-plugin-jest": "^26.1.2",
     "graceful-fs": "^4.2.9",
     "jest": "^27.5.1",
     "markdownlint-cli": "^0.31.1",

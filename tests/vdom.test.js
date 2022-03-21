@@ -349,6 +349,31 @@ describe('child nodes', () => {
     expect(actual).toStrictEqual(expected);
   });
 
+  it('creates a new element with a set of children using innerHTML #4', () => {
+    expect.hasAssertions();
+
+    const
+      start = $(document.createElement('body')),
+      actual = ((start) => { // eslint-disable-line no-shadow
+        start.prepend(`
+          <div id="test" class="sample">
+              <p>This is a <a href="#">sample of the code</a> that you may like.</p>
+              <p>And another <a href="#"><strong>complex-ish</strong></a> one.</p>
+              <ul class="sample">
+                  <li><a href="http://google.com">One</a></li>
+                  <li><em>Two</em></li>
+                  <li><strong>Three</strong></li>
+              </ul>
+          </div>
+        `);
+
+        return start.descendants('ul.sample')[0].children().length;
+      })(start),
+      expected = 3;
+
+    expect(actual).toStrictEqual(expected);
+  });
+
   it('creates a new element with a set of children modeled with VDOM', () => {
     expect.hasAssertions();
 

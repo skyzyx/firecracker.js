@@ -65,332 +65,9 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
-              
+              <h2 id="dquerynode">DQueryNode</h2>
+
             </div>
-            
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 1;"><span class="line" id="L1"><span style="color: #D32F2F">class</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L2"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L3"><span style="color: #C2C3C5">   * DQueryNode wraps DOM Element objects with enhanced functionality.</span></span>
-<span class="line" id="L4"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L5"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> node A DOM Element object, which represents an HTML tag.</span></span>
-<span class="line" id="L6"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L7"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">constructor</span><span style="color: #24292EFF">(node) {</span></span>
-<span class="line" id="L8"><span style="color: #24292EFF">    </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> node;</span></span>
-<span class="line" id="L9"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L10"></span>
-<span class="line" id="L11"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L12"><span style="color: #C2C3C5">   * Gets the underlying native DOM Element object.</span></span>
-<span class="line" id="L13"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L14"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> Element</span></span>
-<span class="line" id="L15"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L16"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">get</span><span style="color: #24292EFF">() {</span></span>
-<span class="line" id="L17"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line" id="L18"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L19"></span>
-<span class="line" id="L20"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L21"><span style="color: #C2C3C5">   * Gets the nearest ancestor which matches a selector. If no selector is</span></span>
-<span class="line" id="L22"><span style="color: #C2C3C5">   * given, returns parent.</span></span>
-<span class="line" id="L23"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L24"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
-<span class="line" id="L25"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
-<span class="line" id="L26"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L27"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">ancestor</span><span style="color: #24292EFF">(selector) {</span></span>
-<span class="line" id="L28"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
-<span class="line empty-line" id="L29"></span>
-<span class="line" id="L30"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L31"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.parent</span><span style="color: #24292EFF">();</span></span>
-<span class="line" id="L32"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L33"></span>
-<span class="line" id="L34"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.closest</span><span style="color: #24292EFF">(selector));</span></span>
-<span class="line" id="L35"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L36"></span>
-<span class="line" id="L37"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L38"><span style="color: #C2C3C5">   * Gets the immediate parent element.</span></span>
-<span class="line" id="L39"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L40"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
-<span class="line" id="L41"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L42"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">parent</span><span style="color: #24292EFF">() {</span></span>
-<span class="line" id="L43"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.parentNode) {</span></span>
-<span class="line" id="L44"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L45"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L46"></span>
-<span class="line" id="L47"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.parentNode);</span></span>
-<span class="line" id="L48"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L49"></span>
-<span class="line" id="L50"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L51"><span style="color: #C2C3C5">   * Gets all descendants which match a selector. If no selector is given,</span></span>
-<span class="line" id="L52"><span style="color: #C2C3C5">   * returns children.</span></span>
-<span class="line" id="L53"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L54"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
-<span class="line" id="L55"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQuery</span></span>
-<span class="line" id="L56"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L57"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">descendants</span><span style="color: #24292EFF">(selector) {</span></span>
-<span class="line" id="L58"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
-<span class="line empty-line" id="L59"></span>
-<span class="line" id="L60"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L61"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.children</span><span style="color: #24292EFF">();</span></span>
-<span class="line" id="L62"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L63"></span>
-<span class="line" id="L64"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQuery</span><span style="color: #24292EFF">(selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node); </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
-<span class="line" id="L65"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L66"></span>
-<span class="line" id="L67"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L68"><span style="color: #C2C3C5">   * Gets all immediate children which match a selector.</span></span>
-<span class="line" id="L69"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L70"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
-<span class="line" id="L71"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> []DQueryNode</span></span>
-<span class="line" id="L72"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L73"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">children</span><span style="color: #24292EFF">(selector) {</span></span>
-<span class="line" id="L74"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
-<span class="line empty-line" id="L75"></span>
-<span class="line" id="L76"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Array</span><span style="color: #6F42C1">.from</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.childNodes).</span></span>
-<span class="line" id="L77"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">filter</span><span style="color: #24292EFF">(e </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">e</span><span style="color: #24292EFF">.nodeType </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">ELEMENT_NODE</span><span style="color: #24292EFF">).</span></span>
-<span class="line" id="L78"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">filter</span><span style="color: #24292EFF">(e </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">).</span></span>
-<span class="line" id="L79"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">map</span><span style="color: #24292EFF">(e </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(e));</span></span>
-<span class="line" id="L80"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L81"></span>
-<span class="line" id="L82"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L83"><span style="color: #C2C3C5">   * Gets all sibling elements of the immediate parent which match a selector.</span></span>
-<span class="line" id="L84"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L85"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
-<span class="line" id="L86"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> []DQueryNode</span></span>
-<span class="line" id="L87"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L88"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">siblings</span><span style="color: #24292EFF">(selector) {</span></span>
-<span class="line" id="L89"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
-<span class="line empty-line" id="L90"></span>
-<span class="line" id="L91"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.parentNode) {</span></span>
-<span class="line" id="L92"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> [];</span></span>
-<span class="line" id="L93"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L94"></span>
-<span class="line" id="L95"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> sibling </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">parentNode</span><span style="color: #24292EFF">.firstChild;</span></span>
-<span class="line" id="L96"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">siblings</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [];</span></span>
-<span class="line empty-line" id="L97"></span>
-<span class="line" id="L98"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (sibling) {</span></span>
-<span class="line" id="L99"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (sibling </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node) {</span></span>
-<span class="line" id="L100"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span></span>
-<span class="line" id="L101"><span style="color: #24292EFF">          </span><span style="color: #1976D2">sibling</span><span style="color: #24292EFF">.nodeType </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">ELEMENT_NODE</span></span>
-<span class="line" id="L102"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> ((selector </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">sibling</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">)</span></span>
-<span class="line" id="L103"><span style="color: #24292EFF">        ) {</span></span>
-<span class="line" id="L104"><span style="color: #24292EFF">          </span><span style="color: #1976D2">siblings</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(sibling));</span></span>
-<span class="line" id="L105"><span style="color: #24292EFF">        }</span></span>
-<span class="line" id="L106"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L107"></span>
-<span class="line" id="L108"><span style="color: #24292EFF">      sibling </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">sibling</span><span style="color: #24292EFF">.nextSibling;</span></span>
-<span class="line" id="L109"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L110"></span>
-<span class="line" id="L111"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> siblings;</span></span>
-<span class="line" id="L112"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L113"></span>
-<span class="line" id="L114"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L115"><span style="color: #C2C3C5">   * Gets the immediately-next sibling which matches a selector.</span></span>
-<span class="line" id="L116"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L117"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
-<span class="line" id="L118"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
-<span class="line" id="L119"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L120"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">next</span><span style="color: #24292EFF">(selector) {</span></span>
-<span class="line" id="L121"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L122"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> next </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.nextSibling;</span></span>
-<span class="line empty-line" id="L123"></span>
-<span class="line" id="L124"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (next) {</span></span>
-<span class="line" id="L125"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">next</span><span style="color: #24292EFF">.nodeType </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">ELEMENT_NODE</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> ((selector </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">next</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">)) {</span></span>
-<span class="line" id="L126"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(next);</span></span>
-<span class="line" id="L127"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L128"></span>
-<span class="line" id="L129"><span style="color: #24292EFF">      next </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">next</span><span style="color: #24292EFF">.nextSibling;</span></span>
-<span class="line" id="L130"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L131"></span>
-<span class="line" id="L132"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L133"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L134"></span>
-<span class="line" id="L135"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L136"><span style="color: #C2C3C5">   * Gets the immediately-previous sibling which matches a selector.</span></span>
-<span class="line" id="L137"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L138"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
-<span class="line" id="L139"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
-<span class="line" id="L140"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L141"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">prev</span><span style="color: #24292EFF">(selector) {</span></span>
-<span class="line" id="L142"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L143"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> prev </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.previousSibling;</span></span>
-<span class="line empty-line" id="L144"></span>
-<span class="line" id="L145"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (prev) {</span></span>
-<span class="line" id="L146"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">prev</span><span style="color: #24292EFF">.nodeType </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">ELEMENT_NODE</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> ((selector </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">prev</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">)) {</span></span>
-<span class="line" id="L147"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(prev);</span></span>
-<span class="line" id="L148"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L149"></span>
-<span class="line" id="L150"><span style="color: #24292EFF">      prev </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">prev</span><span style="color: #24292EFF">.previousSibling;</span></span>
-<span class="line" id="L151"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L152"></span>
-<span class="line" id="L153"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L154"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L155"></span>
-<span class="line" id="L156"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L157"><span style="color: #C2C3C5">   * Prepends the provided element to the selected node, then returns a pointer</span></span>
-<span class="line" id="L158"><span style="color: #C2C3C5">   * to the prepended node in the DOM.</span></span>
-<span class="line" id="L159"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L160"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element to prepend.</span></span>
-<span class="line" id="L161"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
-<span class="line" id="L162"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L163"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">prepend</span><span style="color: #24292EFF">(element) {</span></span>
-<span class="line" id="L164"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L165"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;afterbegin&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
-<span class="line" id="L166"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L167"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;afterbegin&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> element);</span></span>
-<span class="line" id="L168"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L169"></span>
-<span class="line" id="L170"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.childNodes[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]);</span></span>
-<span class="line" id="L171"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L172"></span>
-<span class="line" id="L173"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L174"><span style="color: #C2C3C5">   * Appends the provided element to the selected node, then returns a pointer</span></span>
-<span class="line" id="L175"><span style="color: #C2C3C5">   * to the appended node in the DOM.</span></span>
-<span class="line" id="L176"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L177"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element to append.</span></span>
-<span class="line" id="L178"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
-<span class="line" id="L179"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L180"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">append</span><span style="color: #24292EFF">(element) {</span></span>
-<span class="line" id="L181"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> ((</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> element)</span><span style="color: #6F42C1">.toLowerCase</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;string&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L182"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentHTML</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;beforeend&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> element);</span></span>
-<span class="line" id="L183"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L184"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;beforeend&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
-<span class="line" id="L185"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L186"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;beforeend&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> element);</span></span>
-<span class="line" id="L187"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L188"></span>
-<span class="line" id="L189"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.childNodes[</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">childNodes</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">-</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">1</span><span style="color: #24292EFF">]);</span></span>
-<span class="line" id="L190"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L191"></span>
-<span class="line" id="L192"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L193"><span style="color: #C2C3C5">   * Inserts the provided element before the selected node, then returns a</span></span>
-<span class="line" id="L194"><span style="color: #C2C3C5">   * pointer to the added node in the DOM.</span></span>
-<span class="line" id="L195"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L196"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element to insert before.</span></span>
-<span class="line" id="L197"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
-<span class="line" id="L198"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L199"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">before</span><span style="color: #24292EFF">(element) {</span></span>
-<span class="line" id="L200"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L201"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.before</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
-<span class="line" id="L202"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L203"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.before</span><span style="color: #24292EFF">(element);</span></span>
-<span class="line" id="L204"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L205"></span>
-<span class="line" id="L206"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.prev</span><span style="color: #24292EFF">();</span></span>
-<span class="line" id="L207"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L208"></span>
-<span class="line" id="L209"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L210"><span style="color: #C2C3C5">   * Inserts the provided element after the selected node, then returns a</span></span>
-<span class="line" id="L211"><span style="color: #C2C3C5">   * pointer to the added node in the DOM.</span></span>
-<span class="line" id="L212"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L213"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element to insert after.</span></span>
-<span class="line" id="L214"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
-<span class="line" id="L215"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L216"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">after</span><span style="color: #24292EFF">(element) {</span></span>
-<span class="line" id="L217"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L218"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.after</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
-<span class="line" id="L219"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L220"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.after</span><span style="color: #24292EFF">(element);</span></span>
-<span class="line" id="L221"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L222"></span>
-<span class="line" id="L223"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.next</span><span style="color: #24292EFF">();</span></span>
-<span class="line" id="L224"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L225"></span>
-<span class="line" id="L226"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L227"><span style="color: #C2C3C5">   * Returns the list of classnames currently applied to the element.</span></span>
-<span class="line" id="L228"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L229"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DOMTokenList</span></span>
-<span class="line" id="L230"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L231"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">classes</span><span style="color: #24292EFF">() {</span></span>
-<span class="line" id="L232"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L233"></span>
-<span class="line" id="L234"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.classList;</span></span>
-<span class="line" id="L235"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L236"></span>
-<span class="line" id="L237"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L238"><span style="color: #C2C3C5">   * Determines whether or not the element has the specified classname applied.</span></span>
-<span class="line" id="L239"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L240"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to check on the element.</span></span>
-<span class="line" id="L241"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L242"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L243"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">has</span><span style="color: #24292EFF">(klass) {</span></span>
-<span class="line" id="L244"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L245"></span>
-<span class="line" id="L246"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.contains</span><span style="color: #24292EFF">(klass);</span></span>
-<span class="line" id="L247"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L248"></span>
-<span class="line" id="L249"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L250"><span style="color: #C2C3C5">   * Adds the specified classname to the element.</span></span>
-<span class="line" id="L251"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L252"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to add to the element.</span></span>
-<span class="line" id="L253"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L254"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L255"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">add</span><span style="color: #24292EFF">(klass) {</span></span>
-<span class="line" id="L256"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L257"></span>
-<span class="line" id="L258"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.add</span><span style="color: #24292EFF">(klass);</span></span>
-<span class="line" id="L259"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L260"></span>
-<span class="line" id="L261"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L262"><span style="color: #C2C3C5">   * Removes the specified classname to the element.</span></span>
-<span class="line" id="L263"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L264"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to remove from the element.</span></span>
-<span class="line" id="L265"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L266"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L267"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">remove</span><span style="color: #24292EFF">(klass) {</span></span>
-<span class="line" id="L268"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L269"></span>
-<span class="line" id="L270"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.remove</span><span style="color: #24292EFF">(klass);</span></span>
-<span class="line" id="L271"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L272"></span>
-<span class="line" id="L273"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L274"><span style="color: #C2C3C5">   * Replaces the specified classname on the element with another classname.</span></span>
-<span class="line" id="L275"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L276"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass1 (Required) The classname to remove from the element.</span></span>
-<span class="line" id="L277"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass2 (Required) The classname to add to the element.</span></span>
-<span class="line" id="L278"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L279"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L280"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">replace</span><span style="color: #24292EFF">(klass1</span><span style="color: #212121">,</span><span style="color: #24292EFF"> klass2) {</span></span>
-<span class="line" id="L281"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L282"></span>
-<span class="line" id="L283"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.replace</span><span style="color: #24292EFF">(klass1</span><span style="color: #212121">,</span><span style="color: #24292EFF"> klass2);</span></span>
-<span class="line" id="L284"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L285"></span>
-<span class="line" id="L286"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L287"><span style="color: #C2C3C5">   * Toggles a classname on the element. Returns a boolean value, `true` or</span></span>
-<span class="line" id="L288"><span style="color: #C2C3C5">   * `false`, indicating whether or not `klass` is in the list of classnames</span></span>
-<span class="line" id="L289"><span style="color: #C2C3C5">   * after the call or not.</span></span>
-<span class="line" id="L290"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L291"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to toggle on the element.</span></span>
-<span class="line" id="L292"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
-<span class="line" id="L293"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L294"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">toggle</span><span style="color: #24292EFF">(klass) {</span></span>
-<span class="line" id="L295"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L296"></span>
-<span class="line" id="L297"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(klass);</span></span>
-<span class="line" id="L298"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L299"></span>
-<span class="line" id="L300"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
-<span class="line" id="L301"><span style="color: #C2C3C5">   * A wrapper for addEventListener with `once: false`.</span></span>
-<span class="line" id="L302"><span style="color: #C2C3C5">   *</span></span>
-<span class="line" id="L303"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> type A valid event type, like `click`. See</span></span>
-<span class="line" id="L304"><span style="color: #C2C3C5">   *     &lt;https://developer.mozilla.org/en-US/docs/Web/Events&gt; or more information.</span></span>
-<span class="line" id="L305"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|function|Delegate}</span><span style="color: #C2C3C5"> fn A callback function to execute, or a string</span></span>
-<span class="line" id="L306"><span style="color: #C2C3C5">   *     containing the name of the function.</span></span>
-<span class="line" id="L307"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> EventPointer</span></span>
-<span class="line" id="L308"><span style="color: #C2C3C5">   */</span></span>
-<span class="line" id="L309"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">on</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn) {</span></span>
-<span class="line" id="L310"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
-<span class="line empty-line" id="L311"></span>
-<span class="line" id="L312"><span style="color: #24292EFF">    </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.addEventListener</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn</span><span style="color: #212121">,</span><span style="color: #24292EFF"> {once</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">});</span></span>
-<span class="line empty-line" id="L313"></span>
-<span class="line" id="L314"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L315"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">remove</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF">() {</span></span>
-<span class="line" id="L316"><span style="color: #24292EFF">        </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.removeEventListener</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn</span><span style="color: #212121">,</span><span style="color: #24292EFF"> {once</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">});</span></span>
-<span class="line" id="L317"><span style="color: #24292EFF">      }</span><span style="color: #212121">,</span></span>
-<span class="line" id="L318"><span style="color: #24292EFF">    };</span></span>
-<span class="line" id="L319"><span style="color: #24292EFF">  }</span></span>
-<span class="line" id="L320"><span style="color: #24292EFF">}</span></span>
-<span class="line empty-line" id="L321"></span>
-<span class="line" id="L322"><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQuery</span><span style="color: #24292EFF">(selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> elem) {</span></span>
-<span class="line empty-line" id="L323"></span></code></pre></div>
             
         </li>
         
@@ -401,43 +78,1005 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-2">&#x00a7;</a>
               </div>
-              <p>eslint-disable-line no-undef</p>
+              <p><code>DQueryNode</code> is a private class. Not exposed to the public.</p>
+<p>Individual elements are wrapped in a <code>DQueryNode</code> object. This allows us to
+extend the functionality. You won’t use this directly, but rather as the
+result of using <code>DQuery</code> to discover results.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 324;"><span class="line" id="L324"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">instanceof</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">Element</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L325"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(selector);</span></span>
-<span class="line" id="L326"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L327"></span>
-<span class="line" id="L328"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">collection</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [];</span></span>
-<span class="line empty-line" id="L329"></span>
-<span class="line" id="L330"><span style="color: #24292EFF">  elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> elem </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> document;</span></span>
-<span class="line" id="L331"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (elem </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> document) {</span></span>
-<span class="line" id="L332"><span style="color: #24292EFF">    </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.querySelectorAll</span><span style="color: #24292EFF">(selector)</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((ee) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L333"><span style="color: #24292EFF">      </span><span style="color: #1976D2">collection</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(ee));</span></span>
-<span class="line" id="L334"><span style="color: #24292EFF">    });</span></span>
-<span class="line empty-line" id="L335"></span>
-<span class="line" id="L336"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> collection;</span></span>
-<span class="line" id="L337"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L338"></span>
-<span class="line" id="L339"><span style="color: #24292EFF">  selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [</span><span style="color: #22863A">&#39;:scope&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector]</span><span style="color: #6F42C1">.join</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39; &#39;</span><span style="color: #24292EFF">);</span></span>
-<span class="line empty-line" id="L340"></span>
-<span class="line" id="L341"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> elem[</span><span style="color: #1976D2">Symbol</span><span style="color: #24292EFF">.iterator] </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;function&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L342"><span style="color: #24292EFF">    elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [elem];</span></span>
-<span class="line" id="L343"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L344"></span>
-<span class="line" id="L345"><span style="color: #24292EFF">  </span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((e) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L346"><span style="color: #24292EFF">    </span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.querySelectorAll</span><span style="color: #24292EFF">(selector)</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((ee) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L347"><span style="color: #24292EFF">      </span><span style="color: #1976D2">collection</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(ee));</span></span>
-<span class="line" id="L348"><span style="color: #24292EFF">    });</span></span>
-<span class="line" id="L349"><span style="color: #24292EFF">  });</span></span>
-<span class="line empty-line" id="L350"></span>
-<span class="line" id="L351"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> collection;</span></span>
-<span class="line" id="L352"><span style="color: #24292EFF">}</span></span>
-<span class="line empty-line" id="L353"></span>
-<span class="line" id="L354"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> DQuery;</span></span>
-<span class="line empty-line" id="L355"></span>
-<span class="line empty-line" id="L356"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 8;"><span class="line" id="L8"><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L9"><span style="color: #C2C3C5"> * Individual elements are wrapped in a `DQueryNode` object. This allows us to</span></span>
+<span class="line" id="L10"><span style="color: #C2C3C5"> * extend the functionality. You won&#39;t use this directly, but rather as the</span></span>
+<span class="line" id="L11"><span style="color: #C2C3C5"> * result of using DQuery to discover results.</span></span>
+<span class="line" id="L12"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L13"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> node (Required) A DOM `Element` object. See</span></span>
+<span class="line" id="L14"><span style="color: #C2C3C5"> *     &lt;https://developer.mozilla.org/en-US/docs/Web/API/Element&gt; for more</span></span>
+<span class="line" id="L15"><span style="color: #C2C3C5"> *     information.</span></span>
+<span class="line" id="L16"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@private</span></span>
+<span class="line" id="L17"><span style="color: #C2C3C5"> */</span></span>
+<span class="line" id="L18"><span style="color: #D32F2F">class</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L19"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L20"><span style="color: #C2C3C5">   * DQueryNode wraps DOM Element objects with enhanced functionality.</span></span>
+<span class="line" id="L21"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L22"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> node A DOM Element object, which represents an HTML tag.</span></span>
+<span class="line" id="L23"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L24"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">constructor</span><span style="color: #24292EFF">(node) {</span></span>
+<span class="line" id="L25"><span style="color: #24292EFF">    </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> node;</span></span>
+<span class="line" id="L26"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L27"></span>
+<span class="line empty-line" id="L28"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-3">&#x00a7;</a>
+              </div>
+              <hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-4">&#x00a7;</a>
+              </div>
+              <h3 id="queryingtraversing-the-dom-tree">Querying/Traversing the DOM tree</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-5">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 37;"><span class="line" id="L37"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L38"><span style="color: #C2C3C5">   * Gets the underlying native DOM Element object.</span></span>
+<span class="line" id="L39"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L40"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> Element</span></span>
+<span class="line" id="L41"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L42"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">get</span><span style="color: #24292EFF">() {</span></span>
+<span class="line" id="L43"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line" id="L44"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L45"></span>
+<span class="line empty-line" id="L46"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-6">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.ancestor</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;.example&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.ancestor</span><span style="color: #24292EFF">()</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">(); </span><span style="color: #C2C3C5">// ← No selector == parent.</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 52;"><span class="line" id="L52"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L53"><span style="color: #C2C3C5">   * Gets the nearest ancestor which matches a selector. If no selector is</span></span>
+<span class="line" id="L54"><span style="color: #C2C3C5">   * given, returns parent.</span></span>
+<span class="line" id="L55"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L56"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
+<span class="line" id="L57"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L58"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L59"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">ancestor</span><span style="color: #24292EFF">(selector) {</span></span>
+<span class="line" id="L60"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
+<span class="line empty-line" id="L61"></span>
+<span class="line" id="L62"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L63"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.parent</span><span style="color: #24292EFF">();</span></span>
+<span class="line" id="L64"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L65"></span>
+<span class="line" id="L66"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.closest</span><span style="color: #24292EFF">(selector));</span></span>
+<span class="line" id="L67"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L68"></span>
+<span class="line empty-line" id="L69"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-7">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.parent</span><span style="color: #24292EFF">()</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 74;"><span class="line" id="L74"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L75"><span style="color: #C2C3C5">   * Gets the immediate parent element.</span></span>
+<span class="line" id="L76"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L77"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L78"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L79"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">parent</span><span style="color: #24292EFF">() {</span></span>
+<span class="line" id="L80"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.parentNode) {</span></span>
+<span class="line" id="L81"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L82"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L83"></span>
+<span class="line" id="L84"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.parentNode);</span></span>
+<span class="line" id="L85"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L86"></span>
+<span class="line empty-line" id="L87"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-8">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.descendants</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;.example&#39;</span><span style="color: #24292EFF">)[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.descendants</span><span style="color: #24292EFF">(); </span><span style="color: #C2C3C5">// ← No selector == children.</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 93;"><span class="line" id="L93"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L94"><span style="color: #C2C3C5">   * Gets all descendants which match a selector. If no selector is given,</span></span>
+<span class="line" id="L95"><span style="color: #C2C3C5">   * returns children.</span></span>
+<span class="line" id="L96"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L97"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
+<span class="line" id="L98"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQuery</span></span>
+<span class="line" id="L99"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L100"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">descendants</span><span style="color: #24292EFF">(selector) {</span></span>
+<span class="line" id="L101"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
+<span class="line empty-line" id="L102"></span>
+<span class="line" id="L103"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L104"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.children</span><span style="color: #24292EFF">();</span></span>
+<span class="line" id="L105"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L106"></span>
+<span class="line" id="L107"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQuery</span><span style="color: #24292EFF">(selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node); </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
+<span class="line" id="L108"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L109"></span>
+<span class="line empty-line" id="L110"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-9">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.children</span><span style="color: #24292EFF">(); </span><span style="color: #C2C3C5">// ← All direct children.</span></span>
+<span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.children</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;.example&#39;</span><span style="color: #24292EFF">);</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 116;"><span class="line" id="L116"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L117"><span style="color: #C2C3C5">   * Gets all immediate child HTML elements which match a selector. Excludes</span></span>
+<span class="line" id="L118"><span style="color: #C2C3C5">   * whitespace nodes, comment nodes, etc.</span></span>
+<span class="line" id="L119"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L120"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
+<span class="line" id="L121"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> []DQueryNode</span></span>
+<span class="line" id="L122"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L123"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">children</span><span style="color: #24292EFF">(selector) {</span></span>
+<span class="line" id="L124"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
+<span class="line empty-line" id="L125"></span>
+<span class="line" id="L126"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Array</span><span style="color: #6F42C1">.from</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.childNodes).</span></span>
+<span class="line" id="L127"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">filter</span><span style="color: #24292EFF">(e </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">e</span><span style="color: #24292EFF">.nodeType </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">ELEMENT_NODE</span><span style="color: #24292EFF">).</span></span>
+<span class="line" id="L128"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">filter</span><span style="color: #24292EFF">(e </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">).</span></span>
+<span class="line" id="L129"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">map</span><span style="color: #24292EFF">(e </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(e));</span></span>
+<span class="line" id="L130"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L131"></span>
+<span class="line empty-line" id="L132"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-10">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.siblings</span><span style="color: #24292EFF">()</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">($e </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">$e</span><span style="color: #6F42C1">.remove</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;enabled&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line"><span style="color: #24292EFF">})</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 139;"><span class="line" id="L139"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L140"><span style="color: #C2C3C5">   * Gets all sibling HTML elements of the immediate parent which match a</span></span>
+<span class="line" id="L141"><span style="color: #C2C3C5">   * selector. Excludes self, whitespace nodes, comment nodes, etc.</span></span>
+<span class="line" id="L142"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L143"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
+<span class="line" id="L144"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> []DQueryNode</span></span>
+<span class="line" id="L145"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L146"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">siblings</span><span style="color: #24292EFF">(selector) {</span></span>
+<span class="line" id="L147"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
+<span class="line empty-line" id="L148"></span>
+<span class="line" id="L149"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.parentNode) {</span></span>
+<span class="line" id="L150"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> [];</span></span>
+<span class="line" id="L151"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L152"></span>
+<span class="line" id="L153"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> sibling </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">parentNode</span><span style="color: #24292EFF">.firstChild;</span></span>
+<span class="line" id="L154"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">siblings</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [];</span></span>
+<span class="line empty-line" id="L155"></span>
+<span class="line" id="L156"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (sibling) {</span></span>
+<span class="line" id="L157"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (sibling </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node) {</span></span>
+<span class="line" id="L158"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span></span>
+<span class="line" id="L159"><span style="color: #24292EFF">          </span><span style="color: #1976D2">sibling</span><span style="color: #24292EFF">.nodeType </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">ELEMENT_NODE</span></span>
+<span class="line" id="L160"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> ((selector </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">sibling</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line" id="L161"><span style="color: #24292EFF">        ) {</span></span>
+<span class="line" id="L162"><span style="color: #24292EFF">          </span><span style="color: #1976D2">siblings</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(sibling));</span></span>
+<span class="line" id="L163"><span style="color: #24292EFF">        }</span></span>
+<span class="line" id="L164"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L165"></span>
+<span class="line" id="L166"><span style="color: #24292EFF">      sibling </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">sibling</span><span style="color: #24292EFF">.nextSibling;</span></span>
+<span class="line" id="L167"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L168"></span>
+<span class="line" id="L169"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> siblings;</span></span>
+<span class="line" id="L170"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L171"></span>
+<span class="line empty-line" id="L172"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-11">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">start</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">];</span></span>
+<span class="line"><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">start</span><span style="color: #6F42C1">.next</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">!=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">) {</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #1976D2">console</span><span style="color: #6F42C1">.debug</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">start</span><span style="color: #6F42C1">.next</span><span style="color: #24292EFF">());</span></span>
+<span class="line"><span style="color: #24292EFF">  start </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">start</span><span style="color: #6F42C1">.next</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #24292EFF">}</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 181;"><span class="line" id="L181"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L182"><span style="color: #C2C3C5">   * Gets the immediately-next sibling which matches a selector.</span></span>
+<span class="line" id="L183"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L184"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
+<span class="line" id="L185"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L186"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L187"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">next</span><span style="color: #24292EFF">(selector) {</span></span>
+<span class="line" id="L188"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L189"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> next </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.nextSibling;</span></span>
+<span class="line empty-line" id="L190"></span>
+<span class="line" id="L191"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (next) {</span></span>
+<span class="line" id="L192"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">next</span><span style="color: #24292EFF">.nodeType </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">ELEMENT_NODE</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> ((selector </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">next</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">)) {</span></span>
+<span class="line" id="L193"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(next);</span></span>
+<span class="line" id="L194"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L195"></span>
+<span class="line" id="L196"><span style="color: #24292EFF">      next </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">next</span><span style="color: #24292EFF">.nextSibling;</span></span>
+<span class="line" id="L197"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L198"></span>
+<span class="line" id="L199"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L200"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L201"></span>
+<span class="line empty-line" id="L202"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-12">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">start</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">];</span></span>
+<span class="line"><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">start</span><span style="color: #6F42C1">.prev</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">!=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">) {</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #1976D2">console</span><span style="color: #6F42C1">.debug</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">start</span><span style="color: #6F42C1">.prev</span><span style="color: #24292EFF">());</span></span>
+<span class="line"><span style="color: #24292EFF">  start </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">start</span><span style="color: #6F42C1">.prev</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #24292EFF">}</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 211;"><span class="line" id="L211"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L212"><span style="color: #C2C3C5">   * Gets the immediately-previous sibling which matches a selector.</span></span>
+<span class="line" id="L213"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L214"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> selector (Optional) CSS selector to match, if any.</span></span>
+<span class="line" id="L215"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L216"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L217"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">prev</span><span style="color: #24292EFF">(selector) {</span></span>
+<span class="line" id="L218"><span style="color: #24292EFF">    selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L219"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> prev </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.previousSibling;</span></span>
+<span class="line empty-line" id="L220"></span>
+<span class="line" id="L221"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (prev) {</span></span>
+<span class="line" id="L222"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">prev</span><span style="color: #24292EFF">.nodeType </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">ELEMENT_NODE</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> ((selector </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">prev</span><span style="color: #6F42C1">.matches</span><span style="color: #24292EFF">(selector)) </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> selector </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">)) {</span></span>
+<span class="line" id="L223"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(prev);</span></span>
+<span class="line" id="L224"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L225"></span>
+<span class="line" id="L226"><span style="color: #24292EFF">      prev </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">prev</span><span style="color: #24292EFF">.previousSibling;</span></span>
+<span class="line" id="L227"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L228"></span>
+<span class="line" id="L229"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L230"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L231"></span>
+<span class="line empty-line" id="L232"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-13">&#x00a7;</a>
+              </div>
+              <hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-14">&#x00a7;</a>
+              </div>
+              <h3 id="injecting-new-dom-nodes">Injecting new DOM nodes</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-15">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.prepend</span><span style="color: #24292EFF">(</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">_</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;p#abc&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.h</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;This is my paragraph!&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line"><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #C2C3C5">//=&gt; HTMLParagraphElement</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 243;"><span class="line" id="L243"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L244"><span style="color: #C2C3C5">   * Prepends the provided element to the selected node, then returns a pointer</span></span>
+<span class="line" id="L245"><span style="color: #C2C3C5">   * to the prepended node in the DOM.</span></span>
+<span class="line" id="L246"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L247"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element or HTML string</span></span>
+<span class="line" id="L248"><span style="color: #C2C3C5">   *     to prepend.</span></span>
+<span class="line" id="L249"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L250"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L251"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">prepend</span><span style="color: #24292EFF">(element) {</span></span>
+<span class="line" id="L252"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> ((</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> element)</span><span style="color: #6F42C1">.toLowerCase</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;string&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L253"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentHTML</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;afterbegin&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> element);</span></span>
+<span class="line" id="L254"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L255"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;afterbegin&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
+<span class="line" id="L256"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L257"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;afterbegin&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> element);</span></span>
+<span class="line" id="L258"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L259"></span>
+<span class="line" id="L260"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.childNodes[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]);</span></span>
+<span class="line" id="L261"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L262"></span>
+<span class="line empty-line" id="L263"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-16">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.append</span><span style="color: #24292EFF">(</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">_</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;p#abc&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.h</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;This is my paragraph!&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line"><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #C2C3C5">//=&gt; HTMLParagraphElement</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 271;"><span class="line" id="L271"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L272"><span style="color: #C2C3C5">   * Appends the provided element to the selected node, then returns a pointer</span></span>
+<span class="line" id="L273"><span style="color: #C2C3C5">   * to the appended node in the DOM.</span></span>
+<span class="line" id="L274"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L275"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element or HTML string</span></span>
+<span class="line" id="L276"><span style="color: #C2C3C5">   *     to append.</span></span>
+<span class="line" id="L277"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L278"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L279"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">append</span><span style="color: #24292EFF">(element) {</span></span>
+<span class="line" id="L280"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> ((</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> element)</span><span style="color: #6F42C1">.toLowerCase</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;string&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L281"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentHTML</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;beforeend&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> element);</span></span>
+<span class="line" id="L282"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L283"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;beforeend&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
+<span class="line" id="L284"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L285"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.insertAdjacentElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;beforeend&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> element);</span></span>
+<span class="line" id="L286"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L287"></span>
+<span class="line" id="L288"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.childNodes[</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">childNodes</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">-</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">1</span><span style="color: #24292EFF">]);</span></span>
+<span class="line" id="L289"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L290"></span>
+<span class="line empty-line" id="L291"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-17">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.children</span><span style="color: #24292EFF">()[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]</span><span style="color: #6F42C1">.before</span><span style="color: #24292EFF">(</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">_</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;p#abc&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.h</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;This is my paragraph!&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line"><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #C2C3C5">//=&gt; HTMLParagraphElement</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 299;"><span class="line" id="L299"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L300"><span style="color: #C2C3C5">   * Inserts the provided element before the selected node, then returns a</span></span>
+<span class="line" id="L301"><span style="color: #C2C3C5">   * pointer to the added node in the DOM.</span></span>
+<span class="line" id="L302"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L303"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element or HTML string</span></span>
+<span class="line" id="L304"><span style="color: #C2C3C5">   *     to insert before.</span></span>
+<span class="line" id="L305"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L306"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L307"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">before</span><span style="color: #24292EFF">(element) {</span></span>
+<span class="line" id="L308"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L309"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.before</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
+<span class="line" id="L310"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L311"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.before</span><span style="color: #24292EFF">(element);</span></span>
+<span class="line" id="L312"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L313"></span>
+<span class="line" id="L314"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.prev</span><span style="color: #24292EFF">();</span></span>
+<span class="line" id="L315"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L316"></span>
+<span class="line empty-line" id="L317"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-18">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.children</span><span style="color: #24292EFF">()[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]</span><span style="color: #6F42C1">.after</span><span style="color: #24292EFF">(</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">_</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;p#abc&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.h</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;This is my paragraph!&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line"><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.get</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #C2C3C5">//=&gt; HTMLParagraphElement</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 325;"><span class="line" id="L325"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L326"><span style="color: #C2C3C5">   * Inserts the provided element after the selected node, then returns a</span></span>
+<span class="line" id="L327"><span style="color: #C2C3C5">   * pointer to the added node in the DOM.</span></span>
+<span class="line" id="L328"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L329"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|Element}</span><span style="color: #C2C3C5"> element (Required) The DOM element or HTML string</span></span>
+<span class="line" id="L330"><span style="color: #C2C3C5">   *     to insert after.</span></span>
+<span class="line" id="L331"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DQueryNode</span></span>
+<span class="line" id="L332"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L333"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">after</span><span style="color: #24292EFF">(element) {</span></span>
+<span class="line" id="L334"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">element</span><span style="color: #24292EFF">.dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L335"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.after</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">element</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
+<span class="line" id="L336"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L337"><span style="color: #24292EFF">      </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.after</span><span style="color: #24292EFF">(element);</span></span>
+<span class="line" id="L338"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L339"></span>
+<span class="line" id="L340"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #6F42C1">.next</span><span style="color: #24292EFF">();</span></span>
+<span class="line" id="L341"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L342"></span>
+<span class="line empty-line" id="L343"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-19">&#x00a7;</a>
+              </div>
+              <hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-20">&#x00a7;</a>
+              </div>
+              <h3 id="managing-classnames">Managing classnames</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-21">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;query&#39;</span><span style="color: #24292EFF">)[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]</span><span style="color: #6F42C1">.classes</span><span style="color: #24292EFF">();</span></span>
+<span class="line"><span style="color: #C2C3C5">//=&gt; DOMTokenList</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 352;"><span class="line" id="L352"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L353"><span style="color: #C2C3C5">   * Returns the list of classnames currently applied to the element.</span></span>
+<span class="line" id="L354"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L355"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> DOMTokenList</span></span>
+<span class="line" id="L356"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L357"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">classes</span><span style="color: #24292EFF">() {</span></span>
+<span class="line" id="L358"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L359"></span>
+<span class="line" id="L360"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF">.classList;</span></span>
+<span class="line" id="L361"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L362"></span>
+<span class="line empty-line" id="L363"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-22">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">&lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc def ghi&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.has</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;abc&#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line"><span style="color: #C2C3C5">//=&gt; true</span></span>
+<span class="line empty-line"></span>
+<span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.has</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;def&#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line"><span style="color: #C2C3C5">//=&gt; true</span></span>
+<span class="line empty-line"></span>
+<span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.has</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;xyz&#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line"><span style="color: #C2C3C5">//=&gt; false</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 379;"><span class="line" id="L379"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L380"><span style="color: #C2C3C5">   * Determines whether or not the element has the specified classname applied.</span></span>
+<span class="line" id="L381"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L382"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to check on the element.</span></span>
+<span class="line" id="L383"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L384"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L385"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">has</span><span style="color: #24292EFF">(klass) {</span></span>
+<span class="line" id="L386"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L387"></span>
+<span class="line" id="L388"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.contains</span><span style="color: #24292EFF">(klass);</span></span>
+<span class="line" id="L389"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L390"></span>
+<span class="line empty-line" id="L391"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-23">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">Before: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.add</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;def&#39;</span><span style="color: #24292EFF">);</span></span></code></pre>
+</code></pre>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">After: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc def&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 404;"><span class="line" id="L404"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L405"><span style="color: #C2C3C5">   * Adds the specified classname to the element.</span></span>
+<span class="line" id="L406"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L407"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to add to the element.</span></span>
+<span class="line" id="L408"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L409"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L410"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">add</span><span style="color: #24292EFF">(klass) {</span></span>
+<span class="line" id="L411"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L412"></span>
+<span class="line" id="L413"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.add</span><span style="color: #24292EFF">(klass);</span></span>
+<span class="line" id="L414"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L415"></span>
+<span class="line empty-line" id="L416"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-24">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">Before: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc def&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.remove</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;def&#39;</span><span style="color: #24292EFF">);</span></span></code></pre>
+</code></pre>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">After: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 429;"><span class="line" id="L429"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L430"><span style="color: #C2C3C5">   * Removes the specified classname to the element.</span></span>
+<span class="line" id="L431"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L432"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to remove from the element.</span></span>
+<span class="line" id="L433"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L434"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L435"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">remove</span><span style="color: #24292EFF">(klass) {</span></span>
+<span class="line" id="L436"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L437"></span>
+<span class="line" id="L438"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.remove</span><span style="color: #24292EFF">(klass);</span></span>
+<span class="line" id="L439"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L440"></span>
+<span class="line empty-line" id="L441"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-25">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">Before: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.replace</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;abc&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;xyz&#39;</span><span style="color: #24292EFF">);</span></span></code></pre>
+</code></pre>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">After: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;xyz&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 454;"><span class="line" id="L454"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L455"><span style="color: #C2C3C5">   * Replaces the specified classname on the element with another classname.</span></span>
+<span class="line" id="L456"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L457"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass1 (Required) The classname to remove from the element.</span></span>
+<span class="line" id="L458"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass2 (Required) The classname to add to the element.</span></span>
+<span class="line" id="L459"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L460"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L461"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">replace</span><span style="color: #24292EFF">(klass1</span><span style="color: #212121">,</span><span style="color: #24292EFF"> klass2) {</span></span>
+<span class="line" id="L462"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L463"></span>
+<span class="line" id="L464"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.replace</span><span style="color: #24292EFF">(klass1</span><span style="color: #212121">,</span><span style="color: #24292EFF"> klass2);</span></span>
+<span class="line" id="L465"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L466"></span>
+<span class="line empty-line" id="L467"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-26">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">Before: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc def&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;def&#39;</span><span style="color: #24292EFF">);</span></span></code></pre>
+</code></pre>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">After: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;def&#39;</span><span style="color: #24292EFF">);</span></span></code></pre>
+</code></pre>
+<pre><code class="language-html"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #24292EFF">After-After: &lt;</span><span style="color: #22863A">body</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">class</span><span style="color: #D32F2F">=</span><span style="color: #22863A">&quot;abc def&quot;</span><span style="color: #24292EFF">&gt;</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 488;"><span class="line" id="L488"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L489"><span style="color: #C2C3C5">   * Toggles a classname on the element. Returns a boolean value, `true` or</span></span>
+<span class="line" id="L490"><span style="color: #C2C3C5">   * `false`, indicating whether or not `klass` is in the list of classnames</span></span>
+<span class="line" id="L491"><span style="color: #C2C3C5">   * after the call or not.</span></span>
+<span class="line" id="L492"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L493"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> klass (Required) The classname to toggle on the element.</span></span>
+<span class="line" id="L494"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> bool</span></span>
+<span class="line" id="L495"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L496"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">toggle</span><span style="color: #24292EFF">(klass) {</span></span>
+<span class="line" id="L497"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L498"></span>
+<span class="line" id="L499"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">classList</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(klass);</span></span>
+<span class="line" id="L500"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L501"></span>
+<span class="line empty-line" id="L502"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-27">&#x00a7;</a>
+              </div>
+              <hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-28">&#x00a7;</a>
+              </div>
+              <h3 id="events">Events</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-29">&#x00a7;</a>
+              </div>
+              <p><strong>Example:</strong></p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">dlg</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> Delegate;</span></span>
+<span class="line empty-line"></span>
+<span class="line"><span style="color: #C2C3C5">// Add event</span></span>
+<span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">evt</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">document</span><span style="color: #24292EFF">.body)</span><span style="color: #6F42C1">.on</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;click&#39;</span><span style="color: #212121">,</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">dlg</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;.example&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> evt </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">evt</span><span style="color: #24292EFF">.target)</span><span style="color: #6F42C1">.toggle</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;enabled&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line"><span style="color: #24292EFF">  })</span></span>
+<span class="line"><span style="color: #24292EFF">);</span></span>
+<span class="line empty-line"></span>
+<span class="line"><span style="color: #C2C3C5">// Remove event</span></span>
+<span class="line"><span style="color: #1976D2">evt</span><span style="color: #6F42C1">.remove</span><span style="color: #24292EFF">();</span></span></code></pre>
+</code></pre>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 520;"><span class="line" id="L520"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L521"><span style="color: #C2C3C5">   * A wrapper for addEventListener with `once: false`.</span></span>
+<span class="line" id="L522"><span style="color: #C2C3C5">   *</span></span>
+<span class="line" id="L523"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string}</span><span style="color: #C2C3C5"> type A valid event type, like `click`. See</span></span>
+<span class="line" id="L524"><span style="color: #C2C3C5">   *     &lt;https://developer.mozilla.org/en-US/docs/Web/Events&gt; for more</span></span>
+<span class="line" id="L525"><span style="color: #C2C3C5">   *     information.</span></span>
+<span class="line" id="L526"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|function|Delegate}</span><span style="color: #C2C3C5"> fn A callback function to execute, or a</span></span>
+<span class="line" id="L527"><span style="color: #C2C3C5">   *     string containing the name of the function.</span></span>
+<span class="line" id="L528"><span style="color: #C2C3C5">   * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> EventPointer</span></span>
+<span class="line" id="L529"><span style="color: #C2C3C5">   */</span></span>
+<span class="line" id="L530"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">on</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn) {</span></span>
+<span class="line" id="L531"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">node</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.node;</span></span>
+<span class="line empty-line" id="L532"></span>
+<span class="line" id="L533"><span style="color: #24292EFF">    </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.addEventListener</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn</span><span style="color: #212121">,</span><span style="color: #24292EFF"> {once</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">});</span></span>
+<span class="line empty-line" id="L534"></span>
+<span class="line" id="L535"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L536"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">remove</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF">() {</span></span>
+<span class="line" id="L537"><span style="color: #24292EFF">        </span><span style="color: #1976D2">node</span><span style="color: #6F42C1">.removeEventListener</span><span style="color: #24292EFF">(type</span><span style="color: #212121">,</span><span style="color: #24292EFF"> fn</span><span style="color: #212121">,</span><span style="color: #24292EFF"> {once</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">});</span></span>
+<span class="line" id="L538"><span style="color: #24292EFF">      }</span><span style="color: #212121">,</span></span>
+<span class="line" id="L539"><span style="color: #24292EFF">    };</span></span>
+<span class="line" id="L540"><span style="color: #24292EFF">  }</span></span>
+<span class="line" id="L541"><span style="color: #24292EFF">}</span></span>
+<span class="line empty-line" id="L542"></span>
+<span class="line empty-line" id="L543"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-30">&#x00a7;</a>
+              </div>
+              <hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-31">&#x00a7;</a>
+              </div>
+              <h2 id="dquery">DQuery</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-32">&#x00a7;</a>
+              </div>
+              <p>Main interface for DQuery.</p>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 547;"><span class="line" id="L547"><span style="color: #C2C3C5">/**</span></span>
+<span class="line" id="L548"><span style="color: #C2C3C5"> * Main interface for DQuery.</span></span>
+<span class="line" id="L549"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L550"><span style="color: #C2C3C5"> * Fundamentally, `DQuery` is a wrapper around `querySelectorAll()`, except that</span></span>
+<span class="line" id="L551"><span style="color: #C2C3C5"> * the matches are also wrapped with `DQueryNode`. This allows us to extend the</span></span>
+<span class="line" id="L552"><span style="color: #C2C3C5"> * functionality.</span></span>
+<span class="line" id="L553"><span style="color: #C2C3C5"> *</span></span>
+<span class="line" id="L554"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{string|Element}</span><span style="color: #C2C3C5"> selector (Required) Either a (string) CSS selector</span></span>
+<span class="line" id="L555"><span style="color: #C2C3C5"> *     (which will always result in an array of `DQueryNode` objects), or a DOM</span></span>
+<span class="line" id="L556"><span style="color: #C2C3C5"> *     `Element` object (which will always result in a single `DQueryNode`</span></span>
+<span class="line" id="L557"><span style="color: #C2C3C5"> *     element). See &lt;https://developer.mozilla.org/en-US/docs/Web/API/Element&gt;</span></span>
+<span class="line" id="L558"><span style="color: #C2C3C5"> *     for more information.</span></span>
+<span class="line" id="L559"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@param</span><span style="color: #C2C3C5"> </span><span style="color: #6F42C1">{Element}</span><span style="color: #C2C3C5"> elem (Optional) a DOM `Element` object which should be used</span></span>
+<span class="line" id="L560"><span style="color: #C2C3C5"> *     as the parent-most element for the query. See</span></span>
+<span class="line" id="L561"><span style="color: #C2C3C5"> *     &lt;https://developer.mozilla.org/en-US/docs/Web/API/Element&gt; for more</span></span>
+<span class="line" id="L562"><span style="color: #C2C3C5"> *     information. The default value is `document`, which resolves to the</span></span>
+<span class="line" id="L563"><span style="color: #C2C3C5"> *     `&lt;html&gt;` element.</span></span>
+<span class="line" id="L564"><span style="color: #C2C3C5"> * </span><span style="color: #D32F2F">@returns</span><span style="color: #C2C3C5"> []DQueryNode|DQueryNode</span></span>
+<span class="line" id="L565"><span style="color: #C2C3C5"> */</span></span>
+<span class="line" id="L566"><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQuery</span><span style="color: #24292EFF">(selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> elem) {</span></span>
+<span class="line empty-line" id="L567"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-33">&#x00a7;</a>
+              </div>
+              <p>If we received a DOM <code>Element</code> object, just wrap it and return it.</p>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 568;"><span class="line" id="L568"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (selector </span><span style="color: #D32F2F">instanceof</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">Element</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L569"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(selector);</span></span>
+<span class="line" id="L570"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L571"></span>
+<span class="line empty-line" id="L572"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-34">&#x00a7;</a>
+              </div>
+              <p>If the <code>elem</code> parameter is not provided, use <code>document</code> (<code>&lt;html&gt;</code>)as the
+default root element for the query. Take the results, wrap each one with
+<code>DQueryNode</code>, and return the collection.</p>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 575;"><span class="line" id="L575"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">collection</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [];</span></span>
+<span class="line empty-line" id="L576"></span>
+<span class="line" id="L577"><span style="color: #24292EFF">  elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> elem </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> document;</span></span>
+<span class="line" id="L578"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (elem </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> document) {</span></span>
+<span class="line" id="L579"><span style="color: #24292EFF">    </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.querySelectorAll</span><span style="color: #24292EFF">(selector)</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((ee) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L580"><span style="color: #24292EFF">      </span><span style="color: #1976D2">collection</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(ee));</span></span>
+<span class="line" id="L581"><span style="color: #24292EFF">    });</span></span>
+<span class="line empty-line" id="L582"></span>
+<span class="line" id="L583"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> collection;</span></span>
+<span class="line" id="L584"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L585"></span>
+<span class="line empty-line" id="L586"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-35">&#x00a7;</a>
+              </div>
+              <p>If the <code>elem</code> parameter <em>is</em> provided (which <em>may</em> be an array of results),
+iterate over each of the results, then use <code>:scope</code> in the selector to
+filter to only children of <code>elem</code> (as opposed to <code>document</code>). This will
+give us the results we expect instead of too many results.</p>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 590;"><span class="line" id="L590"><span style="color: #24292EFF">  selector </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [</span><span style="color: #22863A">&#39;:scope&#39;</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector]</span><span style="color: #6F42C1">.join</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39; &#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line empty-line" id="L591"></span>
+<span class="line" id="L592"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> elem[</span><span style="color: #1976D2">Symbol</span><span style="color: #24292EFF">.iterator] </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;function&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L593"><span style="color: #24292EFF">    elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [elem];</span></span>
+<span class="line" id="L594"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L595"></span>
+<span class="line" id="L596"><span style="color: #24292EFF">  </span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((e) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L597"><span style="color: #24292EFF">    </span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.querySelectorAll</span><span style="color: #24292EFF">(selector)</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((ee) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L598"><span style="color: #24292EFF">      </span><span style="color: #1976D2">collection</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(</span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">DQueryNode</span><span style="color: #24292EFF">(ee));</span></span>
+<span class="line" id="L599"><span style="color: #24292EFF">    });</span></span>
+<span class="line" id="L600"><span style="color: #24292EFF">  });</span></span>
+<span class="line empty-line" id="L601"></span>
+<span class="line" id="L602"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> collection;</span></span>
+<span class="line" id="L603"><span style="color: #24292EFF">}</span></span>
+<span class="line empty-line" id="L604"></span>
+<span class="line empty-line" id="L605"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-36">&#x00a7;</a>
+              </div>
+              <p>Default export for the package.</p>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 606;"><span class="line" id="L606"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> DQuery;</span></span>
+<span class="line empty-line" id="L607"></span>
+<span class="line empty-line" id="L608"></span></code></pre></div>
             
         </li>
         

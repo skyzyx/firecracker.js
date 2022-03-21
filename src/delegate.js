@@ -1,6 +1,19 @@
-/* Taken from https://github.com/brunoscopelliti/delegate under the MIT license.
-   Reversed the (selector, fn) parameters. */
+// Taken from https://github.com/brunoscopelliti/delegate under the MIT license.
+// Reversed the `(selector, fn)` parameters.
 
+// **Example:**
+//
+// ```javascript
+// const dlg = Delegate;
+//
+// // Add event
+// const evt = $(document.body).on('click', dlg('#test', e => {
+//   e.classList.toggle('enabled');
+// }));
+//
+// // Remove event
+// evt.remove();
+// ```
 /**
  * Assure that the provided function, `fn`, is executed only when its wrapping
  * function is called on a target that matches the `selector`.
@@ -19,8 +32,10 @@ const Delegate = (selector, fn) => function handler(event) {
   }
 };
 
+// Default export for the package.
 export default Delegate;
 
+// Private method. Not exposed to the public.
 /**
  * @name matches
  * @private

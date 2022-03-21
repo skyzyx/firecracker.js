@@ -65,27 +65,20 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
-              
+              <p>Let instance = Firecracker.reactive(HelloComponent).mount(‘#widget’);
+instance.render([‘abc’, ‘def’])</p>
+<p>let HelloComponent = func() {
+return { render: render };</p>
+<p>function render(items) {
+    return <em>(“ul”).</em>(
+      items.map(itemText =&gt; {
+        return _(“li”).t(itemText);
+      })
+    );
+}
+}</p>
+
             </div>
-            
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 1;"><span class="line" id="L1"><span style="color: #C2C3C5">/*</span></span>
-<span class="line" id="L2"><span style="color: #C2C3C5">Let instance = Firecracker.reactive(HelloComponent).mount(&#39;#widget&#39;);</span></span>
-<span class="line" id="L3"><span style="color: #C2C3C5">instance.render([&#39;abc&#39;, &#39;def&#39;])</span></span>
-<span class="line empty-line" id="L4"></span>
-<span class="line" id="L5"><span style="color: #C2C3C5">let HelloComponent = func() {</span></span>
-<span class="line" id="L6"><span style="color: #C2C3C5">  return { render: render };</span></span>
-<span class="line empty-line" id="L7"></span>
-<span class="line" id="L8"><span style="color: #C2C3C5">  function render(items) {</span></span>
-<span class="line" id="L9"><span style="color: #C2C3C5">    return _(&quot;ul&quot;)._(</span></span>
-<span class="line" id="L10"><span style="color: #C2C3C5">      items.map(itemText =&gt; {</span></span>
-<span class="line" id="L11"><span style="color: #C2C3C5">        return _(&quot;li&quot;).t(itemText);</span></span>
-<span class="line" id="L12"><span style="color: #C2C3C5">      })</span></span>
-<span class="line" id="L13"><span style="color: #C2C3C5">    );</span></span>
-<span class="line" id="L14"><span style="color: #C2C3C5">  }</span></span>
-<span class="line" id="L15"><span style="color: #C2C3C5">}</span></span>
-<span class="line" id="L16"><span style="color: #C2C3C5">*/</span></span>
-<span class="line empty-line" id="L17"></span>
-<span class="line empty-line" id="L18"></span></code></pre></div>
             
         </li>
         

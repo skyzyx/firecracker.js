@@ -84,7 +84,7 @@
     ],
     "multiline-comment-style": [
       "error",
-      "bare-block"
+      "separate-lines"
     ],
     "new-cap": [
       "error",

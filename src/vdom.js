@@ -1,3 +1,76 @@
+// VDOM is an updated ES6+ version of a Virtual DOM implementation I built in
+// 2008 before Virtual DOM even had a name yet.
+//
+// The term “Virtual DOM” refers to real DOM nodes that exist in memory, but are
+// not attached to the _live_ tree. This means that they can be modified and
+// manipulated in-memory without triggering repaints and reflows in the browser
+// engine, making modifications dramatically faster.
+//
+// By leveraging `DocumentFragment` objects under the hood, we can collect one
+// or more sibling elements together which do not have a shared parent node
+// until they are injected into the live DOM. This is fundamentally the same way
+// that `React.createElement()` works, and the syntax is very similar.
+//
+// **Examples:**
+//
+// From the <https://reactjs.org> homepage, this example generates a new DOM
+// element and appends it to the live DOM.
+//
+// ```javascript
+// class HelloMessage extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         Hello {this.props.name}
+//       </div>
+//     );
+//     // or...
+//     // return React.createElement(
+//     //   "div",
+//     //   null,
+//     //   "Hello ",
+//     //   this.props.name
+//     // );
+//   }
+// }
+//
+// ReactDOM.render(
+//   React.createElement(
+//     HelloMessage, { name: "Taylor" }
+//   ),
+//   document.getElementById('hello-example')
+// );
+// ```
+//
+// Here's a (roughly) equivalent example using VDOM, except that there are no
+// _magical_ `props` because there are no `components`. Just standard functions
+// and variables.
+//
+// ```javascript
+// const _ = VDOM,
+//       $ = DQuery;
+//
+// function HelloMessage(props) {
+//   return `
+//     <div>
+//       Hello ${props.name}
+//     </div>
+//   `;
+//   // or...
+//   // return _('div').h(`Hello ${props.name}`);
+// }
+//
+// $('#hello-example')[0].append(
+//   HelloMessage({ name: "Taylor" })
+// );
+// ```
+//
+// VDOM sits much “closer to the metal”, which makes it (a) faster, and (b)
+// smaller. While it lacks some of the niceties like JSX, you can still use
+// `innerHTML` which gets you _most_ of the way there at very little cost.
+//
+// ----
+
 const X = function(elem, attr) {
     const self = this,
       RE_ID_OR_CLASS = /[\.#]/u, // eslint-disable-line no-useless-escape
@@ -104,8 +177,8 @@ const X = function(elem, attr) {
         obj = [obj];
       }
 
-      /* Loop through the indexed array of children. If the node is a `VDOM` object, convert it to
-       DOM and append it. Otherwise, assume it's a real DOM node. */
+      // Loop through the indexed array of children. If the node is a `VDOM` object, convert it to
+      // DOM and append it. Otherwise, assume it's a real DOM node.
       for (let i = 0, max = obj.length; i < max; i ++) {
         if (typeof obj[i] === 'undefined') {
           break;
@@ -179,7 +252,8 @@ const X = function(elem, attr) {
   VDOM = (elem, attr) => new X(elem, attr); // eslint-disable-line no-undef
 
 VDOM.DOM = (...nodes) => { // eslint-disable-line no-undef
-  // Create a document fragment. Grab and loop through the in-memory DOM nodes, and _move_ them to the
+  // Create a document fragment. Grab and loop through the in-memory DOM nodes,
+  // and _move_ them to the `DocumentFragment`.
   const f = document.createDocumentFragment(),
     n = new X('div')._(nodes).
       dom().childNodes;
@@ -205,4 +279,5 @@ VDOM.h = (str) => { // eslint-disable-line no-undef
   return f;
 };
 
+// Default export for the package.
 export default VDOM;

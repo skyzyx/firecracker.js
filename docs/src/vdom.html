@@ -65,20 +65,69 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
-              
+              <p>VDOM is an updated ES6+ version of a Virtual DOM implementation I built in
+2008 before Virtual DOM even had a name yet.</p>
+<p>The term “Virtual DOM” refers to real DOM nodes that exist in memory, but are
+not attached to the <em>live</em> tree. This means that they can be modified and
+manipulated in-memory without triggering repaints and reflows in the browser
+engine, making modifications dramatically faster.</p>
+<p>By leveraging <code>DocumentFragment</code> objects under the hood, we can collect one
+or more sibling elements together which do not have a shared parent node
+until they are injected into the live DOM. This is fundamentally the same way
+that <code>React.createElement()</code> works, and the syntax is very similar.</p>
+<p><strong>Examples:</strong></p>
+<p>From the <a href="https://reactjs.org">https://reactjs.org</a> homepage, this example generates a new DOM
+element and appends it to the live DOM.</p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">class</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">HelloMessage</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">extends</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">React</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">Component</span><span style="color: #24292EFF"> {</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">render</span><span style="color: #24292EFF">() {</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> (</span></span>
+<span class="line"><span style="color: #24292EFF">      &lt;</span><span style="color: #22863A">div</span><span style="color: #24292EFF">&gt;</span></span>
+<span class="line"><span style="color: #24292EFF">        Hello {</span><span style="color: #1976D2">this</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">props</span><span style="color: #24292EFF">.name}</span></span>
+<span class="line"><span style="color: #24292EFF">      &lt;/</span><span style="color: #22863A">div</span><span style="color: #24292EFF">&gt;</span></span>
+<span class="line"><span style="color: #24292EFF">    );</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #C2C3C5">// or...</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #C2C3C5">// return React.createElement(</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #C2C3C5">//   &quot;div&quot;,</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #C2C3C5">//   null,</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #C2C3C5">//   &quot;Hello &quot;,</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #C2C3C5">//   this.props.name</span></span>
+<span class="line"><span style="color: #24292EFF">    </span><span style="color: #C2C3C5">// );</span></span>
+<span class="line"><span style="color: #24292EFF">  }</span></span>
+<span class="line"><span style="color: #24292EFF">}</span></span>
+<span class="line empty-line"></span>
+<span class="line"><span style="color: #1976D2">ReactDOM</span><span style="color: #6F42C1">.render</span><span style="color: #24292EFF">(</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #1976D2">React</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(</span></span>
+<span class="line"><span style="color: #24292EFF">    HelloMessage</span><span style="color: #212121">,</span><span style="color: #24292EFF"> { name</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&quot;Taylor&quot;</span><span style="color: #24292EFF"> }</span></span>
+<span class="line"><span style="color: #24292EFF">  )</span><span style="color: #212121">,</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.getElementById</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;hello-example&#39;</span><span style="color: #24292EFF">)</span></span>
+<span class="line"><span style="color: #24292EFF">);</span></span></code></pre>
+</code></pre>
+<p>Here’s a (roughly) equivalent example using VDOM, except that there are no
+<em>magical</em> <code>props</code> because there are no <code>components</code>. Just standard functions
+and variables.</p>
+<pre><code class="language-javascript"><pre class="shiki" style="background-color: transparent"><code ><span class="line"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">_</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">VDOM</span><span style="color: #212121">,</span></span>
+<span class="line"><span style="color: #24292EFF">      </span><span style="color: #1976D2">$</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> DQuery;</span></span>
+<span class="line empty-line"></span>
+<span class="line"><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">HelloMessage</span><span style="color: #24292EFF">(props) {</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #22863A">`</span></span>
+<span class="line"><span style="color: #22863A">    &lt;div&gt;</span></span>
+<span class="line"><span style="color: #22863A">      Hello </span><span style="color: #D32F2F">${</span><span style="color: #1976D2">props</span><span style="color: #24292EFF">.name</span><span style="color: #D32F2F">}</span></span>
+<span class="line"><span style="color: #22863A">    &lt;/div&gt;</span></span>
+<span class="line"><span style="color: #22863A">  `</span><span style="color: #24292EFF">;</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">// or...</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #C2C3C5">// return _(&#39;div&#39;).h(`Hello ${props.name}`);</span></span>
+<span class="line"><span style="color: #24292EFF">}</span></span>
+<span class="line empty-line"></span>
+<span class="line"><span style="color: #6F42C1">$</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;#hello-example&#39;</span><span style="color: #24292EFF">)[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]</span><span style="color: #6F42C1">.append</span><span style="color: #24292EFF">(</span></span>
+<span class="line"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">HelloMessage</span><span style="color: #24292EFF">({ name</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&quot;Taylor&quot;</span><span style="color: #24292EFF"> })</span></span>
+<span class="line"><span style="color: #24292EFF">);</span></span></code></pre>
+</code></pre>
+<p>VDOM sits much “closer to the metal”, which makes it (a) faster, and (b)
+smaller. While it lacks some of the niceties like JSX, you can still use
+<code>innerHTML</code> which gets you <em>most</em> of the way there at very little cost.</p>
+<hr>
+
             </div>
-            
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 1;"><span class="line" id="L1"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">X</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF">(elem</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr) {</span></span>
-<span class="line" id="L2"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">self</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #212121">,</span></span>
-<span class="line" id="L3"><span style="color: #24292EFF">      </span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #22863A"> /[\.#]/</span><span style="color: #D32F2F">u</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #C2C3C5">// eslint-disable-line no-useless-escape</span></span>
-<span class="line" id="L4"><span style="color: #24292EFF">      </span><span style="color: #1976D2">RE_CSS_ATTRS</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #22863A"> /\[([</span><span style="color: #D32F2F">^</span><span style="color: #22863A">\]]</span><span style="color: #D32F2F">+</span><span style="color: #22863A">)\]/</span><span style="color: #D32F2F">gu</span><span style="color: #212121">,</span></span>
-<span class="line" id="L5"><span style="color: #24292EFF">      </span><span style="color: #1976D2">ARR_NEXT</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">1</span><span style="color: #24292EFF">;</span></span>
-<span class="line empty-line" id="L6"></span>
-<span class="line" id="L7"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> key</span><span style="color: #212121">,</span><span style="color: #24292EFF"> k</span><span style="color: #212121">,</span><span style="color: #24292EFF"> match;</span></span>
-<span class="line empty-line" id="L8"></span>
-<span class="line" id="L9"><span style="color: #24292EFF">    attr </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> attr </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> {};</span></span>
-<span class="line empty-line" id="L10"></span>
-<span class="line empty-line" id="L11"></span></code></pre></div>
             
         </li>
         
@@ -89,22 +138,20 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-2">&#x00a7;</a>
               </div>
-              <p>Parse the CSS-style notation.</p>
-
+              
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 12;"><span class="line" id="L12"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">notation</span><span style="color: #24292EFF">() {</span></span>
-<span class="line" id="L13"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">att</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L14"><span style="color: #24292EFF">          class</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> []</span><span style="color: #212121">,</span></span>
-<span class="line" id="L15"><span style="color: #24292EFF">          id</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #212121">,</span></span>
-<span class="line" id="L16"><span style="color: #24292EFF">        }</span><span style="color: #212121">,</span></span>
-<span class="line" id="L17"><span style="color: #24292EFF">        </span><span style="color: #1976D2">kvPair</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [];</span></span>
-<span class="line empty-line" id="L18"></span>
-<span class="line" id="L19"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #6F42C1">.test</span><span style="color: #24292EFF">(elem) </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">!</span><span style="color: #1976D2">RE_CSS_ATTRS</span><span style="color: #6F42C1">.test</span><span style="color: #24292EFF">(elem)) {</span></span>
-<span class="line" id="L20"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> {};</span></span>
-<span class="line" id="L21"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L22"></span>
-<span class="line empty-line" id="L23"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 74;"><span class="line" id="L74"><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">X</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF">(elem</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr) {</span></span>
+<span class="line" id="L75"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">self</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">this</span><span style="color: #212121">,</span></span>
+<span class="line" id="L76"><span style="color: #24292EFF">      </span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #22863A"> /[\.#]/</span><span style="color: #D32F2F">u</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #C2C3C5">// eslint-disable-line no-useless-escape</span></span>
+<span class="line" id="L77"><span style="color: #24292EFF">      </span><span style="color: #1976D2">RE_CSS_ATTRS</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #22863A"> /\[([</span><span style="color: #D32F2F">^</span><span style="color: #22863A">\]]</span><span style="color: #D32F2F">+</span><span style="color: #22863A">)\]/</span><span style="color: #D32F2F">gu</span><span style="color: #212121">,</span></span>
+<span class="line" id="L78"><span style="color: #24292EFF">      </span><span style="color: #1976D2">ARR_NEXT</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">1</span><span style="color: #24292EFF">;</span></span>
+<span class="line empty-line" id="L79"></span>
+<span class="line" id="L80"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> key</span><span style="color: #212121">,</span><span style="color: #24292EFF"> k</span><span style="color: #212121">,</span><span style="color: #24292EFF"> match;</span></span>
+<span class="line empty-line" id="L81"></span>
+<span class="line" id="L82"><span style="color: #24292EFF">    attr </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> attr </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> {};</span></span>
+<span class="line empty-line" id="L83"></span>
+<span class="line empty-line" id="L84"></span></code></pre></div>
             
         </li>
         
@@ -115,23 +162,22 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-3">&#x00a7;</a>
               </div>
-              <p>Collect all of the <code>[k=v]</code> blocks.</p>
+              <p>Parse the CSS-style notation.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 24;"><span class="line" id="L24"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> ((match </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">RE_CSS_ATTRS</span><span style="color: #6F42C1">.exec</span><span style="color: #24292EFF">(elem)) </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L25"><span style="color: #24292EFF">        </span><span style="color: #1976D2">kvPair</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(match[</span><span style="color: #1976D2">1</span><span style="color: #24292EFF">]</span><span style="color: #6F42C1">.split</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;=&#39;</span><span style="color: #24292EFF">));</span></span>
-<span class="line" id="L26"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L27"></span>
-<span class="line" id="L28"><span style="color: #24292EFF">      elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.replace</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">RE_CSS_ATTRS</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">);</span></span>
-<span class="line" id="L29"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">pieces</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.split</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #24292EFF">)</span><span style="color: #212121">,</span></span>
-<span class="line" id="L30"><span style="color: #24292EFF">        </span><span style="color: #1976D2">elemType</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">pieces</span><span style="color: #6F42C1">.shift</span><span style="color: #24292EFF">();</span></span>
-<span class="line empty-line" id="L31"></span>
-<span class="line" id="L32"><span style="color: #24292EFF">      </span><span style="color: #1976D2">kvPair</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((val</span><span style="color: #212121">,</span><span style="color: #24292EFF"> idx</span><span style="color: #212121">,</span><span style="color: #24292EFF"> arr) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L33"><span style="color: #24292EFF">        att[arr[idx][</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]] </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> arr[idx][</span><span style="color: #1976D2">1</span><span style="color: #24292EFF">];</span></span>
-<span class="line" id="L34"><span style="color: #24292EFF">      });</span></span>
-<span class="line empty-line" id="L35"></span>
-<span class="line empty-line" id="L36"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 85;"><span class="line" id="L85"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">function</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">notation</span><span style="color: #24292EFF">() {</span></span>
+<span class="line" id="L86"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">att</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L87"><span style="color: #24292EFF">          class</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> []</span><span style="color: #212121">,</span></span>
+<span class="line" id="L88"><span style="color: #24292EFF">          id</span><span style="color: #D32F2F">:</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #212121">,</span></span>
+<span class="line" id="L89"><span style="color: #24292EFF">        }</span><span style="color: #212121">,</span></span>
+<span class="line" id="L90"><span style="color: #24292EFF">        </span><span style="color: #1976D2">kvPair</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [];</span></span>
+<span class="line empty-line" id="L91"></span>
+<span class="line" id="L92"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #6F42C1">.test</span><span style="color: #24292EFF">(elem) </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">!</span><span style="color: #1976D2">RE_CSS_ATTRS</span><span style="color: #6F42C1">.test</span><span style="color: #24292EFF">(elem)) {</span></span>
+<span class="line" id="L93"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> {};</span></span>
+<span class="line" id="L94"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L95"></span>
+<span class="line empty-line" id="L96"></span></code></pre></div>
             
         </li>
         
@@ -142,36 +188,23 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-4">&#x00a7;</a>
               </div>
-              <p>Support CSS/jQuery-style notation for generating elements with IDs and classnames.</p>
+              <p>Collect all of the <code>[k=v]</code> blocks.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 37;"><span class="line" id="L37"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> pos </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">elemType</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L38"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">classes</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> att[</span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">];</span></span>
-<span class="line empty-line" id="L39"></span>
-<span class="line" id="L40"><span style="color: #24292EFF">      </span><span style="color: #1976D2">pieces</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((val</span><span style="color: #212121">,</span><span style="color: #24292EFF"> idx</span><span style="color: #212121">,</span><span style="color: #24292EFF"> arr) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L41"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (elem[pos] </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;#&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L42"><span style="color: #24292EFF">          </span><span style="color: #1976D2">att</span><span style="color: #24292EFF">.id </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> val;</span></span>
-<span class="line" id="L43"><span style="color: #24292EFF">        } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L44"><span style="color: #24292EFF">          </span><span style="color: #1976D2">classes</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(val);</span></span>
-<span class="line" id="L45"><span style="color: #24292EFF">        }</span></span>
-<span class="line empty-line" id="L46"></span>
-<span class="line" id="L47"><span style="color: #24292EFF">        pos </span><span style="color: #D32F2F">+=</span><span style="color: #24292EFF"> arr[idx].</span><span style="color: #1976D2">length</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">+</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">ARR_NEXT</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L48"><span style="color: #24292EFF">      });</span></span>
-<span class="line empty-line" id="L49"></span>
-<span class="line" id="L50"><span style="color: #24292EFF">      att[</span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">] </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> classes;</span></span>
-<span class="line" id="L51"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #24292EFF">att[</span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">].</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L52"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">delete</span><span style="color: #24292EFF"> att[</span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">];</span></span>
-<span class="line" id="L53"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L54"></span>
-<span class="line" id="L55"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (att[</span><span style="color: #22863A">&#39;id&#39;</span><span style="color: #24292EFF">] </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L56"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">delete</span><span style="color: #24292EFF"> att[</span><span style="color: #22863A">&#39;id&#39;</span><span style="color: #24292EFF">];</span></span>
-<span class="line" id="L57"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L58"></span>
-<span class="line" id="L59"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> att;</span></span>
-<span class="line" id="L60"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L61"></span>
-<span class="line empty-line" id="L62"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 97;"><span class="line" id="L97"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> ((match </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">RE_CSS_ATTRS</span><span style="color: #6F42C1">.exec</span><span style="color: #24292EFF">(elem)) </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">null</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L98"><span style="color: #24292EFF">        </span><span style="color: #1976D2">kvPair</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(match[</span><span style="color: #1976D2">1</span><span style="color: #24292EFF">]</span><span style="color: #6F42C1">.split</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;=&#39;</span><span style="color: #24292EFF">));</span></span>
+<span class="line" id="L99"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L100"></span>
+<span class="line" id="L101"><span style="color: #24292EFF">      elem </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.replace</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">RE_CSS_ATTRS</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line" id="L102"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">pieces</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.split</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #24292EFF">)</span><span style="color: #212121">,</span></span>
+<span class="line" id="L103"><span style="color: #24292EFF">        </span><span style="color: #1976D2">elemType</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">pieces</span><span style="color: #6F42C1">.shift</span><span style="color: #24292EFF">();</span></span>
+<span class="line empty-line" id="L104"></span>
+<span class="line" id="L105"><span style="color: #24292EFF">      </span><span style="color: #1976D2">kvPair</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((val</span><span style="color: #212121">,</span><span style="color: #24292EFF"> idx</span><span style="color: #212121">,</span><span style="color: #24292EFF"> arr) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L106"><span style="color: #24292EFF">        att[arr[idx][</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]] </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> arr[idx][</span><span style="color: #1976D2">1</span><span style="color: #24292EFF">];</span></span>
+<span class="line" id="L107"><span style="color: #24292EFF">      });</span></span>
+<span class="line empty-line" id="L108"></span>
+<span class="line empty-line" id="L109"></span></code></pre></div>
             
         </li>
         
@@ -182,13 +215,36 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-5">&#x00a7;</a>
               </div>
-              <p>Merge options into a conglomo-hash!</p>
+              <p>Support CSS/jQuery-style notation for generating elements with IDs and classnames.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 63;"><span class="line" id="L63"><span style="color: #24292EFF">    attr </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Object</span><span style="color: #6F42C1">.assign</span><span style="color: #24292EFF">(attr</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">notation</span><span style="color: #24292EFF">());</span></span>
-<span class="line empty-line" id="L64"></span>
-<span class="line empty-line" id="L65"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 110;"><span class="line" id="L110"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> pos </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">elemType</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L111"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">classes</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> att[</span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">];</span></span>
+<span class="line empty-line" id="L112"></span>
+<span class="line" id="L113"><span style="color: #24292EFF">      </span><span style="color: #1976D2">pieces</span><span style="color: #6F42C1">.forEach</span><span style="color: #24292EFF">((val</span><span style="color: #212121">,</span><span style="color: #24292EFF"> idx</span><span style="color: #212121">,</span><span style="color: #24292EFF"> arr) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L114"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (elem[pos] </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;#&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L115"><span style="color: #24292EFF">          </span><span style="color: #1976D2">att</span><span style="color: #24292EFF">.id </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> val;</span></span>
+<span class="line" id="L116"><span style="color: #24292EFF">        } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L117"><span style="color: #24292EFF">          </span><span style="color: #1976D2">classes</span><span style="color: #6F42C1">.push</span><span style="color: #24292EFF">(val);</span></span>
+<span class="line" id="L118"><span style="color: #24292EFF">        }</span></span>
+<span class="line empty-line" id="L119"></span>
+<span class="line" id="L120"><span style="color: #24292EFF">        pos </span><span style="color: #D32F2F">+=</span><span style="color: #24292EFF"> arr[idx].</span><span style="color: #1976D2">length</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">+</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">ARR_NEXT</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L121"><span style="color: #24292EFF">      });</span></span>
+<span class="line empty-line" id="L122"></span>
+<span class="line" id="L123"><span style="color: #24292EFF">      att[</span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">] </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> classes;</span></span>
+<span class="line" id="L124"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #24292EFF">att[</span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">].</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L125"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">delete</span><span style="color: #24292EFF"> att[</span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">];</span></span>
+<span class="line" id="L126"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L127"></span>
+<span class="line" id="L128"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (att[</span><span style="color: #22863A">&#39;id&#39;</span><span style="color: #24292EFF">] </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L129"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">delete</span><span style="color: #24292EFF"> att[</span><span style="color: #22863A">&#39;id&#39;</span><span style="color: #24292EFF">];</span></span>
+<span class="line" id="L130"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L131"></span>
+<span class="line" id="L132"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> att;</span></span>
+<span class="line" id="L133"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L134"></span>
+<span class="line empty-line" id="L135"></span></code></pre></div>
             
         </li>
         
@@ -199,31 +255,13 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-6">&#x00a7;</a>
               </div>
-              <p>Construct the element, loop through the list of attributes and add them to the node.</p>
+              <p>Merge options into a conglomo-hash!</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 66;"><span class="line" id="L66"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #6F42C1">.test</span><span style="color: #24292EFF">(elem)) {</span></span>
-<span class="line" id="L67"><span style="color: #24292EFF">      </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.split</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.shift</span><span style="color: #24292EFF">());</span></span>
-<span class="line" id="L68"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L69"><span style="color: #24292EFF">      </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(elem);</span></span>
-<span class="line" id="L70"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L71"></span>
-<span class="line" id="L72"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (attr) {</span></span>
-<span class="line" id="L73"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">for</span><span style="color: #24292EFF"> (key </span><span style="color: #D32F2F">in</span><span style="color: #24292EFF"> attr) {</span></span>
-<span class="line" id="L74"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">Object</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">prototype</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">hasOwnProperty</span><span style="color: #6F42C1">.call</span><span style="color: #24292EFF">(attr</span><span style="color: #212121">,</span><span style="color: #24292EFF"> key)) {</span></span>
-<span class="line" id="L75"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span></span>
-<span class="line" id="L76"><span style="color: #24292EFF">            </span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> attr[key] </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;object&#39;</span></span>
-<span class="line" id="L77"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> attr[key].</span><span style="color: #1976D2">length</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;number&#39;</span></span>
-<span class="line" id="L78"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> attr[key].splice </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;function&#39;</span></span>
-<span class="line" id="L79"><span style="color: #24292EFF">          ) {</span></span>
-<span class="line" id="L80"><span style="color: #24292EFF">            attr[key] </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> attr[key]</span><span style="color: #6F42C1">.join</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39; &#39;</span><span style="color: #24292EFF">);</span></span>
-<span class="line" id="L81"><span style="color: #24292EFF">          }</span></span>
-<span class="line empty-line" id="L82"></span>
-<span class="line" id="L83"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">key</span><span style="color: #6F42C1">.toString</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L84"><span style="color: #24292EFF">            </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">e</span><span style="color: #24292EFF">.className </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> attr[key];</span></span>
-<span class="line empty-line" id="L85"></span>
-<span class="line empty-line" id="L86"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 136;"><span class="line" id="L136"><span style="color: #24292EFF">    attr </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">Object</span><span style="color: #6F42C1">.assign</span><span style="color: #24292EFF">(attr</span><span style="color: #212121">,</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">notation</span><span style="color: #24292EFF">());</span></span>
+<span class="line empty-line" id="L137"></span>
+<span class="line empty-line" id="L138"></span></code></pre></div>
             
         </li>
         
@@ -234,24 +272,31 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-7">&#x00a7;</a>
               </div>
-              <p>Support <code>data: {}</code> for data attributes</p>
+              <p>Construct the element, loop through the list of attributes and add them to the node.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 87;"><span class="line" id="L87"><span style="color: #24292EFF">          } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">key</span><span style="color: #6F42C1">.toString</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;data&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L88"><span style="color: #24292EFF">            </span><span style="color: #D32F2F">for</span><span style="color: #24292EFF"> (k </span><span style="color: #D32F2F">in</span><span style="color: #24292EFF"> attr[key]) {</span></span>
-<span class="line" id="L89"><span style="color: #24292EFF">              </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">Object</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">prototype</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">hasOwnProperty</span><span style="color: #6F42C1">.call</span><span style="color: #24292EFF">(attr[key]</span><span style="color: #212121">,</span><span style="color: #24292EFF"> k)) {</span></span>
-<span class="line" id="L90"><span style="color: #24292EFF">                </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.setAttribute</span><span style="color: #24292EFF">(</span><span style="color: #22863A">`data-</span><span style="color: #D32F2F">${</span><span style="color: #24292EFF"> k </span><span style="color: #D32F2F">}</span><span style="color: #22863A">`</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr[key][k]);</span></span>
-<span class="line" id="L91"><span style="color: #24292EFF">              }</span></span>
-<span class="line" id="L92"><span style="color: #24292EFF">            }</span></span>
-<span class="line" id="L93"><span style="color: #24292EFF">          } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L94"><span style="color: #24292EFF">            </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.setAttribute</span><span style="color: #24292EFF">(key</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr[key]);</span></span>
-<span class="line" id="L95"><span style="color: #24292EFF">          }</span></span>
-<span class="line" id="L96"><span style="color: #24292EFF">        }</span></span>
-<span class="line" id="L97"><span style="color: #24292EFF">      }</span></span>
-<span class="line" id="L98"><span style="color: #24292EFF">    }</span></span>
-<span class="line empty-line" id="L99"></span>
-<span class="line empty-line" id="L100"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 139;"><span class="line" id="L139"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #6F42C1">.test</span><span style="color: #24292EFF">(elem)) {</span></span>
+<span class="line" id="L140"><span style="color: #24292EFF">      </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">elem</span><span style="color: #6F42C1">.split</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">RE_ID_OR_CLASS</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.shift</span><span style="color: #24292EFF">());</span></span>
+<span class="line" id="L141"><span style="color: #24292EFF">    } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L142"><span style="color: #24292EFF">      </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(elem);</span></span>
+<span class="line" id="L143"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L144"></span>
+<span class="line" id="L145"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (attr) {</span></span>
+<span class="line" id="L146"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">for</span><span style="color: #24292EFF"> (key </span><span style="color: #D32F2F">in</span><span style="color: #24292EFF"> attr) {</span></span>
+<span class="line" id="L147"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">Object</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">prototype</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">hasOwnProperty</span><span style="color: #6F42C1">.call</span><span style="color: #24292EFF">(attr</span><span style="color: #212121">,</span><span style="color: #24292EFF"> key)) {</span></span>
+<span class="line" id="L148"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span></span>
+<span class="line" id="L149"><span style="color: #24292EFF">            </span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> attr[key] </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;object&#39;</span></span>
+<span class="line" id="L150"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> attr[key].</span><span style="color: #1976D2">length</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;number&#39;</span></span>
+<span class="line" id="L151"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> attr[key].splice </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;function&#39;</span></span>
+<span class="line" id="L152"><span style="color: #24292EFF">          ) {</span></span>
+<span class="line" id="L153"><span style="color: #24292EFF">            attr[key] </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> attr[key]</span><span style="color: #6F42C1">.join</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39; &#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line" id="L154"><span style="color: #24292EFF">          }</span></span>
+<span class="line empty-line" id="L155"></span>
+<span class="line" id="L156"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">key</span><span style="color: #6F42C1">.toString</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;class&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L157"><span style="color: #24292EFF">            </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">e</span><span style="color: #24292EFF">.className </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> attr[key];</span></span>
+<span class="line empty-line" id="L158"></span>
+<span class="line empty-line" id="L159"></span></code></pre></div>
             
         </li>
         
@@ -262,12 +307,24 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-8">&#x00a7;</a>
               </div>
-              <p>Handle child nodes.</p>
+              <p>Support <code>data: {}</code> for data attributes</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 101;"><span class="line" id="L101"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">_</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (obj) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line empty-line" id="L102"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 160;"><span class="line" id="L160"><span style="color: #24292EFF">          } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">key</span><span style="color: #6F42C1">.toString</span><span style="color: #24292EFF">() </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;data&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L161"><span style="color: #24292EFF">            </span><span style="color: #D32F2F">for</span><span style="color: #24292EFF"> (k </span><span style="color: #D32F2F">in</span><span style="color: #24292EFF"> attr[key]) {</span></span>
+<span class="line" id="L162"><span style="color: #24292EFF">              </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">Object</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">prototype</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">hasOwnProperty</span><span style="color: #6F42C1">.call</span><span style="color: #24292EFF">(attr[key]</span><span style="color: #212121">,</span><span style="color: #24292EFF"> k)) {</span></span>
+<span class="line" id="L163"><span style="color: #24292EFF">                </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.setAttribute</span><span style="color: #24292EFF">(</span><span style="color: #22863A">`data-</span><span style="color: #D32F2F">${</span><span style="color: #24292EFF"> k </span><span style="color: #D32F2F">}</span><span style="color: #22863A">`</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr[key][k]);</span></span>
+<span class="line" id="L164"><span style="color: #24292EFF">              }</span></span>
+<span class="line" id="L165"><span style="color: #24292EFF">            }</span></span>
+<span class="line" id="L166"><span style="color: #24292EFF">          } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L167"><span style="color: #24292EFF">            </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.setAttribute</span><span style="color: #24292EFF">(key</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr[key]);</span></span>
+<span class="line" id="L168"><span style="color: #24292EFF">          }</span></span>
+<span class="line" id="L169"><span style="color: #24292EFF">        }</span></span>
+<span class="line" id="L170"><span style="color: #24292EFF">      }</span></span>
+<span class="line" id="L171"><span style="color: #24292EFF">    }</span></span>
+<span class="line empty-line" id="L172"></span>
+<span class="line empty-line" id="L173"></span></code></pre></div>
             
         </li>
         
@@ -278,32 +335,12 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-9">&#x00a7;</a>
               </div>
-              <p>If the object isn’t an array, convert it to an array to maintain a single codepath below.</p>
+              <p>Handle child nodes.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 103;"><span class="line" id="L103"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #1976D2">Array</span><span style="color: #6F42C1">.isArray</span><span style="color: #24292EFF">(obj)) {</span></span>
-<span class="line" id="L104"><span style="color: #24292EFF">        obj </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [obj];</span></span>
-<span class="line" id="L105"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L106"></span>
-<span class="line" id="L107"><span style="color: #24292EFF">      </span><span style="color: #C2C3C5">/* Loop through the indexed array of children. If the node is a `VDOM` object, convert it to</span></span>
-<span class="line" id="L108"><span style="color: #C2C3C5">       DOM and append it. Otherwise, assume it&#39;s a real DOM node. */</span></span>
-<span class="line" id="L109"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">for</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> i </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">0</span><span style="color: #212121">,</span><span style="color: #24292EFF"> max </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">obj</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">; i </span><span style="color: #D32F2F">&lt;</span><span style="color: #24292EFF"> max; i </span><span style="color: #D32F2F">++</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L110"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> obj[i] </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L111"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">break</span><span style="color: #24292EFF">;</span></span>
-<span class="line" id="L112"><span style="color: #24292EFF">        }</span></span>
-<span class="line empty-line" id="L113"></span>
-<span class="line" id="L114"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> obj[i].dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L115"><span style="color: #24292EFF">          </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(obj[i]</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
-<span class="line" id="L116"><span style="color: #24292EFF">        } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L117"><span style="color: #24292EFF">          </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(obj[i]);</span></span>
-<span class="line" id="L118"><span style="color: #24292EFF">        }</span></span>
-<span class="line" id="L119"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L120"></span>
-<span class="line" id="L121"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> self;</span></span>
-<span class="line" id="L122"><span style="color: #24292EFF">    };</span></span>
-<span class="line empty-line" id="L123"></span>
-<span class="line empty-line" id="L124"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 174;"><span class="line" id="L174"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">_</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (obj) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line empty-line" id="L175"></span></code></pre></div>
             
         </li>
         
@@ -314,12 +351,15 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-10">&#x00a7;</a>
               </div>
-              <p>Set the HTML</p>
+              <p>If the object isn’t an array, convert it to an array to maintain a single codepath below.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 125;"><span class="line" id="L125"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">h</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (str</span><span style="color: #212121">,</span><span style="color: #24292EFF"> replace) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line empty-line" id="L126"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 176;"><span class="line" id="L176"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">!</span><span style="color: #1976D2">Array</span><span style="color: #6F42C1">.isArray</span><span style="color: #24292EFF">(obj)) {</span></span>
+<span class="line" id="L177"><span style="color: #24292EFF">        obj </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> [obj];</span></span>
+<span class="line" id="L178"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L179"></span>
+<span class="line empty-line" id="L180"></span></code></pre></div>
             
         </li>
         
@@ -330,13 +370,27 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-11">&#x00a7;</a>
               </div>
-              <p>Determine the default value for <code>replace</code>.</p>
+              <p>Loop through the indexed array of children. If the node is a <code>VDOM</code> object, convert it to
+DOM and append it. Otherwise, assume it’s a real DOM node.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 127;"><span class="line" id="L127"><span style="color: #24292EFF">      replace </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> replace </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">;</span></span>
-<span class="line empty-line" id="L128"></span>
-<span class="line empty-line" id="L129"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 182;"><span class="line" id="L182"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">for</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">let</span><span style="color: #24292EFF"> i </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">0</span><span style="color: #212121">,</span><span style="color: #24292EFF"> max </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">obj</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">; i </span><span style="color: #D32F2F">&lt;</span><span style="color: #24292EFF"> max; i </span><span style="color: #D32F2F">++</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L183"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> obj[i] </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L184"><span style="color: #24292EFF">          </span><span style="color: #D32F2F">break</span><span style="color: #24292EFF">;</span></span>
+<span class="line" id="L185"><span style="color: #24292EFF">        }</span></span>
+<span class="line empty-line" id="L186"></span>
+<span class="line" id="L187"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> obj[i].dom </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L188"><span style="color: #24292EFF">          </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(obj[i]</span><span style="color: #6F42C1">.dom</span><span style="color: #24292EFF">());</span></span>
+<span class="line" id="L189"><span style="color: #24292EFF">        } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L190"><span style="color: #24292EFF">          </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(obj[i]);</span></span>
+<span class="line" id="L191"><span style="color: #24292EFF">        }</span></span>
+<span class="line" id="L192"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L193"></span>
+<span class="line" id="L194"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> self;</span></span>
+<span class="line" id="L195"><span style="color: #24292EFF">    };</span></span>
+<span class="line empty-line" id="L196"></span>
+<span class="line empty-line" id="L197"></span></code></pre></div>
             
         </li>
         
@@ -347,20 +401,12 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-12">&#x00a7;</a>
               </div>
-              <p>Set the value with innerHTML.</p>
+              <p>Set the HTML</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 130;"><span class="line" id="L130"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (replace) {</span></span>
-<span class="line" id="L131"><span style="color: #24292EFF">        </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">e</span><span style="color: #24292EFF">.innerHTML </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> str;</span></span>
-<span class="line" id="L132"><span style="color: #24292EFF">      } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L133"><span style="color: #24292EFF">        </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">e</span><span style="color: #24292EFF">.innerHTML </span><span style="color: #D32F2F">+=</span><span style="color: #24292EFF"> str;</span></span>
-<span class="line" id="L134"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L135"></span>
-<span class="line" id="L136"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> self;</span></span>
-<span class="line" id="L137"><span style="color: #24292EFF">    };</span></span>
-<span class="line empty-line" id="L138"></span>
-<span class="line empty-line" id="L139"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 198;"><span class="line" id="L198"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">h</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (str</span><span style="color: #212121">,</span><span style="color: #24292EFF"> replace) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line empty-line" id="L199"></span></code></pre></div>
             
         </li>
         
@@ -371,12 +417,13 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-13">&#x00a7;</a>
               </div>
-              <p>Set the text</p>
+              <p>Determine the default value for <code>replace</code>.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 140;"><span class="line" id="L140"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (str) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line empty-line" id="L141"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 200;"><span class="line" id="L200"><span style="color: #24292EFF">      replace </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> replace </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">false</span><span style="color: #24292EFF">;</span></span>
+<span class="line empty-line" id="L201"></span>
+<span class="line empty-line" id="L202"></span></code></pre></div>
             
         </li>
         
@@ -387,15 +434,20 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-14">&#x00a7;</a>
               </div>
-              <p>No parameters? Read the value instead. Alias for __t().</p>
+              <p>Set the value with innerHTML.</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 142;"><span class="line" id="L142"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> str </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L143"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.__t</span><span style="color: #24292EFF">();</span></span>
-<span class="line" id="L144"><span style="color: #24292EFF">      }</span></span>
-<span class="line empty-line" id="L145"></span>
-<span class="line empty-line" id="L146"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 203;"><span class="line" id="L203"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (replace) {</span></span>
+<span class="line" id="L204"><span style="color: #24292EFF">        </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">e</span><span style="color: #24292EFF">.innerHTML </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> str;</span></span>
+<span class="line" id="L205"><span style="color: #24292EFF">      } </span><span style="color: #D32F2F">else</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L206"><span style="color: #24292EFF">        </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">e</span><span style="color: #24292EFF">.innerHTML </span><span style="color: #D32F2F">+=</span><span style="color: #24292EFF"> str;</span></span>
+<span class="line" id="L207"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L208"></span>
+<span class="line" id="L209"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> self;</span></span>
+<span class="line" id="L210"><span style="color: #24292EFF">    };</span></span>
+<span class="line empty-line" id="L211"></span>
+<span class="line empty-line" id="L212"></span></code></pre></div>
             
         </li>
         
@@ -406,18 +458,12 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-15">&#x00a7;</a>
               </div>
-              <p>Set the value</p>
+              <p>Set the text</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 147;"><span class="line" id="L147"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">text</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createTextNode</span><span style="color: #24292EFF">(str);</span></span>
-<span class="line empty-line" id="L148"></span>
-<span class="line" id="L149"><span style="color: #24292EFF">      </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(text);</span></span>
-<span class="line empty-line" id="L150"></span>
-<span class="line" id="L151"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> self;</span></span>
-<span class="line" id="L152"><span style="color: #24292EFF">    };</span></span>
-<span class="line empty-line" id="L153"></span>
-<span class="line empty-line" id="L154"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 213;"><span class="line" id="L213"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (str) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line empty-line" id="L214"></span></code></pre></div>
             
         </li>
         
@@ -428,13 +474,15 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-16">&#x00a7;</a>
               </div>
-              <p>Get DOMElement</p>
+              <p>No parameters? Read the value instead. Alias for __t().</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 155;"><span class="line" id="L155"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">dom</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> () </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e;</span></span>
-<span class="line empty-line" id="L156"></span>
-<span class="line empty-line" id="L157"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 215;"><span class="line" id="L215"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">typeof</span><span style="color: #24292EFF"> str </span><span style="color: #D32F2F">===</span><span style="color: #24292EFF"> </span><span style="color: #22863A">&#39;undefined&#39;</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L216"><span style="color: #24292EFF">        </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.__t</span><span style="color: #24292EFF">();</span></span>
+<span class="line" id="L217"><span style="color: #24292EFF">      }</span></span>
+<span class="line empty-line" id="L218"></span>
+<span class="line empty-line" id="L219"></span></code></pre></div>
             
         </li>
         
@@ -445,19 +493,18 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-17">&#x00a7;</a>
               </div>
-              <p>Get as HTML</p>
+              <p>Set the value</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 158;"><span class="line" id="L158"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">toString</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> () </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L159"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">);</span></span>
-<span class="line empty-line" id="L160"></span>
-<span class="line" id="L161"><span style="color: #24292EFF">      </span><span style="color: #1976D2">t</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e);</span></span>
-<span class="line empty-line" id="L162"></span>
-<span class="line" id="L163"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF">.innerHTML;</span></span>
-<span class="line" id="L164"><span style="color: #24292EFF">    };</span></span>
-<span class="line empty-line" id="L165"></span>
-<span class="line empty-line" id="L166"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 220;"><span class="line" id="L220"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">text</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createTextNode</span><span style="color: #24292EFF">(str);</span></span>
+<span class="line empty-line" id="L221"></span>
+<span class="line" id="L222"><span style="color: #24292EFF">      </span><span style="color: #1976D2">self</span><span style="color: #6F42C1">.</span><span style="color: #1976D2">e</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(text);</span></span>
+<span class="line empty-line" id="L223"></span>
+<span class="line" id="L224"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> self;</span></span>
+<span class="line" id="L225"><span style="color: #24292EFF">    };</span></span>
+<span class="line empty-line" id="L226"></span>
+<span class="line empty-line" id="L227"></span></code></pre></div>
             
         </li>
         
@@ -468,22 +515,13 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-18">&#x00a7;</a>
               </div>
-              <p>Get as text</p>
+              <p>Get DOMElement</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 167;"><span class="line" id="L167"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">__t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> () </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
-<span class="line" id="L168"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">);</span></span>
-<span class="line empty-line" id="L169"></span>
-<span class="line" id="L170"><span style="color: #24292EFF">      </span><span style="color: #1976D2">t</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e);</span></span>
-<span class="line empty-line" id="L171"></span>
-<span class="line" id="L172"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF">.textContent </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF">.innerText;</span></span>
-<span class="line" id="L173"><span style="color: #24292EFF">    };</span></span>
-<span class="line empty-line" id="L174"></span>
-<span class="line" id="L175"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> self;</span></span>
-<span class="line" id="L176"><span style="color: #24292EFF">  }</span><span style="color: #212121">,</span></span>
-<span class="line empty-line" id="L177"></span>
-<span class="line empty-line" id="L178"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 228;"><span class="line" id="L228"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">dom</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> () </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e;</span></span>
+<span class="line empty-line" id="L229"></span>
+<span class="line empty-line" id="L230"></span></code></pre></div>
             
         </li>
         
@@ -494,14 +532,19 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-19">&#x00a7;</a>
               </div>
-              <p>Pre-instantiate the class on each call so that you never need to use <code>new</code>.</p>
+              <p>Get as HTML</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 179;"><span class="line" id="L179"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">VDOM</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (elem</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">X</span><span style="color: #24292EFF">(elem</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr); </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
-<span class="line empty-line" id="L180"></span>
-<span class="line" id="L181"><span style="color: #1976D2">VDOM</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">DOM</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">...</span><span style="color: #24292EFF">nodes) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> { </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
-<span class="line empty-line" id="L182"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 231;"><span class="line" id="L231"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">toString</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> () </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L232"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line empty-line" id="L233"></span>
+<span class="line" id="L234"><span style="color: #24292EFF">      </span><span style="color: #1976D2">t</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e);</span></span>
+<span class="line empty-line" id="L235"></span>
+<span class="line" id="L236"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF">.innerHTML;</span></span>
+<span class="line" id="L237"><span style="color: #24292EFF">    };</span></span>
+<span class="line empty-line" id="L238"></span>
+<span class="line empty-line" id="L239"></span></code></pre></div>
             
         </li>
         
@@ -512,38 +555,98 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-20">&#x00a7;</a>
               </div>
-              <p>Create a document fragment. Grab and loop through the in-memory DOM nodes, and <em>move</em> them to the</p>
+              <p>Get as text</p>
 
             </div>
             
-            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 183;"><span class="line" id="L183"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">f</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createDocumentFragment</span><span style="color: #24292EFF">()</span><span style="color: #212121">,</span></span>
-<span class="line" id="L184"><span style="color: #24292EFF">    </span><span style="color: #1976D2">n</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">X</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">._</span><span style="color: #24292EFF">(nodes).</span></span>
-<span class="line" id="L185"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">dom</span><span style="color: #24292EFF">().childNodes;</span></span>
-<span class="line empty-line" id="L186"></span>
-<span class="line" id="L187"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">n</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L188"><span style="color: #24292EFF">    </span><span style="color: #1976D2">f</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(n[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]);</span></span>
-<span class="line" id="L189"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L190"></span>
-<span class="line" id="L191"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> f;</span></span>
-<span class="line" id="L192"><span style="color: #24292EFF">};</span></span>
-<span class="line empty-line" id="L193"></span>
-<span class="line" id="L194"><span style="color: #1976D2">VDOM</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> str </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createTextNode</span><span style="color: #24292EFF">(str); </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
-<span class="line empty-line" id="L195"></span>
-<span class="line" id="L196"><span style="color: #1976D2">VDOM</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">h</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (str) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> { </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
-<span class="line" id="L197"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">f</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createDocumentFragment</span><span style="color: #24292EFF">()</span><span style="color: #212121">,</span></span>
-<span class="line" id="L198"><span style="color: #24292EFF">    </span><span style="color: #1976D2">n</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">X</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.h</span><span style="color: #24292EFF">(str).</span></span>
-<span class="line" id="L199"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">dom</span><span style="color: #24292EFF">().childNodes;</span></span>
-<span class="line empty-line" id="L200"></span>
-<span class="line" id="L201"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">n</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">) {</span></span>
-<span class="line" id="L202"><span style="color: #24292EFF">    </span><span style="color: #1976D2">f</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(n[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]);</span></span>
-<span class="line" id="L203"><span style="color: #24292EFF">  }</span></span>
-<span class="line empty-line" id="L204"></span>
-<span class="line" id="L205"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> f;</span></span>
-<span class="line" id="L206"><span style="color: #24292EFF">};</span></span>
-<span class="line empty-line" id="L207"></span>
-<span class="line" id="L208"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">VDOM</span><span style="color: #24292EFF">;</span></span>
-<span class="line empty-line" id="L209"></span>
-<span class="line empty-line" id="L210"></span></code></pre></div>
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 240;"><span class="line" id="L240"><span style="color: #24292EFF">    </span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">__t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> () </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> {</span></span>
+<span class="line" id="L241"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createElement</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">);</span></span>
+<span class="line empty-line" id="L242"></span>
+<span class="line" id="L243"><span style="color: #24292EFF">      </span><span style="color: #1976D2">t</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">self</span><span style="color: #24292EFF">.e);</span></span>
+<span class="line empty-line" id="L244"></span>
+<span class="line" id="L245"><span style="color: #24292EFF">      </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF">.textContent </span><span style="color: #D32F2F">||</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">t</span><span style="color: #24292EFF">.innerText;</span></span>
+<span class="line" id="L246"><span style="color: #24292EFF">    };</span></span>
+<span class="line empty-line" id="L247"></span>
+<span class="line" id="L248"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> self;</span></span>
+<span class="line" id="L249"><span style="color: #24292EFF">  }</span><span style="color: #212121">,</span></span>
+<span class="line empty-line" id="L250"></span>
+<span class="line empty-line" id="L251"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-21">&#x00a7;</a>
+              </div>
+              <p>Pre-instantiate the class on each call so that you never need to use <code>new</code>.</p>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 252;"><span class="line" id="L252"><span style="color: #24292EFF">  </span><span style="color: #6F42C1">VDOM</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (elem</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">X</span><span style="color: #24292EFF">(elem</span><span style="color: #212121">,</span><span style="color: #24292EFF"> attr); </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
+<span class="line empty-line" id="L253"></span>
+<span class="line" id="L254"><span style="color: #1976D2">VDOM</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">DOM</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (</span><span style="color: #D32F2F">...</span><span style="color: #24292EFF">nodes) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> { </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
+<span class="line empty-line" id="L255"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-22">&#x00a7;</a>
+              </div>
+              <p>Create a document fragment. Grab and loop through the in-memory DOM nodes,
+and <em>move</em> them to the <code>DocumentFragment</code>.</p>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 257;"><span class="line" id="L257"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">f</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createDocumentFragment</span><span style="color: #24292EFF">()</span><span style="color: #212121">,</span></span>
+<span class="line" id="L258"><span style="color: #24292EFF">    </span><span style="color: #1976D2">n</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">X</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">._</span><span style="color: #24292EFF">(nodes).</span></span>
+<span class="line" id="L259"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">dom</span><span style="color: #24292EFF">().childNodes;</span></span>
+<span class="line empty-line" id="L260"></span>
+<span class="line" id="L261"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">n</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L262"><span style="color: #24292EFF">    </span><span style="color: #1976D2">f</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(n[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]);</span></span>
+<span class="line" id="L263"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L264"></span>
+<span class="line" id="L265"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> f;</span></span>
+<span class="line" id="L266"><span style="color: #24292EFF">};</span></span>
+<span class="line empty-line" id="L267"></span>
+<span class="line" id="L268"><span style="color: #1976D2">VDOM</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">t</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> str </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createTextNode</span><span style="color: #24292EFF">(str); </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
+<span class="line empty-line" id="L269"></span>
+<span class="line" id="L270"><span style="color: #1976D2">VDOM</span><span style="color: #24292EFF">.</span><span style="color: #6F42C1">h</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> (str) </span><span style="color: #D32F2F">=&gt;</span><span style="color: #24292EFF"> { </span><span style="color: #C2C3C5">// eslint-disable-line no-undef</span></span>
+<span class="line" id="L271"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">const</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">f</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">document</span><span style="color: #6F42C1">.createDocumentFragment</span><span style="color: #24292EFF">()</span><span style="color: #212121">,</span></span>
+<span class="line" id="L272"><span style="color: #24292EFF">    </span><span style="color: #1976D2">n</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">=</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">new</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">X</span><span style="color: #24292EFF">(</span><span style="color: #22863A">&#39;div&#39;</span><span style="color: #24292EFF">)</span><span style="color: #6F42C1">.h</span><span style="color: #24292EFF">(str).</span></span>
+<span class="line" id="L273"><span style="color: #24292EFF">      </span><span style="color: #6F42C1">dom</span><span style="color: #24292EFF">().childNodes;</span></span>
+<span class="line empty-line" id="L274"></span>
+<span class="line" id="L275"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">while</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">n</span><span style="color: #24292EFF">.</span><span style="color: #1976D2">length</span><span style="color: #24292EFF">) {</span></span>
+<span class="line" id="L276"><span style="color: #24292EFF">    </span><span style="color: #1976D2">f</span><span style="color: #6F42C1">.appendChild</span><span style="color: #24292EFF">(n[</span><span style="color: #1976D2">0</span><span style="color: #24292EFF">]);</span></span>
+<span class="line" id="L277"><span style="color: #24292EFF">  }</span></span>
+<span class="line empty-line" id="L278"></span>
+<span class="line" id="L279"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> f;</span></span>
+<span class="line" id="L280"><span style="color: #24292EFF">};</span></span>
+<span class="line empty-line" id="L281"></span>
+<span class="line empty-line" id="L282"></span></code></pre></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-23">&#x00a7;</a>
+              </div>
+              <p>Default export for the package.</p>
+
+            </div>
+            
+            <div class="content"><pre class="shiki" style="background-color: transparent"><code style="--line-start-number: 283;"><span class="line" id="L283"><span style="color: #D32F2F">export</span><span style="color: #24292EFF"> </span><span style="color: #D32F2F">default</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">VDOM</span><span style="color: #24292EFF">;</span></span>
+<span class="line empty-line" id="L284"></span>
+<span class="line empty-line" id="L285"></span></code></pre></div>
             
         </li>
         
