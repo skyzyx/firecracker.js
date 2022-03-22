@@ -146,7 +146,7 @@ Reversed the <code>(selector, fn)</code> parameters.</p>
 <span class="line" id="L51"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> target;</span></span>
 <span class="line" id="L52"><span style="color: #24292EFF">  }</span></span>
 <span class="line empty-line" id="L53"></span>
-<span class="line" id="L54"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode) {</span></span>
+<span class="line" id="L54"><span style="color: #24292EFF">  </span><span style="color: #D32F2F">if</span><span style="color: #24292EFF"> (</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode </span><span style="color: #D32F2F">&amp;&amp;</span><span style="color: #24292EFF"> </span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode </span><span style="color: #D32F2F">!==</span><span style="color: #24292EFF"> document) {</span></span>
 <span class="line" id="L55"><span style="color: #24292EFF">    </span><span style="color: #D32F2F">return</span><span style="color: #24292EFF"> </span><span style="color: #6F42C1">matches</span><span style="color: #24292EFF">(</span><span style="color: #1976D2">target</span><span style="color: #24292EFF">.parentNode</span><span style="color: #212121">,</span><span style="color: #24292EFF"> selector</span><span style="color: #212121">,</span><span style="color: #24292EFF"> boundElement);</span></span>
 <span class="line" id="L56"><span style="color: #24292EFF">  }</span></span>
 <span class="line empty-line" id="L57"></span>

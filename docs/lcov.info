@@ -30,8 +30,10 @@ BRDA:50,2,0,1
 BRDA:50,2,1,20
 BRDA:54,3,0,20
 BRDA:54,3,1,0
-BRF:8
-BRH:7
+BRDA:54,4,0,20
+BRDA:54,4,1,20
+BRF:10
+BRH:9
 end_of_record
 TN:
 SF:src/dquery.js

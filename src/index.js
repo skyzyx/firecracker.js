@@ -11,4 +11,4 @@ export {
 };
 
 // This is the version of this release of Firecracker.js. This is generated/updated by `make version`.
-export const VERSION = '1.0.2';
+export const VERSION = '1.0.3';

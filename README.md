@@ -122,9 +122,9 @@ Stay tuned for **Firecracker Templates** which we’re hoping will empower thing
 
 | File                | Description           | Size in bytes |
 |---------------------|-----------------------|---------------|
-| `firecracker.js`    | Stripped and minified | 5.17 kb       |
-| `firecracker.js.gz` | gzip-compressed       | 1.85 kb      |
-| `firecracker.js.br` | brotli-compressed     | 1.63 kb    |
+| `firecracker.js`    | Stripped and minified | 5.20 kb       |
+| `firecracker.js.gz` | gzip-compressed       | 1.86 kb      |
+| `firecracker.js.br` | brotli-compressed     | 1.64 kb    |
 
 ## Inspiration
 

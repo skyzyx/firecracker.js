@@ -51,7 +51,7 @@ const matches = (target, selector, boundElement) => {
     return target;
   }
 
-  if (target.parentNode) {
+  if (target.parentNode && target.parentNode !== document) {
     return matches(target.parentNode, selector, boundElement);
   }
 
