@@ -155,4 +155,5 @@ version:
 .PHONY: publish
 ## publish: [release]* publishes the package to npm
 publish:
+	rm -Rf .vscode
 	npm publish --otp $(shell op item get g43gnmoyibgzdc334gbbzumhky --fields type=otp --format json | jq -Mr '.totp')
