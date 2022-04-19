@@ -40,8 +40,8 @@ help:
 .PHONY: clean-dist
 ## clean-dist: [clean] Removes the `dist` directory.
 clean-dist:
-	@ echo " "
-	@ echo "=====> Cleaning the dist directory..."
+	@ $(ECHO) " "
+	@ $(ECHO) "=====> Cleaning the dist directory..."
 	- rm -Rf ./dist
 
 .PHONY: clean
@@ -54,8 +54,8 @@ clean: clean-dist
 .PHONY: build
 ## build: [build] Builds a compiled version of the source distribution.
 build:
-	@ echo " "
-	@ echo "=====> Updating the README..."
+	@ $(ECHO) " "
+	@ $(ECHO) "=====> Updating the README..."
 	- npm run build
 
 #-------------------------------------------------------------------------------
@@ -64,8 +64,8 @@ build:
 .PHONY: readme
 ## readme: [docs] Replaces `@@` markers in the README with consistently-formatted output.
 readme:
-	@ echo " "
-	@ echo "=====> Updating the README..."
+	@ $(ECHO) " "
+	@ $(ECHO) "=====> Updating the README..."
 	cat README.md.tmpl \
 	| awk -v raw="$(shell echo "scale=2; $(shell stat -c %s dist/index.js)/1024" | bc) kb" '{ gsub(/@@RAW@@/, raw); print }' \
 	| awk -v gzip="$(shell echo "scale=2; $(shell stat -c %s dist/index.js.gz)/1024" | bc) kb" '{ gsub(/@@GZIP@@/, gzip); print }' \
@@ -75,8 +75,8 @@ readme:
 .PHONY: docco
 ## docco: [docs] Runs `docco` over the JavaScript code to generate documentation.
 docco:
-	@ echo " "
-	@ echo "=====> Updating the README..."
+	@ $(ECHO) " "
+	@ $(ECHO) "=====> Updating the README..."
 	- npm run docs
 
 .PHONY: docs
@@ -89,15 +89,15 @@ docs: readme docco
 .PHONY: markdownlint
 ## markdownlint: [lint] Runs `markdownlint` (formatting, spelling) against all Markdown.
 markdownlint:
-	@ echo " "
-	@ echo "=====> Running Markdownlint..."
+	@ $(ECHO) " "
+	@ $(ECHO) "=====> Running Markdownlint..."
 	- npm run markdownlint
 
 .PHONY: eslint
 ## eslint: [lint] Runs `eslint` (formatting, static analysis) against all JavaScript.
 eslint:
-	@ echo " "
-	@ echo "=====> Running eslint..."
+	@ $(ECHO) " "
+	@ $(ECHO) "=====> Running eslint..."
 	- npm run lint
 
 .PHONY: lint
@@ -110,8 +110,8 @@ lint: markdownlint eslint
 .PHONY: test
 ## test: [test]* Runs ALL testing tasks.
 test:
-	@ echo " "
-	@ echo "=====> Running tests and code coverage..."
+	@ $(ECHO) " "
+	@ $(ECHO) "=====> Running tests and code coverage..."
 	- npm run tests
 
 #-------------------------------------------------------------------------------
@@ -122,23 +122,23 @@ test:
 tag:
 	@ if [ $$(git status -s -uall | wc -l) != 1 ]; then echo 'ERROR: Git workspace must be clean.'; exit 1; fi;
 
-	@echo "This release will be tagged as: $(shell jq -r '.version' package.json)"
-	@echo "This version should match your release. If it doesn't, re-run 'make version'."
-	@echo "---------------------------------------------------------------------"
-	@read -p "Press any key to continue, or press Control+C to cancel. " x;
+	@ $(ECHO) "This release will be tagged as: $(shell jq -r '.version' package.json)"
+	@ $(ECHO) "This version should match your release. If it doesn't, re-run 'make version'."
+	@ $(ECHO) "---------------------------------------------------------------------"
+	@ read -p "Press any key to continue, or press Control+C to cancel. " x;
 
-	@echo " "
-	@chag update $(shell jq -r '.version' package.json)
-	@echo " "
+	@ $(ECHO) " "
+	@ chag update $(shell jq -r '.version' package.json)
+	@ $(ECHO) " "
 
-	@echo "These are the contents of the CHANGELOG for this release. Are these correct?"
-	@echo "---------------------------------------------------------------------"
-	@chag contents
-	@echo "---------------------------------------------------------------------"
-	@echo "Are these release notes correct? If not, cancel and update CHANGELOG.md."
-	@read -p "Press any key to continue, or press Control+C to cancel. " x;
+	@ $(ECHO) "These are the contents of the CHANGELOG for this release. Are these correct?"
+	@ $(ECHO) "---------------------------------------------------------------------"
+	@ chag contents
+	@ $(ECHO) "---------------------------------------------------------------------"
+	@ $(ECHO) "Are these release notes correct? If not, cancel and update CHANGELOG.md."
+	@ read -p "Press any key to continue, or press Control+C to cancel. " x;
 
-	@echo " "
+	@ $(ECHO) " "
 
 	git add .
 	git commit -a -m "Preparing the $(shell jq -r '.version' package.json) release."
@@ -147,7 +147,7 @@ tag:
 .PHONY: version
 ## version: [release]* sets the version for the next release; pre-req for a release tag
 version:
-	@echo "Current version: $(shell jq -r '.version' package.json)"
+	@ $(ECHO) "Current version: $(shell jq -r '.version' package.json)"
 	@read -p "Enter new version number: " nv && \
 		npm version --allow-same-version --no-commit-hooks --no-git-tag-version "$$nv" && \
 		sed -i -r "s/export const VERSION = '([^']+)'/export const VERSION = '$$nv'/" src/index.js;
@@ -155,5 +155,4 @@ version:
 .PHONY: publish
 ## publish: [release]* publishes the package to npm
 publish:
-	rm -Rf .vscode
-	npm publish --otp $(shell op item get g43gnmoyibgzdc334gbbzumhky --fields type=otp --format json | jq -Mr '.totp')
+	bin/publish.sh
